@@ -17,7 +17,8 @@ export const projects: Project[] = [
     name: "caramel",
     meta: "2024 to now · founder",
     note: "reads your gmail and sorts every application with a custom nlp pipeline.",
-    pastel: "mint",
+    pastel: "peach",
+    media: { type: "video", src: "/caramel-promo.mp4" },
   },
   {
     slug: "verifast-market-map",
@@ -29,16 +30,17 @@ export const projects: Project[] = [
   {
     slug: "levanta",
     name: "levanta",
-    meta: "[year] · side project",
+    meta: "side project",
     note: "a daily leetcode challenge by text.",
-    pastel: "lilac",
+    pastel: "mint",
+    media: { type: "video", src: "/Levanta.mp4" },
   },
   {
     slug: "project-4",
     name: "[project 4]",
     meta: "[year] · [role]",
     note: "[one line about it]",
-    pastel: "peach",
+    pastel: "lilac",
   },
   {
     slug: "project-5",
@@ -52,6 +54,6 @@ export const projects: Project[] = [
     name: "[project 6]",
     meta: "[year] · [role]",
     note: "[one line about it]",
-    pastel: "celadon",
+    pastel: "gold",
   },
 ];

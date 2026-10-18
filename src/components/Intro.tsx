@@ -19,7 +19,12 @@ function Mark({ color, children }: { color: MarkerColor; children: ReactNode }) 
 function SmallMark({ color, href, children }: { color: MarkerColor; href?: string; children: ReactNode }) {
   const className = `${marker[color]} rounded-tag px-1 py-0.5 text-on-pastel dark:text-ink`;
   return href ? (
-    <a href={href} className={`${className} hover:underline hover:decoration-2 hover:underline-offset-3`}>
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`${className} hover:underline hover:decoration-2 hover:underline-offset-3`}
+    >
       {children}
     </a>
   ) : (
@@ -42,19 +47,19 @@ export default function Intro() {
         <span className="font-mono text-[11px] tracking-[0.04em] text-ink-muted">currently</span>
         <ul className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 text-[15px] leading-[1.5]">
           <li>
-            engineering @ {/* [verifast url] */}
-            <SmallMark color="mint" href="#">
+            engineering @{" "}
+            <SmallMark color="mint" href="https://verifast.com/">
               verifast
             </SmallMark>
           </li>
           <li>
-            building {/* [caramel url] */}
-            <SmallMark color="lilac" href="#">
+            building{" "}
+            <SmallMark color="peach" href="https://www.oncaramel.com/">
               caramel
             </SmallMark>
           </li>
           <li>
-            finishing a <SmallMark color="peach">DD in CS and BBA</SmallMark>
+            finishing a <SmallMark color="lilac">DD in CS and BBA</SmallMark>
           </li>
         </ul>
       </div>

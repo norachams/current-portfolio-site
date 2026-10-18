@@ -2,18 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import type { Pastel, Project } from "@/data/projects";
-
-// Full class names so Tailwind picks them up.
-const pastelBg: Record<Pastel, string> = {
-  mint: "bg-mint",
-  celadon: "bg-celadon",
-  gold: "bg-gold",
-  sky: "bg-sky",
-  lilac: "bg-lilac",
-  peach: "bg-peach",
-  blush: "bg-blush",
-};
+import type { Project } from "@/data/projects";
+import { pastelBg } from "@/lib/pastels";
 
 const NOTE_OFFSET = 18;
 const LERP = 0.15;
@@ -80,7 +70,7 @@ export default function WorkSection({ projects }: { projects: Project[] }) {
         work
       </h2>
 
-      <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(280px,100%),1fr))] gap-x-7 gap-y-9">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-7 gap-y-9">
         {projects.map((project) => (
           <li key={project.slug}>
             <Link
@@ -119,7 +109,8 @@ export default function WorkSection({ projects }: { projects: Project[] }) {
 }
 
 function ProjectMedia({ project }: { project: Project }) {
-  const base = `${pastelBg[project.pastel]} h-[230px] overflow-hidden rounded-card`;
+  // 16:9 to match the clips, so nothing gets cropped.
+  const base = `${pastelBg[project.pastel]} aspect-video overflow-hidden rounded-card`;
   const { media } = project;
 
   if (media?.type === "video") {

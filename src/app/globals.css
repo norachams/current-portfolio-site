@@ -70,3 +70,51 @@ body {
   outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
+
+/* Cats on the outside work page: bob, tail wag and blink on offset timings. */
+.cat svg {
+  display: block;
+  transform-origin: 50% 100%;
+  animation: cat-bob 3.2s ease-in-out infinite;
+}
+.cat-two svg {
+  animation-delay: -1.4s;
+}
+.cat:hover svg {
+  animation-duration: 1s;
+}
+.cat-tail {
+  transform-origin: 44px 58px;
+  animation: cat-wag 1.8s ease-in-out infinite;
+}
+.cat-two .cat-tail {
+  animation-duration: 2.3s;
+}
+.cat-eyes {
+  transform-origin: 30px 26px;
+  animation: cat-blink 5s infinite;
+}
+.cat-two .cat-eyes {
+  animation-delay: -2.5s;
+}
+
+@keyframes cat-bob {
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  50% { transform: translateY(-2px) scaleY(1.02); }
+}
+@keyframes cat-wag {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(14deg); }
+}
+@keyframes cat-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cat svg,
+  .cat-tail,
+  .cat-eyes {
+    animation: none;
+  }
+}
