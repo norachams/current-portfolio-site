@@ -1,26 +1,72 @@
 @import "tailwindcss";
 
+/* nora design tokens. Light is the default; "Night" follows the system setting. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --paper: #fbf7ef;
+  --paper-raised: #fffdf8;
+  --paper-sunk: #f1eadc;
+  --line: #e3d9c7;
+  --ink: #54494b;
+  --ink-muted: #74686a;
+  --rosewood: #b33951;
+  --slate: #666a86;
+  --on-pastel: #3a3234;
+  --focus: #54494b;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --shadow-lift: 0 10px 24px -12px rgba(84, 73, 75, 0.3);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --paper: #1f1b1c;
+    --paper-raised: #2a2527;
+    --paper-sunk: #332d2f;
+    --line: #463d3f;
+    --ink: #f1ebe6;
+    --ink-muted: #b0a5a6;
+    --rosewood: #e0778a;
+    --slate: #a3a7c6;
+    --on-pastel: #2a2426;
+    --focus: #e3d081;
   }
 }
 
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-paper-sunk: var(--paper-sunk);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-rosewood: var(--rosewood);
+  --color-slate: var(--slate);
+  --color-on-pastel: var(--on-pastel);
+
+  --color-mint: #91c7b1;
+  --color-celadon: #b2c9ab;
+  --color-gold: #e3d081;
+  --color-sky: #b4cde6;
+  --color-lilac: #cfc1e6;
+  --color-peach: #f3c9ad;
+  --color-blush: #eebcc4;
+
+  --font-serif: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --radius-tag: 6px;
+  --radius-card: 14px;
+
+  --shadow-lift: var(--shadow-lift);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
 }
