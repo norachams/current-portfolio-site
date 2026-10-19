@@ -36,11 +36,12 @@ export const projects: Project[] = [
     media: { type: "video", src: "/Levanta.mp4" },
   },
   {
-    slug: "project-4",
-    name: "[project 4]",
-    meta: "[year] · [role]",
-    note: "[one line about it]",
+    slug: "voz",
+    name: "voz",
+    meta: "side project",
+    note: "a voice assistant you just talk to, with a live transcript beside it.",
     pastel: "lilac",
+    media: { type: "video", src: "/voz.mp4" },
   },
   {
     slug: "project-5",

@@ -118,3 +118,44 @@ body {
     animation: none;
   }
 }
+
+/* Hobby image trail: each photo pops in with a little overshoot, holds, then fades. */
+.trail-drop {
+  rotate: var(--tilt);
+  animation: trail-drop 1100ms both;
+}
+
+@keyframes trail-drop {
+  0% {
+    opacity: 0;
+    scale: 0.5;
+    rotate: calc(var(--tilt) * 2.5);
+    animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  22% {
+    opacity: 1;
+    scale: 1;
+    rotate: var(--tilt);
+    animation-timing-function: linear;
+  }
+  70% {
+    opacity: 1;
+    scale: 1;
+    animation-timing-function: ease-in;
+  }
+  100% {
+    opacity: 0;
+    scale: 0.92;
+  }
+}
+
+@keyframes trail-fade {
+  0%, 100% { opacity: 0; }
+  20%, 70% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trail-drop {
+    animation-name: trail-fade;
+  }
+}
