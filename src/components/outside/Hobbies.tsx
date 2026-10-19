@@ -1,28 +1,40 @@
 "use client";
 
-import Image, { type StaticImageData } from "next/image";
+import Image, { getImageProps, type StaticImageData } from "next/image";
 import { useRef, useState } from "react";
 import { preload } from "react-dom";
-import { hobbies, type Hobby } from "@/data/outside";
+import { hobbies, type Caption, type Hobby } from "@/data/outside";
+import type { Pastel } from "@/data/projects";
+import { pastelBg } from "@/lib/pastels";
 import Cats from "./Cats";
 import Placeholder from "./Placeholder";
 
 // Image trail: how far the cursor travels before the next photo drops,
-// how many can be on screen at once, and the polaroid size.
+// how many can be on screen at once, and the photo size.
 const SPACING = 70;
 const MAX_ON_SCREEN = 5;
 const TRAIL_W = 96;
 const TRAIL_H = 120;
 const PLACEHOLDER_COUNT = 4;
+// Rough half-size of a country pill, to keep pills inside the card.
+const PILL_HALF_W = 56;
+const PILL_HALF_H = 16;
+
+// Trail frames cycle through the palette, one colour per photo.
+const frameColours: Pastel[] = ["mint", "lilac", "peach", "sky", "gold", "blush"];
 
 type Drop = { id: number; x: number; y: number; rotate: number; image: number };
 
 export default function Hobbies() {
   const [opened, setOpened] = useState<string | null>(null);
 
-  // Load the trail photos up front so they never pop in late.
+  // Load the trail photos up front so they never pop in late. Uses the same
+  // resized versions the trail requests, not the full-size originals.
   for (const hobby of hobbies) {
-    for (const extra of hobby.extras ?? []) preload(extra.src, { as: "image" });
+    for (const extra of hobby.extras ?? []) {
+      const { props } = getImageProps({ src: extra, alt: "", fill: true, sizes: `${TRAIL_W}px` });
+      preload(props.src, { as: "image", imageSrcSet: props.srcSet, imageSizes: props.sizes });
+    }
   }
 
   return (
@@ -49,20 +61,22 @@ function HobbyCard({ hobby, isOpen, onToggle }: { hobby: Hobby; isOpen: boolean;
   const dropCount = useRef(0);
   const lastPointer = useRef("");
   const extras = extrasFor(hobby);
+  const countries = hobby.countries;
 
   // Drop the next photo once the cursor has moved far enough from the last one.
   const onPointerMove = (e: React.PointerEvent<HTMLElement>) => {
     if (e.pointerType !== "mouse") return;
     const rect = e.currentTarget.getBoundingClientRect();
-    // Clamp so every photo stays fully inside the card.
-    const x = clamp(e.clientX - rect.left, TRAIL_W / 2, rect.width - TRAIL_W / 2);
-    const y = clamp(e.clientY - rect.top, TRAIL_H / 2, rect.height - TRAIL_H / 2);
+    // Clamp so every photo (or pill) stays fully inside the card.
+    const [halfW, halfH] = countries ? [PILL_HALF_W, PILL_HALF_H] : [TRAIL_W / 2, TRAIL_H / 2];
+    const x = clamp(e.clientX - rect.left, halfW, rect.width - halfW);
+    const y = clamp(e.clientY - rect.top, halfH, rect.height - halfH);
     const last = lastDrop.current;
     if (last && Math.hypot(x - last.x, y - last.y) < SPACING) return;
 
     lastDrop.current = { x, y };
     const n = dropCount.current++;
-    const drop = { id: n, x, y, rotate: Math.random() * 16 - 8, image: n % extras.length };
+    const drop = { id: n, x, y, rotate: Math.random() * 16 - 8, image: n % (countries?.length ?? extras.length) };
     setTrail((current) => [...current.slice(-(MAX_ON_SCREEN - 1)), drop]);
   };
 
@@ -73,11 +87,11 @@ function HobbyCard({ hobby, isOpen, onToggle }: { hobby: Hobby; isOpen: boolean;
 
   return (
     <figure className="flex min-w-0 flex-col gap-2.5">
-      {/* Mouse users get the trail; touch and keyboard toggle a swipeable row instead. */}
+      {/* Mouse users get a trail of photos (or country pills); touch and keyboard toggle a row instead. */}
       <button
         type="button"
         aria-expanded={isOpen}
-        aria-label={`more ${hobby.name} photos`}
+        aria-label={countries ? "countries i've been to" : `more ${hobby.name} photos`}
         onPointerMove={onPointerMove}
         onPointerLeave={clearTrail}
         onPointerDown={(e) => (lastPointer.current = e.pointerType)}
@@ -86,42 +100,73 @@ function HobbyCard({ hobby, isOpen, onToggle }: { hobby: Hobby; isOpen: boolean;
           lastPointer.current = "";
           onToggle();
         }}
-        className="relative block h-[300px] w-full cursor-default overflow-hidden rounded-card"
+        className={`${pastelBg[hobby.pastel]} relative block h-[300px] w-full cursor-default overflow-hidden rounded-card`}
       >
+        {/* Main photo inset so the card's pastel shows as a frame around it. */}
         {hobby.photo ? (
-          <Image src={hobby.photo} alt="" fill sizes="(min-width: 1080px) 255px, 50vw" className="object-cover" />
+          <div className="absolute inset-1.5 overflow-hidden rounded-[11px]">
+            <Image
+              src={hobby.photo}
+              alt=""
+              fill
+              sizes="(min-width: 1080px) 255px, 50vw"
+              style={{ objectPosition: hobby.photoPosition }}
+              className="object-cover"
+            />
+          </div>
         ) : (
           <Placeholder pastel={hobby.pastel} label={`${hobby.name} photo`} className="h-full" />
         )}
 
         <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-          {trail.map((drop) => (
-            <div
-              key={drop.id}
-              onAnimationEnd={() => setTrail((current) => current.filter((d) => d.id !== drop.id))}
-              style={
-                {
-                  left: drop.x - TRAIL_W / 2,
-                  top: drop.y - TRAIL_H / 2,
-                  width: TRAIL_W,
-                  height: TRAIL_H,
-                  "--tilt": `${drop.rotate}deg`,
-                } as React.CSSProperties
-              }
-              className="trail-drop absolute rounded-tag border border-line bg-paper-raised p-1.5 pb-5 shadow-lift"
-            >
-              <TrailPhoto image={extras[drop.image]} hobby={hobby} index={drop.image} />
-            </div>
-          ))}
+          {trail.map((drop) =>
+            countries ? (
+              <span
+                key={drop.id}
+                onAnimationEnd={() => setTrail((current) => current.filter((d) => d.id !== drop.id))}
+                style={{ left: drop.x, top: drop.y, "--tilt": `${drop.rotate}deg` } as React.CSSProperties}
+                className={`${pastelBg[frameColours[drop.id % frameColours.length]]} trail-drop absolute -translate-x-1/2 -translate-y-1/2 rounded-full px-3 py-1.5 font-mono text-xs whitespace-nowrap text-on-pastel shadow-lift`}
+              >
+                {countries[drop.image]}
+              </span>
+            ) : (
+              <div
+                key={drop.id}
+                onAnimationEnd={() => setTrail((current) => current.filter((d) => d.id !== drop.id))}
+                style={
+                  {
+                    left: drop.x - TRAIL_W / 2,
+                    top: drop.y - TRAIL_H / 2,
+                    width: TRAIL_W,
+                    height: TRAIL_H,
+                    "--tilt": `${drop.rotate}deg`,
+                  } as React.CSSProperties
+                }
+                className={`${pastelBg[frameColours[drop.id % frameColours.length]]} trail-drop absolute rounded-[6px] p-[3px] shadow-lift`}
+              >
+                <TrailPhoto image={extras[drop.image]} hobby={hobby} index={drop.image} />
+              </div>
+            ),
+          )}
         </div>
       </button>
 
       <figcaption className="flex flex-col gap-1">
         <span className="font-serif text-[22px] leading-[1.2]">{hobby.name}</span>
-        <span className="text-sm leading-normal text-ink-muted">{hobby.caption}</span>
+        <span className="text-sm leading-normal text-ink-muted">
+          <CaptionText caption={hobby.caption} />
+        </span>
       </figcaption>
 
-      {isOpen && (
+      {isOpen && countries && (
+        <ul className="flex flex-wrap gap-1.5" aria-label="countries i've been to">
+          {countries.map((country, i) => (
+            <CountryPill key={i} country={country} index={i} />
+          ))}
+        </ul>
+      )}
+
+      {isOpen && !countries && (
         <ul className="-mx-4 flex snap-x gap-2 overflow-x-auto px-4 pb-1" aria-label={`more ${hobby.name} photos`}>
           {extras.map((extra, i) => (
             <li key={i} className="relative h-[150px] w-[120px] shrink-0 snap-start overflow-hidden rounded-tag">
@@ -153,6 +198,35 @@ function TrailPhoto({
         <Placeholder pastel={hobby.pastel} label={`${hobby.name} ${index + 1}`} className="h-full text-[10px]" />
       )}
     </div>
+  );
+}
+
+function CountryPill({ country, index }: { country: string; index: number }) {
+  return (
+    <li
+      className={`${pastelBg[frameColours[index % frameColours.length]]} rounded-full px-2.5 py-1 font-mono text-[11px] text-on-pastel`}
+    >
+      {country}
+    </li>
+  );
+}
+
+function CaptionText({ caption }: { caption: Caption }) {
+  if (typeof caption === "string") return caption;
+  return caption.map((part, i) =>
+    typeof part === "string" ? (
+      part
+    ) : (
+      <a
+        key={i}
+        href={part.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-rosewood hover:underline hover:decoration-2 hover:underline-offset-3"
+      >
+        {part.text}
+      </a>
+    ),
   );
 }
 

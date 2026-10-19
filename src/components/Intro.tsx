@@ -23,7 +23,7 @@ function SmallMark({ color, href, children }: { color: MarkerColor; href?: strin
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`${className} hover:underline hover:decoration-2 hover:underline-offset-3`}
+      className={`${className} decoration-rosewood hover:underline hover:decoration-2 hover:underline-offset-3`}
     >
       {children}
     </a>

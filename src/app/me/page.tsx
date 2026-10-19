@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import me from "../../../public/me.jpg";
+import me from "../../../public/me2.jpg";
 import redbubble from "../../../public/redbubble.png";
 import AboutLabel from "@/components/AboutLabel";
 import { experience } from "@/data/experience";
@@ -27,24 +27,24 @@ const textLink = "text-rosewood hover:underline hover:decoration-2 hover:underli
 
 export default function MePage() {
   return (
-    <main className="mx-auto flex w-full max-w-[1080px] flex-1 flex-col gap-24 px-4 pt-[88px] pb-24 min-[1112px]:px-0">
+    <main className="mx-auto flex w-full max-w-[1080px] flex-1 flex-col gap-24 px-4 pt-16 pb-24 min-[1112px]:px-0">
       <section className="flex flex-wrap items-end gap-12">
         {/* Same tilt for both: lilac card pokes out top-left, photo pokes out bottom-right. */}
         <div className="relative h-[250px] w-[200px] shrink-0 -rotate-3">
           <div aria-hidden="true" className="absolute top-0 left-0 h-[234px] w-[184px] rounded-card bg-lilac/60" />
           <Image
             src={me}
-            alt="nora standing on a clifftop above the sea"
+            alt="nora standing in tall grass on a clifftop above the sea at sunset"
             placeholder="blur"
             sizes="184px"
             loading="eager"
             fetchPriority="high"
-            className="absolute right-0 bottom-0 h-[234px] w-[184px] rounded-card object-cover object-[50%_35%]"
+            className="absolute right-0 bottom-0 h-[234px] w-[184px] rounded-card object-cover object-[50%_60%]"
           />
         </div>
         <div className="flex min-w-0 flex-[1_1_420px] flex-col gap-4">
           <h1 className="font-serif text-[44px] leading-[1.15] font-normal tracking-[-0.015em]">hi, i&apos;m nora.</h1>
-          <p className="max-w-[560px] text-[17px] leading-[1.6]">[a sentence or two about you, in your own words]</p>
+          <p className="max-w-[560px] text-[17px] leading-[1.6]">this is a little corner of the internet for the things I build, the things I try, and everything else I&apos;m figuring out along the way.</p>
         </div>
       </section>
 
@@ -74,11 +74,7 @@ export default function MePage() {
           <h2 className={blockTitle}>Ideas worth exploring</h2>
           <p className="text-[15px] leading-[1.65]">
             I&apos;m especially interested in AI-powered tools that make everyday tasks simpler and automate the
-            tedious stuff. I&apos;m always curious about new technologies and ideas, whether that&apos;s building{" "}
-            <a href="https://www.oncaramel.com/" target="_blank" rel="noopener noreferrer" className={textLink}>
-              Caramel
-            </a>{" "}
-            to make the job hunt easier or experimenting with something entirely new.
+            tedious stuff. I love exploring new technologies and experimenting with things I haven&apos;t built before.
           </p>
         </article>
       </section>
@@ -92,14 +88,20 @@ export default function MePage() {
         </div>
         <ul className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-3.5">
           {experience.map((job) => (
-            <li
-              key={job.company}
-              className={`${topStrip[job.pastel]} flex flex-col gap-2 rounded-card border border-t-4 border-line bg-paper-raised p-[18px]`}
-            >
-              <span className="font-serif text-[22px] leading-[1.2]">{job.company}</span>
-              <span className="font-mono text-[11px] text-ink-muted">
-                {job.role} · {job.dates}
-              </span>
+            <li key={job.company}>
+              <a
+                href={job.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${topStrip[job.pastel]} group flex h-full flex-col gap-2 rounded-card border border-t-4 border-line bg-paper-raised p-[18px] text-ink transition-shadow duration-200 hover:shadow-lift`}
+              >
+                <span className="font-serif text-[22px] leading-[1.2] decoration-rosewood decoration-2 underline-offset-3 group-hover:underline">
+                  {job.company}
+                </span>
+                <span className="font-mono text-[11px] text-ink-muted">
+                  {job.role} · {job.dates}
+                </span>
+              </a>
             </li>
           ))}
         </ul>
@@ -120,15 +122,15 @@ export default function MePage() {
               href="https://www.redbubble.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[linear-gradient(transparent_58%,rgb(238_188_196/0.75)_58%)] px-1 text-on-pastel hover:underline hover:decoration-2 hover:underline-offset-3 dark:text-ink"
+              className="bg-[linear-gradient(transparent_58%,rgb(238_188_196/0.75)_58%)] px-1 text-on-pastel decoration-rosewood hover:underline hover:decoration-2 hover:underline-offset-3 dark:text-ink"
             >
-              Redbubble ↗
+              Redbubble
             </a>{" "}
             shop that made{" "}
             <span
               tabIndex={0}
               aria-describedby="redbubble-stats"
-              className="group relative cursor-default rounded-[4px] bg-gold/40 px-1"
+              className="group relative cursor-default bg-[linear-gradient(transparent_58%,rgb(227_208_129/0.75)_58%)] px-1 text-on-pastel dark:text-ink"
             >
               around 600 sales in four months
               <span
@@ -148,7 +150,7 @@ export default function MePage() {
             interested in startups, exploring new ideas, and building things of my own.
           </p>
           <p>
-            Outside of work, I climb (since 2019, before it was cool), ice skate and explore new places. In winter
+            Outside of work, I climb, ice skate and explore new places. In winter
             2026, I spent four months on exchange in Bilbao, Spain, which gave me plenty of new places to explore and
             photograph.
           </p>

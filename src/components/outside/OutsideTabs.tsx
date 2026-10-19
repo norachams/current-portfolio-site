@@ -5,17 +5,18 @@ import type { Pastel } from "@/data/projects";
 import { pastelSoft } from "@/lib/pastels";
 import Hackathons from "./Hackathons";
 import Hobbies from "./Hobbies";
-import Photography from "./Photography";
+import Photography, { type Walls } from "./Photography";
 import Volunteering from "./Volunteering";
 
-const tabs: { id: string; label: string; pastel: Pastel; Panel: () => React.JSX.Element }[] = [
+const tabs: { id: string; label: string; pastel: Pastel; Panel?: () => React.JSX.Element }[] = [
   { id: "hobbies", label: "01 / HOBBIES", pastel: "mint", Panel: Hobbies },
   { id: "hackathons", label: "02 / HACKATHONS", pastel: "lilac", Panel: Hackathons },
   { id: "volunteering", label: "03 / VOLUNTEERING", pastel: "peach", Panel: Volunteering },
-  { id: "photography", label: "04 / PHOTOGRAPHY", pastel: "sky", Panel: Photography },
+  // Photography needs the photo wall layout from the page, so it renders separately below.
+  { id: "photography", label: "04 / PHOTOGRAPHY", pastel: "sky" },
 ];
 
-export default function OutsideTabs() {
+export default function OutsideTabs({ walls }: { walls: Walls }) {
   const [selected, setSelected] = useState(0);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const { id, Panel } = tabs[selected];
@@ -69,7 +70,7 @@ export default function OutsideTabs() {
       </div>
 
       <div role="tabpanel" id={`panel-${id}`} aria-labelledby={`tab-${id}`}>
-        <Panel />
+        {Panel ? <Panel /> : <Photography walls={walls} />}
       </div>
     </>
   );

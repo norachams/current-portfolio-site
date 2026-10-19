@@ -21,7 +21,7 @@ export default function Nav() {
 
   return (
     <header className="mx-auto flex w-full max-w-[1080px] flex-wrap items-center justify-between gap-4 px-4 py-7 min-[1112px]:px-0">
-      <Link href="/" className="font-serif text-2xl text-ink">
+      <Link href="/me" className="font-serif text-2xl text-ink">
         nora
       </Link>
       <nav aria-label="Main">

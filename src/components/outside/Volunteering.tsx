@@ -4,10 +4,6 @@ import { pastelMid } from "@/lib/pastels";
 export default function Volunteering() {
   return (
     <section aria-label="Volunteering" className="flex flex-col gap-5">
-      <p className="font-mono text-[11px] text-ink-muted">
-        <span className="[@media(hover:none)]:hidden">hover a stamp to see what i did</span>
-        <span className="hidden [@media(hover:none)]:inline">what i did, stamp by stamp</span>
-      </p>
       <ul className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-x-8 gap-y-10">
         {volunteering.map((vol, i) => (
           <li key={i}>

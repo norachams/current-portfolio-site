@@ -1,24 +1,90 @@
 import type { StaticImageData } from "next/image";
 import type { Pastel } from "@/data/projects";
+import climbing1 from "../../public/climbing 1.jpg";
+import climbing2 from "../../public/climbing 2.jpg";
+import climbing3 from "../../public/climbing 3.jpg";
+import climbing4 from "../../public/climbing 4.jpg";
+import climbing5 from "../../public/climbing 5.jpg";
+import climbing6 from "../../public/climbing 6.jpg";
+import climbing7 from "../../public/climbing 7.jpg";
+import setting1 from "../../public/setting 1.jpeg";
+import setting2 from "../../public/setting 2.jpg";
+import setting3 from "../../public/setting 3.jpeg";
+import setting4 from "../../public/setting 4.jpeg";
+import setting5 from "../../public/setting 5.jpeg";
+import setting6 from "../../public/setting 6.jpeg";
+import setting7 from "../../public/setting 7.jpeg";
+import setting8 from "../../public/setting 8.jpeg";
+import skating1 from "../../public/skating 1.jpg";
+import traveling from "../../public/travel pic.jpg";
 
 // Brackets mark content that still needs filling in. Add photos by importing them
 // from public/ (e.g. `import climbing from "../../public/outside/climbing.jpg"`).
 
+/** Plain text, or a mix of text and links. */
+export type Caption = string | (string | { text: string; href: string })[];
+
 export type Hobby = {
   slug: string;
   name: string;
-  caption: string;
+  caption: Caption;
   pastel: Pastel;
   photo?: StaticImageData;
+  /** Which part of the photo to keep when the card crops it (CSS object-position). */
+  photoPosition?: string;
   /** 3–4 extra photos for the hover stack. */
   extras?: StaticImageData[];
+  /** Shown as a trail of pills on hover instead of photos. */
+  countries?: string[];
 };
 
 export const hobbies: Hobby[] = [
-  { slug: "climbing", name: "climbing", caption: "since 2019, before it was cool", pastel: "mint" },
-  { slug: "route-setting", name: "route setting", caption: "[a short caption]", pastel: "lilac" },
-  { slug: "skating", name: "skating", caption: "[a short caption]", pastel: "peach" },
-  { slug: "traveling", name: "traveling", caption: "four months on exchange in Bilbao, Spain", pastel: "sky" },
+  {
+    slug: "climbing",
+    name: "climbing",
+    caption: "since 2019, before it was cool or in the Olympics",
+    pastel: "mint",
+    photo: climbing1,
+    extras: [climbing2, climbing3, climbing4, climbing5, climbing6, climbing7],
+  },
+  {
+    slug: "route-setting",
+    name: "route setting",
+    caption: [
+      "three-day route-setting workshop with ",
+      { text: "The B.I.G. Initiative", href: "https://thebiginitiative.ca/en/" },
+      " at ",
+      { text: "Joe Rockhead’s", href: "https://www.joerockheads.com/" },
+    ],
+    pastel: "lilac",
+    photo: setting1,
+    extras: [setting2, setting3, setting4, setting5, setting6, setting7, setting8],
+  },
+  { slug: "skating", name: "Ice skating", caption: "learning new figure skating tricks", pastel: "sky", photo: skating1 },
+  {
+    slug: "traveling",
+    name: "traveling",
+    caption: "15 countries and counting",
+    pastel: "peach",
+    photo: traveling,
+    photoPosition: "50% 65%",
+    countries: [
+      "Spain",
+      "Ireland",
+      "Scotland",
+      "Belgium",
+      "Netherlands",
+      "Wales",
+      "England",
+      "Lithuania",
+      "France",
+      "Hungary",
+      "UAE",
+      "Saudi Arabia",
+      "Canada",
+      "USA",
+    ],
+  },
 ];
 
 export type Teammate = { name: string; initial: string };
@@ -104,26 +170,3 @@ export const volunteering: Volunteering[] = [
   { org: "[community]", kind: "COMMUNITY", year: "[year]", role: "[role]", note: "[a sentence on what you did]", pastel: "blush", tilt: -1.5 },
   { org: "[event]", kind: "EVENT", year: "[year]", role: "[role]", note: "[a sentence on what you did]", pastel: "gold", tilt: 1 },
 ];
-
-export type Shot = {
-  city: string;
-  caption: string;
-  pastel: Pastel;
-  image?: StaticImageData;
-  alt?: string;
-  /** Placeholder height until the real photo is in. */
-  height: number;
-};
-
-const shotPastels: Pastel[] = ["sky", "mint", "peach", "lilac", "gold", "blush"];
-const shotHeights = [320, 220, 280, 380, 240, 300, 260, 340, 220, 300, 360, 240];
-const shotCities = ["bilbao", "[city]", "bilbao", "[city]", "[city]", "bilbao", "[city]", "[city]", "bilbao", "[city]", "[city]", "[city]"];
-
-export const photos: Shot[] = shotHeights.map((height, i) => ({
-  city: shotCities[i],
-  caption: "[a short caption]",
-  pastel: shotPastels[i % shotPastels.length],
-  height,
-}));
-
-export const instagramUrl: string | undefined = undefined; // [instagram url]

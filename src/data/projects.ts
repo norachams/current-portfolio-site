@@ -15,17 +15,18 @@ export const projects: Project[] = [
   {
     slug: "caramel",
     name: "caramel",
-    meta: "2024 to now · founder",
+    meta: "founder",
     note: "reads your gmail and sorts every application with a custom nlp pipeline.",
     pastel: "peach",
     media: { type: "video", src: "/caramel-promo.mp4" },
   },
   {
-    slug: "verifast-market-map",
-    name: "verifast market map",
-    meta: "2026 · engineering",
+    slug: "medibook",
+    name: "medibook",
+    meta: "side project",
     note: "one interactive map for 100k+ multifamily properties, built for the sales team.",
     pastel: "sky",
+     media: { type: "video", src: "/Medibook.mp4" },
   },
   {
     slug: "levanta",
@@ -51,10 +52,11 @@ export const projects: Project[] = [
     pastel: "blush",
   },
   {
-    slug: "project-6",
-    name: "[project 6]",
-    meta: "[year] · [role]",
+    slug: "textbox",
+    name: "textbox",
+    meta: "side project",
     note: "[one line about it]",
     pastel: "gold",
+    media: { type: "video", src: "/textbox.mp4" },
   },
 ];

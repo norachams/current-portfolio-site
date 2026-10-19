@@ -65,8 +65,9 @@ export default function WorkSection({ projects }: { projects: Project[] }) {
   };
 
   return (
-    <section aria-labelledby="work-heading" className="flex flex-col gap-6">
-      <h2 id="work-heading" className="font-serif text-[22px] leading-[1.3] font-medium italic">
+    <section aria-labelledby="work-heading" className="flex flex-col">
+      {/* Hidden visually; kept so screen readers still get a "work" heading. */}
+      <h2 id="work-heading" className="sr-only">
         work
       </h2>
 
