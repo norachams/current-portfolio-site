@@ -3,7 +3,7 @@ import type { Pastel } from "@/data/projects";
 // Full class names so Tailwind picks them up. In dark mode the tints go to full
 // pastel so on-pastel text stays readable.
 
-/** Full pastel fill: media blocks, notes. */
+/** Full pastel fill: hobby trail frames and country pills. */
 export const pastelBg: Record<Pastel, string> = {
   mint: "bg-mint",
   celadon: "bg-celadon",
@@ -14,7 +14,7 @@ export const pastelBg: Record<Pastel, string> = {
   blush: "bg-blush",
 };
 
-/** ~45% tint: chips, selected tabs, ticket stubs. */
+/** ~45% tint: the site-wide card, tag and tab colour. */
 export const pastelSoft: Record<Pastel, string> = {
   mint: "bg-mint/40 dark:bg-mint",
   celadon: "bg-celadon/40 dark:bg-celadon",

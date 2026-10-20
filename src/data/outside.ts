@@ -1,25 +1,25 @@
 import type { StaticImageData } from "next/image";
 import type { Pastel } from "@/data/projects";
-import climbing1 from "../../public/climbing 1.jpg";
-import climbing2 from "../../public/climbing 2.jpg";
-import climbing3 from "../../public/climbing 3.jpg";
-import climbing4 from "../../public/climbing 4.jpg";
-import climbing5 from "../../public/climbing 5.jpg";
-import climbing6 from "../../public/climbing 6.jpg";
-import climbing7 from "../../public/climbing 7.jpg";
-import setting1 from "../../public/setting 1.jpeg";
-import setting2 from "../../public/setting 2.jpg";
-import setting3 from "../../public/setting 3.jpeg";
-import setting4 from "../../public/setting 4.jpeg";
-import setting5 from "../../public/setting 5.jpeg";
-import setting6 from "../../public/setting 6.jpeg";
-import setting7 from "../../public/setting 7.jpeg";
-import setting8 from "../../public/setting 8.jpeg";
-import skating1 from "../../public/skating 1.jpg";
-import puzzle from "../../public/puzzle.jpg";
-import puzzle2 from "../../public/puzzle 2.jpg";
-import puzzle3 from "../../public/puzzle 3.jpg";
-import traveling from "../../public/travel pic.jpg";
+import climbing1 from "../../public/outside/climbing 1.jpg";
+import climbing2 from "../../public/outside/climbing 2.jpg";
+import climbing3 from "../../public/outside/climbing 3.jpg";
+import climbing4 from "../../public/outside/climbing 4.jpg";
+import climbing5 from "../../public/outside/climbing 5.jpg";
+import climbing6 from "../../public/outside/climbing 6.jpg";
+import climbing7 from "../../public/outside/climbing 7.jpg";
+import setting1 from "../../public/outside/setting 1.jpeg";
+import setting2 from "../../public/outside/setting 2.jpg";
+import setting3 from "../../public/outside/setting 3.jpeg";
+import setting4 from "../../public/outside/setting 4.jpeg";
+import setting5 from "../../public/outside/setting 5.jpeg";
+import setting6 from "../../public/outside/setting 6.jpeg";
+import setting7 from "../../public/outside/setting 7.jpeg";
+import setting8 from "../../public/outside/setting 8.jpeg";
+import skating1 from "../../public/outside/skating 1.jpg";
+import puzzle from "../../public/outside/puzzle.jpg";
+import puzzle2 from "../../public/outside/puzzle 2.jpg";
+import puzzle3 from "../../public/outside/puzzle 3.jpg";
+import traveling from "../../public/outside/travel pic.jpg";
 
 // Brackets mark content that still needs filling in. Add photos by importing them
 // from public/ (e.g. `import climbing from "../../public/outside/climbing.jpg"`).
@@ -93,7 +93,7 @@ export const hobbies: Hobby[] = [
   {
     slug: "puzzles",
     name: "jigsaw puzzles",
-    caption: "hover to peek at the 10,000-piece puzzle I'm working on right now",
+    caption: "hover to peek at the 1,000-piece puzzle I'm working on right now",
     pastel: "blush",
     photo: puzzle,
     extras: [puzzle2, puzzle3],
@@ -115,22 +115,22 @@ export type Hackathon = {
 };
 
 export const hackathons: Hackathon[] = [
-  {
-    event: "Hack the North",
-    pastel: "peach",
-    project: "Whisker",
-    line: "your ai cooking mentor: it watches you cook through your camera and talks you through each step.",
-    devpost: "https://devpost.com/software/little-chef-vbl89d",
-    code: "https://github.com/m-abdulwahid/Kitchen-Companion",
-  },
-  {
+    {
     event: "WinHacks",
-    pastel: "sky",
-    project: "OPCHARGE",
+    pastel: "lilac",
+    project: "Opcharge",
     line: "uses machine learning algorithms to strategically suggest [rest of the line]",
     winner: true,
     devpost: "https://devpost.com/software/opcharge",
     code: "https://github.com/Ahsan-khan/charger_challenge",
+  },
+  {
+    event: "Hack the North",
+    pastel: "sky",
+    project: "Whisker",
+    line: "your ai cooking mentor: it watches you cook through your camera and talks you through each step.",
+    devpost: "https://devpost.com/software/little-chef-vbl89d",
+    code: "https://github.com/m-abdulwahid/Kitchen-Companion",
   },
   {
     event: "HackCWRU",
@@ -156,9 +156,10 @@ export type Volunteering = {
 
 /** Column order on the page, with each column's heading and colour. */
 export const volunteerKinds: { kind: VolunteerKind; label: string; pastel: Pastel }[] = [
+  { kind: "communities", label: "communities", pastel: "mint" },
   { kind: "causes", label: "causes", pastel: "peach" },
   { kind: "events", label: "events & programs", pastel: "lilac" },
-  { kind: "communities", label: "communities", pastel: "mint" },
+
 ];
 
 export const volunteering: Volunteering[] = [

@@ -30,7 +30,7 @@ export default function Footer() {
     <footer className="mx-auto w-full max-w-[1080px] px-4 min-[1112px]:px-0">
       <div className="flex flex-wrap items-center justify-between gap-7 border-t border-line pt-8 pb-10">
         <div className="flex flex-col gap-3">
-          <h2 className="font-serif text-[22px] leading-[1.3] font-medium italic">say hi</h2>
+          <h2 className="font-serif text-[22px] leading-[1.3] font-normal">say hi</h2>
           <ul className="flex flex-wrap items-center gap-x-[22px] gap-y-2 font-mono text-[13px]">
             {socials.map((social) => (
               <li key={social.label}>

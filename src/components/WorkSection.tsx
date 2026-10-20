@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { Project } from "@/data/projects";
-import { pastelBg } from "@/lib/pastels";
+import { pastelSoft } from "@/lib/pastels";
 
 const NOTE_OFFSET = 18;
 const LERP = 0.15;
@@ -92,17 +92,18 @@ export default function WorkSection({ projects }: { projects: Project[] }) {
         ))}
       </ul>
 
-      {/* Kept mounted so the follow loop always has an element to move. */}
+      {/* Kept mounted so the follow loop always has an element to move. The soft tint sits on
+          solid paper so the page doesn't show through the note. */}
       <div
         ref={noteRef}
         aria-hidden="true"
-        className={`${active ? pastelBg[active.pastel] : "invisible"} pointer-events-none fixed top-0 left-0 z-10 flex max-w-[260px] flex-col gap-2 rounded-xl px-3.5 py-3 text-on-pastel shadow-lift will-change-transform`}
+        className={`${active ? "" : "invisible"} pointer-events-none fixed top-0 left-0 z-10 max-w-[260px] rounded-xl bg-paper shadow-lift will-change-transform`}
       >
         {active && (
-          <>
+          <div className={`${pastelSoft[active.pastel]} flex flex-col gap-2 rounded-xl px-3.5 py-3 text-on-pastel`}>
             <span className="text-[13px] leading-[1.45]">{active.note}</span>
             <span className="font-mono text-[11px]">click to open →</span>
-          </>
+          </div>
         )}
       </div>
     </section>
@@ -111,7 +112,7 @@ export default function WorkSection({ projects }: { projects: Project[] }) {
 
 function ProjectMedia({ project }: { project: Project }) {
   // 16:9 to match the clips, so nothing gets cropped.
-  const base = `${pastelBg[project.pastel]} aspect-video overflow-hidden rounded-card`;
+  const base = `${pastelSoft[project.pastel]} aspect-video overflow-hidden rounded-card`;
   const { media } = project;
 
   if (media?.type === "video") {

@@ -35,7 +35,7 @@ export default function Intro() {
   return (
     <section className="flex flex-col gap-6">
       <h1 className="max-w-[940px] font-serif text-[44px] leading-[1.15] font-normal tracking-[-0.015em]">
-        nora is an <Mark color="peach">engineer</Mark> who cares about the <Mark color="mint">product</Mark> and
+        i am an<Mark color="peach">engineer</Mark> who cares about the <Mark color="mint">product</Mark> and
         the <Mark color="sky">design</Mark> as much as{" "}
         <span className="whitespace-nowrap">
           the code.

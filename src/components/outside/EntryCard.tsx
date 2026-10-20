@@ -26,7 +26,7 @@ export default function EntryCard({
         {dates && <span className="font-mono text-xs text-ink-muted">{dates}</span>}
         {/* Linked cards underline the name on hover so it reads as a link. */}
         <h4
-          className={`font-serif text-[26px] leading-[1.2] font-normal ${
+          className={`font-serif text-[28px] leading-[1.2] font-normal ${
             url ? "decoration-rosewood decoration-2 underline-offset-4 group-hover:underline" : ""
           }`}
         >
@@ -50,11 +50,11 @@ export default function EntryCard({
   );
 }
 
-/** Italic label on a pastel tag that heads a column of cards. */
+/** Label on a pastel tag that heads a column of cards. */
 export function ColumnLabel({ pastel, children }: { pastel: Pastel; children: React.ReactNode }) {
   return (
     <h3
-      className={`${pastelSoft[pastel]} self-start rounded-tag px-2.5 py-0.5 font-serif text-[22px] leading-[1.3] font-semibold italic text-on-pastel`}
+      className={`${pastelSoft[pastel]} self-start rounded-tag px-2.5 py-0.5 font-serif text-[22px] leading-[1.3] font-normal text-on-pastel`}
     >
       {children}
     </h3>

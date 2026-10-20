@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import me from "../../../public/me2.jpg";
-import redbubble from "../../../public/redbubble.png";
+import me from "../../../public/me/me2.jpg";
+import redbubble from "../../../public/me/redbubble.png";
 import AboutLabel from "@/components/AboutLabel";
 import { experience } from "@/data/experience";
 import type { Pastel } from "@/data/projects";

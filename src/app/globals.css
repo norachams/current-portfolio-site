@@ -82,50 +82,50 @@ body {
   outline-offset: 2px;
 }
 
-/* Cats on the outside work page: bob, tail wag and blink on offset timings. */
-.cat svg {
+/* Cats on the outside work page: each is a frame sprite cut on hold times (step-end, no tweening).
+   Caramella swishes her tail twice and blinks; Woody looks up, lays his head down and blinks. */
+.cat-sprite {
   display: block;
-  transform-origin: 50% 100%;
-  animation: cat-bob 3.2s ease-in-out infinite;
+  background-repeat: no-repeat;
+  animation-duration: 7s;
+  animation-timing-function: step-end;
+  animation-iteration-count: infinite;
 }
-.cat-two svg {
-  animation-delay: -1.4s;
+.cat-caramella {
+  width: 152px;
+  height: 240px;
+  background-image: url("/outside/cats/caramella-loop.webp");
+  background-size: 456px 240px;
+  animation-name: caramella-frames;
 }
-.cat:hover svg {
-  animation-duration: 1s;
+.cat-woody {
+  width: 194px;
+  height: 124px;
+  background-image: url("/outside/cats/woody-loop.webp");
+  background-size: 582px 124px;
+  animation-name: woody-frames;
 }
-.cat-tail {
-  transform-origin: 44px 58px;
-  animation: cat-wag 1.8s ease-in-out infinite;
+@keyframes caramella-frames {
+  0% { background-position-x: 0; }
+  22.86% { background-position-x: -152px; }
+  27.14% { background-position-x: 0; }
+  31.43% { background-position-x: -152px; }
+  35.71% { background-position-x: 0; }
+  55.71% { background-position-x: -304px; }
+  57.86% { background-position-x: 0; }
+  97.86% { background-position-x: -304px; }
 }
-.cat-two .cat-tail {
-  animation-duration: 2.3s;
-}
-.cat-eyes {
-  transform-origin: 30px 26px;
-  animation: cat-blink 5s infinite;
-}
-.cat-two .cat-eyes {
-  animation-delay: -2.5s;
-}
-
-@keyframes cat-bob {
-  0%, 100% { transform: translateY(0) scaleY(1); }
-  50% { transform: translateY(-2px) scaleY(1.02); }
-}
-@keyframes cat-wag {
-  0%, 100% { transform: rotate(-8deg); }
-  50% { transform: rotate(14deg); }
-}
-@keyframes cat-blink {
-  0%, 92%, 100% { transform: scaleY(1); }
-  95% { transform: scaleY(0.1); }
+@keyframes woody-frames {
+  0% { background-position-x: 0; }
+  28.57% { background-position-x: -194px; }
+  60% { background-position-x: -388px; }
+  62.14% { background-position-x: -194px; }
+  85% { background-position-x: -388px; }
+  87.14% { background-position-x: -194px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cat svg,
-  .cat-tail,
-  .cat-eyes {
+  .cat-sprite {
     animation: none;
   }
 }
