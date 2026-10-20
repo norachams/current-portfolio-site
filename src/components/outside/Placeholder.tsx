@@ -1,5 +1,5 @@
 import type { Pastel } from "@/data/projects";
-import { pastelBg } from "@/lib/pastels";
+import { pastelSoft } from "@/lib/pastels";
 
 /** Labelled pastel block standing in for a photo that isn't in yet. */
 export default function Placeholder({
@@ -17,7 +17,7 @@ export default function Placeholder({
     <div
       aria-hidden="true"
       style={style}
-      className={`${pastelBg[pastel]} flex items-center justify-center p-2 text-center font-mono text-[11px] text-on-pastel ${className}`}
+      className={`${pastelSoft[pastel]} flex items-center justify-center p-2 text-center font-mono text-[11px] text-on-pastel ${className}`}
     >
       [{label}]
     </div>

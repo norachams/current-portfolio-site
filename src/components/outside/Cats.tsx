@@ -4,9 +4,9 @@ const cats = [
   { name: "Woody", age: "5 years", body: "#8f8385", belly: "#d9d0cc", accent: "#5f5456" },
 ];
 
-export default function Cats() {
+export default function Cats({ className = "" }: { className?: string }) {
   return (
-    <aside aria-label="Cats" className="mt-10 flex flex-col items-start gap-1.5">
+    <aside aria-label="Cats" className={`flex flex-col items-start gap-1.5 ${className}`}>
       <span className="font-mono text-[11px] text-ink-muted">taking care of:</span>
       <div className="flex items-end gap-2.5">
         {cats.map((cat, i) => (

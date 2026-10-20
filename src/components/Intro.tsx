@@ -1,12 +1,11 @@
 import type { ReactNode } from "react";
 
-// Marker highlight: the bottom ~42% of the word filled with its pastel at ~75% alpha.
+// Marker highlight: the bottom ~42% of the word filled with its pastel at ~45% alpha, the same soft tint as tags and tabs elsewhere.
+// The first screen sticks to three pastels; peach and sky echo the caramel and medibook videos below.
 const marker = {
-  mint: "bg-[linear-gradient(transparent_58%,rgb(145_199_177/0.75)_58%)]",
-  lilac: "bg-[linear-gradient(transparent_58%,rgb(207_193_230/0.75)_58%)]",
-  gold: "bg-[linear-gradient(transparent_58%,rgb(227_208_129/0.75)_58%)]",
-  sky: "bg-[linear-gradient(transparent_58%,rgb(180_205_230/0.75)_58%)]",
-  peach: "bg-[linear-gradient(transparent_58%,rgb(243_201_173/0.75)_58%)]",
+  mint: "bg-[linear-gradient(transparent_58%,rgb(145_199_177/0.45)_58%)]",
+  sky: "bg-[linear-gradient(transparent_58%,rgb(180_205_230/0.45)_58%)]",
+  peach: "bg-[linear-gradient(transparent_58%,rgb(243_201_173/0.45)_58%)]",
 };
 
 type MarkerColor = keyof typeof marker;
@@ -36,10 +35,10 @@ export default function Intro() {
   return (
     <section className="flex flex-col gap-6">
       <h1 className="max-w-[940px] font-serif text-[44px] leading-[1.15] font-normal tracking-[-0.015em]">
-        nora is an <Mark color="mint">engineer</Mark> who cares about the <Mark color="lilac">product</Mark> and
-        the <Mark color="gold">design</Mark> as much as{" "}
+        nora is an <Mark color="peach">engineer</Mark> who cares about the <Mark color="mint">product</Mark> and
+        the <Mark color="sky">design</Mark> as much as{" "}
         <span className="whitespace-nowrap">
-          the <Mark color="sky">code</Mark>.
+          the code.
         </span>
       </h1>
 
@@ -59,7 +58,7 @@ export default function Intro() {
             </SmallMark>
           </li>
           <li>
-            finishing a <SmallMark color="lilac">DD in CS and BBA</SmallMark>
+            finishing a <SmallMark color="sky">DD in CS and BBA</SmallMark>
           </li>
         </ul>
       </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Geist, Geist_Mono } from "next/font/google";
+import CustomCursor from "@/components/CustomCursor";
 import Footer from "@/components/Footer";
 import Nav from "@/components/Nav";
 import "./globals.css";
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Nav />
         {children}
         <Footer />
+        <CustomCursor />
       </body>
     </html>
   );

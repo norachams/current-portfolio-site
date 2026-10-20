@@ -1,7 +1,8 @@
 "use client";
 
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { preload } from "react-dom";
 import { instagramUrl, photos, placeOf } from "@/data/photography";
 import { useFollower } from "@/hooks/useFollower";
 import type { Wall } from "@/lib/photoWall";
@@ -11,8 +12,7 @@ export type Walls = Record<1 | 2 | 3, Wall>;
 
 const chip = "min-h-9 cursor-pointer rounded-full border border-line px-3.5 font-mono text-xs text-ink hover:bg-paper-sunk";
 
-// The place label over each photo takes one of these, so neighbouring photos differ.
-const labelColours = ["text-mint", "text-lilac", "text-peach", "text-sky", "text-gold", "text-blush"];
+const LIGHTBOX_SIZES = "760px";
 
 // Which layout shows at which screen width.
 const layouts = [
@@ -22,8 +22,10 @@ const layouts = [
 ] as const;
 
 export default function Photography({ walls }: { walls: Walls }) {
-  const [hovered, setHovered] = useState<{ place: string; colour: string } | null>(null);
+  const [hovered, setHovered] = useState<string | null>(null);
   const [open, setOpen] = useState<number | null>(null);
+  // Which lightbox photo has finished loading, so its place name only shows alongside it.
+  const [loaded, setLoaded] = useState<number | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const { ref, moveTo } = useFollower<HTMLDivElement>(hovered !== null, { lag: false });
 
@@ -46,9 +48,20 @@ export default function Photography({ walls }: { walls: Walls }) {
     });
   const shot = open === null ? null : photos[open];
 
+  // Fetch the photos either side of the open one, so prev / next show up straight away.
+  if (open !== null) {
+    const at = sequence.indexOf(open);
+    for (const by of [-1, 1]) {
+      const neighbour = photos[sequence[(at + by + sequence.length) % sequence.length]];
+      const { props } = getImageProps({ src: neighbour.image, alt: "", sizes: LIGHTBOX_SIZES });
+      preload(props.src, { as: "image", imageSrcSet: props.srcSet, imageSizes: props.sizes });
+    }
+  }
+
   return (
     <section aria-labelledby="photos-heading" className="flex flex-col gap-5">
-      <h2 id="photos-heading" className="font-serif text-[22px] font-medium italic">
+      {/* Hidden visually; kept so screen readers still get a heading. */}
+      <h2 id="photos-heading" className="sr-only">
         my favourite pictures i took
       </h2>
 
@@ -70,7 +83,7 @@ export default function Photography({ walls }: { walls: Walls }) {
                       onPointerEnter={(e) => {
                         if (e.pointerType !== "mouse") return;
                         moveTo(e.clientX, e.clientY, true);
-                        setHovered({ place, colour: labelColours[index % labelColours.length] });
+                        setHovered(place);
                       }}
                       onPointerMove={(e) => moveTo(e.clientX, e.clientY)}
                       onPointerLeave={() => setHovered(null)}
@@ -111,11 +124,9 @@ export default function Photography({ walls }: { walls: Walls }) {
       </a>
 
       <div ref={ref} aria-hidden="true" className={`pointer-events-none fixed top-0 left-0 z-20 ${hovered ? "" : "invisible"}`}>
-        {/* Rounded box (not a pill) in dark, so the pastel text reads over any photo. */}
-        <span
-          className={`${hovered?.colour ?? ""} block -translate-x-1/2 -translate-y-1/2 rounded-lg bg-[rgba(36,32,27,0.72)] px-2.5 py-1 font-serif text-base font-medium whitespace-nowrap shadow-lift backdrop-blur-sm`}
-        >
-          {hovered?.place}
+        {/* Place name just right of the site cursor, in the cursor's current colour, on a beige rounded box. */}
+        <span className="block translate-x-4 -translate-y-1/2 rounded-lg border border-line bg-paper-raised px-2.5 py-0.5 text-[17px] leading-snug font-medium whitespace-nowrap text-(--cursor-colour) shadow-lift">
+          {hovered}
         </span>
       </div>
 
@@ -135,14 +146,16 @@ export default function Photography({ walls }: { walls: Walls }) {
         {shot && (
           <div className="flex flex-col gap-3">
             <Image
+              key={open}
               src={shot.image}
               alt={`Photo from ${placeOf(shot)}`}
               placeholder="blur"
-              sizes="760px"
+              sizes={LIGHTBOX_SIZES}
+              onLoad={() => setLoaded(open)}
               className="max-h-[70vh] w-full rounded-lg object-contain"
             />
             <div className="flex flex-wrap items-center justify-between gap-3 px-1 pb-1">
-              <span className="font-serif text-[22px]">{placeOf(shot)}</span>
+              <span className={`font-serif text-[22px] ${loaded === open ? "" : "invisible"}`}>{placeOf(shot)}</span>
               <div className="flex gap-2">
                 <button type="button" onClick={() => step(-1)} aria-label="Previous photo" className={chip}>
                   ← prev

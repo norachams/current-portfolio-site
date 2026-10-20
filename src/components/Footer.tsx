@@ -26,15 +26,13 @@ export default function Footer() {
     timer.current = setTimeout(() => setCopied(false), COPIED_FOR);
   };
 
-  const [first, second, third, last] = socials;
-
   return (
     <footer className="mx-auto w-full max-w-[1080px] px-4 min-[1112px]:px-0">
       <div className="flex flex-wrap items-center justify-between gap-7 border-t border-line pt-8 pb-10">
         <div className="flex flex-col gap-3">
           <h2 className="font-serif text-[22px] leading-[1.3] font-medium italic">say hi</h2>
           <ul className="flex flex-wrap items-center gap-x-[22px] gap-y-2 font-mono text-[13px]">
-            {[first, second, third].map((social) => (
+            {socials.map((social) => (
               <li key={social.label}>
                 <SocialLink {...social} />
               </li>
@@ -52,7 +50,8 @@ export default function Footer() {
                   onPointerMove={(e) => moveTo(e.clientX, e.clientY)}
                   onPointerLeave={() => setHovering(false)}
                   aria-label="Copy email address"
-                  className={`${link} cursor-pointer [@media(hover:hover)]:cursor-none`}
+                  data-cursor-plain
+                  className={`${link} cursor-pointer`}
                 >
                   {/* Keyboard and touch users don't see the pill, so the label confirms instead. */}
                   {copied && !hovering ? "copied!" : "email"}
@@ -60,9 +59,6 @@ export default function Footer() {
               ) : (
                 <span className="text-ink-muted">email</span>
               )}
-            </li>
-            <li>
-              <SocialLink {...last} />
             </li>
           </ul>
         </div>
@@ -75,11 +71,8 @@ export default function Footer() {
         aria-hidden="true"
         className={`pointer-events-none fixed top-0 left-0 z-30 ${hovering ? "" : "invisible"}`}
       >
-        <span
-          className={`block -translate-x-1/2 -translate-y-1/2 rounded-full border border-line px-3 py-1.5 font-mono text-xs whitespace-nowrap text-on-pastel shadow-lift transition-colors duration-150 ${
-            copied ? "bg-mint" : "bg-paper-raised dark:text-ink"
-          }`}
-        >
+        {/* Just right of the site cursor, in rosewood like the link text (the cursor stays rosewood here too). */}
+        <span className="block translate-x-4 -translate-y-1/2 font-mono text-xs font-medium whitespace-nowrap text-rosewood">
           {copied ? "copied!" : "click to copy"}
         </span>
       </div>

@@ -31,6 +31,17 @@
   }
 }
 
+/* Pastels are always output as variables so code can use them too (the cursor shares its colour this way). */
+@theme static {
+  --color-mint: #91c7b1;
+  --color-celadon: #b2c9ab;
+  --color-gold: #e3d081;
+  --color-sky: #b4cde6;
+  --color-lilac: #cfc1e6;
+  --color-peach: #f3c9ad;
+  --color-blush: #eebcc4;
+}
+
 @theme inline {
   --color-paper: var(--paper);
   --color-paper-raised: var(--paper-raised);
@@ -41,14 +52,6 @@
   --color-rosewood: var(--rosewood);
   --color-slate: var(--slate);
   --color-on-pastel: var(--on-pastel);
-
-  --color-mint: #91c7b1;
-  --color-celadon: #b2c9ab;
-  --color-gold: #e3d081;
-  --color-sky: #b4cde6;
-  --color-lilac: #cfc1e6;
-  --color-peach: #f3c9ad;
-  --color-blush: #eebcc4;
 
   --font-serif: var(--font-fraunces), Georgia, serif;
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
@@ -165,5 +168,13 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .trail-drop {
     animation-name: trail-fade;
+  }
+}
+
+/* The drawn circle (CustomCursor.tsx) replaces the system cursor. Mouse only: touch screens are left alone. */
+@media (pointer: fine) {
+  html,
+  html * {
+    cursor: none !important;
   }
 }

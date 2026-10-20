@@ -16,6 +16,9 @@ import setting6 from "../../public/setting 6.jpeg";
 import setting7 from "../../public/setting 7.jpeg";
 import setting8 from "../../public/setting 8.jpeg";
 import skating1 from "../../public/skating 1.jpg";
+import puzzle from "../../public/puzzle.jpg";
+import puzzle2 from "../../public/puzzle 2.jpg";
+import puzzle3 from "../../public/puzzle 3.jpg";
 import traveling from "../../public/travel pic.jpg";
 
 // Brackets mark content that still needs filling in. Add photos by importing them
@@ -36,6 +39,8 @@ export type Hobby = {
   extras?: StaticImageData[];
   /** Shown as a trail of pills on hover instead of photos. */
   countries?: string[];
+  /** Spans two grid columns and keeps the photo's own landscape shape; its trail photos are landscape too. */
+  wide?: boolean;
 };
 
 export const hobbies: Hobby[] = [
@@ -60,7 +65,7 @@ export const hobbies: Hobby[] = [
     photo: setting1,
     extras: [setting2, setting3, setting4, setting5, setting6, setting7, setting8],
   },
-  { slug: "skating", name: "Ice skating", caption: "learning new figure skating tricks", pastel: "sky", photo: skating1 },
+  { slug: "skating", name: "ice skating", caption: "learning new figure skating tricks", pastel: "sky", photo: skating1 },
   {
     slug: "traveling",
     name: "traveling",
@@ -85,88 +90,168 @@ export const hobbies: Hobby[] = [
       "USA",
     ],
   },
+  {
+    slug: "puzzles",
+    name: "jigsaw puzzles",
+    caption: "hover to peek at the 10,000-piece puzzle I'm working on right now",
+    pastel: "blush",
+    photo: puzzle,
+    extras: [puzzle2, puzzle3],
+    wide: true,
+  },
 ];
-
-export type Teammate = { name: string; initial: string };
 
 export type Hackathon = {
   event: string;
-  year: string;
   pastel: Pastel;
   project: string;
   line: string;
-  stack: string;
-  team: Teammate[];
+  /** Shows a winner tag beside the event. */
+  winner?: boolean;
+  /** Team photo; a labelled pastel square shows until it's in. */
+  photo?: StaticImageData;
   devpost?: string;
   code?: string;
 };
 
-const me: Teammate = { name: "Nora (me)", initial: "N" };
-const teammate: Teammate = { name: "[teammate]", initial: "?" };
-
 export const hackathons: Hackathon[] = [
   {
-    event: "[HACKATHON NAME]",
-    year: "2026",
-    pastel: "gold",
-    project: "[project name]",
-    line: "a cookbook site where an ai helper watches you cook through your camera and talks you through each step.",
-    stack: "backboard.io · [rest of the stack]",
-    team: [me, teammate, teammate, teammate],
-  },
-  {
-    event: "[HACKATHON NAME]",
-    year: "[year]",
-    pastel: "lilac",
-    project: "[project name]",
-    line: "[one line on what you built]",
-    stack: "[stack]",
-    team: [me, teammate, teammate],
-  },
-  {
-    event: "[HACKATHON NAME]",
-    year: "[year]",
-    pastel: "mint",
-    project: "[project name]",
-    line: "[one line on what you built]",
-    stack: "[stack]",
-    team: [me, teammate],
-  },
-  {
-    event: "[HACKATHON NAME]",
-    year: "[year]",
+    event: "Hack the North",
     pastel: "peach",
-    project: "[project name]",
-    line: "[one line on what you built]",
-    stack: "[stack]",
-    team: [me, teammate, teammate, teammate],
+    project: "Whisker",
+    line: "your ai cooking mentor: it watches you cook through your camera and talks you through each step.",
+    devpost: "https://devpost.com/software/little-chef-vbl89d",
+    code: "https://github.com/m-abdulwahid/Kitchen-Companion",
+  },
+  {
+    event: "WinHacks",
+    pastel: "sky",
+    project: "OPCHARGE",
+    line: "uses machine learning algorithms to strategically suggest [rest of the line]",
+    winner: true,
+    devpost: "https://devpost.com/software/opcharge",
+    code: "https://github.com/Ahsan-khan/charger_challenge",
+  },
+  {
+    event: "HackCWRU",
+    pastel: "blush",
+    project: "CareCoin",
+    line: "an app that rounds up your daily transactions and donates [rest of the line]",
+    devpost: "https://devpost.com/software/carecoin",
   },
 ];
 
+export type VolunteerKind = "causes" | "events" | "communities";
+
 export type Volunteering = {
   org: string;
-  kind: "CAUSE" | "COMMUNITY" | "EVENT";
-  year: string;
-  role: string;
-  note: string;
+  kind: VolunteerKind;
+  role?: string;
+  note?: string;
+  dates?: string;
+  url?: string;
+  /** Colour of the role chip. */
   pastel: Pastel;
-  /** Resting tilt in degrees; the stamp straightens on hover. */
-  tilt: number;
 };
+
+/** Column order on the page, with each column's heading and colour. */
+export const volunteerKinds: { kind: VolunteerKind; label: string; pastel: Pastel }[] = [
+  { kind: "causes", label: "causes", pastel: "peach" },
+  { kind: "events", label: "events & programs", pastel: "lilac" },
+  { kind: "communities", label: "communities", pastel: "mint" },
+];
 
 export const volunteering: Volunteering[] = [
   {
     org: "Paper Airplanes",
-    kind: "CAUSE",
-    year: "[year]",
-    role: "english tutor",
-    note: "tutored a student doing her master's online, almost every week from august to december.",
+    kind: "causes",
+    role: "women in tech program mentor",
+    dates: "Feb 2025 – May 2026",
+    note: "Guided five students from conflict-affected countries, including Syria and Palestine, with career development, personal portfolios, and résumés.",
+    url: "https://www.paper-airplanes.org/women-in-tech-wit",
     pastel: "peach",
-    tilt: -2,
   },
-  { org: "[organization]", kind: "COMMUNITY", year: "[year]", role: "[role]", note: "[a sentence on what you did]", pastel: "mint", tilt: 1.5 },
-  { org: "[event]", kind: "EVENT", year: "[year]", role: "[role]", note: "[a sentence on what you did]", pastel: "lilac", tilt: -1 },
-  { org: "[organization]", kind: "CAUSE", year: "[year]", role: "[role]", note: "[a sentence on what you did]", pastel: "sky", tilt: 2 },
-  { org: "[community]", kind: "COMMUNITY", year: "[year]", role: "[role]", note: "[a sentence on what you did]", pastel: "blush", tilt: -1.5 },
-  { org: "[event]", kind: "EVENT", year: "[year]", role: "[role]", note: "[a sentence on what you did]", pastel: "gold", tilt: 1 },
+  {
+    org: "Paper Airplanes",
+    kind: "causes",
+    role: "english tutor",
+    dates: "Jan 2024 – Jan 2025",
+    note: "Tutored students from conflict-affected countries, including Afghanistan and Syria, through regular online English lessons to support their communication skills and career development.",
+    url: "https://www.paper-airplanes.org/english-program",
+    pastel: "sky",
+  },
+
+  {
+    org: "FLIGHT Camp",
+    kind: "events",
+    role: "mentor",
+    dates: "2025",
+    note: "Mentored high school students through their projects, providing guidance, feedback, and direction to help them develop their ideas.",
+    url: "https://uwaterloo.ca/women-in-computer-science/youth-programs/flight-future-leaders-innovating-go-higher-technology",
+    pastel: "lilac",
+  },
+  {
+    org: "Technovation Girls Waterloo",
+    kind: "events",
+    role: "event coordinator",
+    dates: "2025",
+    note: "Coordinated student project presentations, managed event timing, and guided high school participants through their showcase.",
+    url: "https://uwaterloo.ca/women-in-computer-science/youth-programs/technovation",
+    pastel: "blush",
+  },
+  {
+    org: "HawkHacks",
+    kind: "events",
+    role: "organizer",
+    dates: "2024",
+    note: "Helped run the three-day event, support hackers, and set up.",
+    url: "https://www.linkedin.com/company/hawkhacks/home/",
+    pastel: "mint",
+  },
+
+  {
+    org: "Waterloo Women in Computer Science (WiCS)",
+    kind: "communities",
+    role: "program volunteer",
+    dates: "May – Aug 2025",
+    note: "Supported outreach programs and events encouraging high school students to explore technology.",
+    url: "https://uwaterloo.ca/women-in-computer-science/",
+    pastel: "mint",
+  },
+  {
+    org: "Laurier Computing Society",
+    kind: "communities",
+    role: "engineer",
+    dates: "Jan – May 2024",
+    note: "Contributed to student-led initiatives and events within Laurier's computing community.",
+    url: "https://www.lauriercs.org/",
+    pastel: "gold",
+  },
+  {
+    org: "HawkHacks",
+    kind: "communities",
+    role: "engineer",
+    dates: "Nov 2023 – May 2024",
+    note: "Helped design and build the landing page and hacker portal.",
+    url: "https://www.linkedin.com/company/hawkhacks/home/",
+    pastel: "sky",
+  },
+  {
+    org: "Society of Women Engineers",
+    kind: "communities",
+    role: "membership coordinator",
+    dates: "Jan 2023 – May 2024",
+    note: "Conducted interviews and supported membership recruitment to help grow the Society of Women Engineers community.",
+    url: "https://swe.org/",
+    pastel: "peach",
+  },
+  {
+    org: "Enactus Laurier",
+    kind: "communities",
+    role: "web developer",
+    dates: "Mar – Aug 2022",
+    note: "Designed and built a website for the RJ Project to raise awareness of restorative justice education and encourage donations.",
+    url: "https://enactus.ca/",
+    pastel: "lilac",
+  },
 ];
