@@ -120,7 +120,7 @@ export const hackathons: Hackathon[] = [
     event: "WinHacks",
     pastel: "lilac",
     project: "Opcharge",
-    line: "uses machine learning algorithms to strategically suggest [rest of the line]",
+    line: "uses machine learning to identify optimal locations for new EV charging stations across Ontario’s Windsor-Essex region.",
     winner: true,
     photo: opcharge,
     devpost: "https://devpost.com/software/opcharge",
@@ -130,7 +130,7 @@ export const hackathons: Hackathon[] = [
     event: "Hack the North",
     pastel: "sky",
     project: "Whisker",
-    line: "your ai cooking mentor: it watches you cook through your camera and talks you through each step.",
+    line: "is an AI cooking assistant that guides you through recipes, offering step-by-step instructions in real time to help you cook.",
     devpost: "https://devpost.com/software/little-chef-vbl89d",
     code: "https://github.com/m-abdulwahid/Kitchen-Companion",
   },
@@ -138,8 +138,9 @@ export const hackathons: Hackathon[] = [
     event: "HackCWRU",
     pastel: "blush",
     project: "CareCoin",
-    line: "an app that rounds up your daily transactions and donates [rest of the line]",
+    line: "is a donation app that rounds up purchases and directs change to health research in developing countries.",
     devpost: "https://devpost.com/software/carecoin",
+    code: "https://github.com/AimaAlakhume/CareCoin"
   },
 ];
 
