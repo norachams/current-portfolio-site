@@ -20,6 +20,7 @@ import puzzle from "../../public/outside/puzzle.jpg";
 import puzzle2 from "../../public/outside/puzzle 2.jpg";
 import puzzle3 from "../../public/outside/puzzle 3.jpg";
 import traveling from "../../public/outside/travel pic.jpg";
+import opcharge from "../../public/opcharge.png"
 
 // Brackets mark content that still needs filling in. Add photos by importing them
 // from public/ (e.g. `import climbing from "../../public/outside/climbing.jpg"`).
@@ -121,6 +122,7 @@ export const hackathons: Hackathon[] = [
     project: "Opcharge",
     line: "uses machine learning algorithms to strategically suggest [rest of the line]",
     winner: true,
+    photo: opcharge,
     devpost: "https://devpost.com/software/opcharge",
     code: "https://github.com/Ahsan-khan/charger_challenge",
   },
