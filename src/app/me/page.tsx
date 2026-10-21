@@ -4,6 +4,7 @@ import Link from "next/link";
 import me from "../../../public/me/me2.jpg";
 import redbubble from "../../../public/me/redbubble.png";
 import AboutLabel from "@/components/AboutLabel";
+import PlaceLabel from "@/components/PlaceLabel";
 import { experience } from "@/data/experience";
 import type { Pastel } from "@/data/projects";
 
@@ -30,18 +31,20 @@ export default function MePage() {
     <main className="mx-auto flex w-full max-w-[1080px] flex-1 flex-col gap-24 px-4 pt-16 pb-24 min-[1112px]:px-0">
       <section className="flex flex-wrap items-end gap-12">
         {/* Same tilt for both: lilac card pokes out top-left, photo pokes out bottom-right. */}
-        <div className="relative h-[250px] w-[200px] shrink-0 -rotate-3">
-          <div aria-hidden="true" className="absolute top-0 left-0 h-[234px] w-[184px] rounded-card bg-lilac/60" />
-          <Image
-            src={me}
-            alt="nora standing in tall grass on a clifftop above the sea at sunset"
-            placeholder="blur"
-            sizes="184px"
-            loading="eager"
-            fetchPriority="high"
-            className="absolute right-0 bottom-0 h-[234px] w-[184px] rounded-card object-cover object-[50%_60%]"
-          />
-        </div>
+        <PlaceLabel place="somewhere in the north of Spain" className="shrink-0">
+          <div className="relative h-[250px] w-[200px] shrink-0 -rotate-3">
+            <div aria-hidden="true" className="absolute top-0 left-0 h-[234px] w-[184px] rounded-card bg-lilac/60" />
+            <Image
+              src={me}
+              alt="nora standing in tall grass on a clifftop above the sea at sunset"
+              placeholder="blur"
+              sizes="184px"
+              loading="eager"
+              fetchPriority="high"
+              className="absolute right-0 bottom-0 h-[234px] w-[184px] rounded-card object-cover object-[50%_60%]"
+            />
+          </div>
+        </PlaceLabel>
         <div className="flex min-w-0 flex-[1_1_420px] flex-col gap-4">
           <h1 className="font-serif text-[44px] leading-[1.15] font-normal tracking-[-0.015em]">hi, i&apos;m nora.</h1>
           <p className="max-w-[560px] text-[17px] leading-[1.6]">this is a little corner of the internet for the things I build, the things I try, and everything else I&apos;m figuring out along the way.</p>

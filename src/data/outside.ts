@@ -72,7 +72,7 @@ export const hobbies: Hobby[] = [
   {
     slug: "traveling",
     name: "traveling",
-    caption: "15 countries and counting",
+    caption: "16 countries and counting",
     pastel: "peach",
     photo: traveling,
     photoPosition: "50% 65%",
@@ -87,6 +87,7 @@ export const hobbies: Hobby[] = [
       "Lithuania",
       "France",
       "Hungary",
+      "Germany",
       "UAE",
       "Saudi Arabia",
       "Canada",
