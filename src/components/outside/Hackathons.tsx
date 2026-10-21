@@ -10,15 +10,17 @@ export default function Hackathons() {
           key={i}
           className="flex gap-6 rounded-card border border-line bg-paper-raised p-5 max-sm:flex-col max-sm:gap-4"
         >
-          {/* Team photo, or a labelled pastel square until it's in. */}
+          {/* Photo shrunk onto the pastel square so the colour frames it, or a labelled square until it's in. */}
           {hack.photo ? (
-            <Image
-              src={hack.photo}
-              alt={`team at ${hack.event}`}
-              placeholder="blur"
-              sizes="156px"
-              className="size-[156px] shrink-0 rounded-[10px] object-cover"
-            />
+            <div className={`${pastelSoft[hack.pastel]} flex size-[156px] shrink-0 items-center justify-center rounded-[10px] p-3`}>
+              <Image
+                src={hack.photo}
+                alt={`${hack.project} at ${hack.event}`}
+                placeholder="blur"
+                sizes="132px"
+                className="h-auto max-h-full w-auto max-w-full rounded-[6px]"
+              />
+            </div>
           ) : (
             <div
               aria-hidden="true"

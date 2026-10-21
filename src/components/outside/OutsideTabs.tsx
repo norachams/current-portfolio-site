@@ -9,11 +9,11 @@ import Photography, { type Walls } from "./Photography";
 import Volunteering from "./Volunteering";
 
 const tabs: { id: string; label: string; pastel: Pastel; Panel?: () => React.JSX.Element }[] = [
-  { id: "hobbies", label: "01 / HOBBIES", pastel: "mint", Panel: Hobbies },
-  { id: "hackathons", label: "02 / HACKATHONS", pastel: "lilac", Panel: Hackathons },
-  { id: "volunteering", label: "03 / VOLUNTEERING", pastel: "peach", Panel: Volunteering },
+  { id: "hobbies", label: "01 / hobbies", pastel: "mint", Panel: Hobbies },
+  { id: "hackathons", label: "02 / hackathons", pastel: "lilac", Panel: Hackathons },
+  { id: "volunteering", label: "03 / volunteering", pastel: "peach", Panel: Volunteering },
   // Photography needs the photo wall layout from the page, so it renders separately below.
-  { id: "photography", label: "04 / PHOTOGRAPHY", pastel: "sky" },
+  { id: "photography", label: "04 / photography", pastel: "sky" },
 ];
 
 export default function OutsideTabs({ walls }: { walls: Walls }) {

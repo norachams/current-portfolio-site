@@ -170,7 +170,7 @@ export const volunteering: Volunteering[] = [
     kind: "causes",
     role: "women in tech program mentor",
     dates: "Feb 2025 – May 2026",
-    note: "Guided five students from conflict-affected countries, including Syria and Palestine, with career development, personal portfolios, and résumés.",
+    note: "Guided five students from conflict-affected countries, including Syria and Palestine, with tech career development, building personal portfolios, and improving résumés.",
     url: "https://www.paper-airplanes.org/women-in-tech-wit",
     pastel: "peach",
   },
@@ -250,7 +250,7 @@ export const volunteering: Volunteering[] = [
   },
   {
     org: "Enactus Laurier",
-    kind: "communities",
+    kind: "causes",
     role: "web developer",
     dates: "Mar – Aug 2022",
     note: "Designed and built a website for the RJ Project to raise awareness of restorative justice education and encourage donations.",
