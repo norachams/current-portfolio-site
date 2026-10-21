@@ -21,8 +21,10 @@ export default function PlaceLabel({
 
   return (
     <>
+      {/* data-cursor-colour turns the cursor a new pastel here, as over the photography photos, and the tag matches it. */}
       <div
         className={className}
+        data-cursor-colour
         onPointerEnter={(e) => {
           if (e.pointerType !== "mouse") return;
           moveTo(e.clientX, e.clientY, true);

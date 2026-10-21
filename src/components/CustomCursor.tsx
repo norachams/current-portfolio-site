@@ -17,7 +17,8 @@ const fill: Record<string, string> = {
   blush: "bg-blush",
 };
 
-const CLICKABLE = "a, button, [role='tab'], [tabindex]:not([tabindex='-1'])";
+// Anything clickable, plus elements marked data-cursor-colour that should take a colour anyway (the me photo).
+const CLICKABLE = "a, button, [role='tab'], [tabindex]:not([tabindex='-1']), [data-cursor-colour]";
 
 /**
  * Site-wide rosewood circle that replaces the system cursor (hidden in globals.css).
