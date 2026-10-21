@@ -134,18 +134,18 @@ export const photos: Shot[] = [
   { image: p_london2, city: "London", country: "England" },
   { image: p_london5, city: "London", country: "England" },
   { image: p_madrid, city: "Madrid", country: "Spain" },
-  { image: p_mallorca_10, city: "Mallorca", country: "Spain" },
-  { image: p_mallorca_11, city: "Mallorca", country: "Spain" },
+  { image: p_mallorca_10, city: "Deià", region: "Mallorca", country: "Spain" },
+  { image: p_mallorca_11, city: "Deià",region: "Mallorca", country: "Spain" },
   { image: p_mallorca_2, city: "Mallorca", country: "Spain" },
-  { image: p_mallorca_4, city: "Mallorca", country: "Spain" },
+  { image: p_mallorca_4, city: "Deià", region: "Mallorca",country: "Spain" },
   { image: p_mallorca_5, city: "Mallorca", country: "Spain" },
   { image: p_mallorca_6, city: "Mallorca", country: "Spain" },
   { image: p_mallorca_7, city: "Mallorca", country: "Spain" },
-  { image: p_mallorca_8, city: "Mallorca", country: "Spain" },
+  { image: p_mallorca_8, city: "Deià", region: "Mallorca", country: "Spain" },
   { image: p_mallorca_9, city: "Mallorca", country: "Spain" },
-  { image: p_mallorca, city: "Mallorca", country: "Spain" },
+  { image: p_mallorca, city: "Sóller", region: "Mallorca", country: "Spain" },
   { image: p_mallorca13, city: "Mallorca", country: "Spain" },
-  { image: p_mallorca15, city: "Mallorca", country: "Spain" },
+  { image: p_mallorca15, city: "Deià", region: "Mallorca", country: "Spain" },
   { image: p_mississauga, city: "Mississauga", country: "Canada" },
   { image: p_mississauga2, city: "Mississauga", country: "Canada" },
   { image: p_netherlands2, city: "Zaanse Schans", country: "Netherlands" },
@@ -176,7 +176,7 @@ export const photos: Shot[] = [
   { image: p_wales_5, city: "Fishguard", country: "Wales" },
   { image: p_wales, city: "Fishguard", country: "Wales" },
   { image: p_wexford1, city: "Wexford", country: "Ireland" },
-  { image: p_zaandam, city: "Zaandam", country: "Netherlands" },
+  { image: p_zaandam, city: "Zaanse Schans", country: "Netherlands" },
   { image: p_zaandam2, city: "Zaandam", country: "Netherlands" },
   { image: p_biarritz, city: "Biarritz", country: "France" },
   { image: p_wexford_ireland, city: "Wexford", country: "Ireland" },
@@ -185,7 +185,7 @@ export const photos: Shot[] = [
   { image: p_spain, country: "Spain" }, // [city?]
   { image: p_spain_1, country: "Spain" }, // [city?]
   { image: p_spain2, country: "Spain" }, // [city?]
-  { image: p_spain6, country: "Spain" }, // [city?]
+  { image: p_spain6, city: "Cudillero", country: "Spain" }, // [city?]
   { image: p_spain9, country: "Spain" }, // [city?]
 ];
 
@@ -198,16 +198,17 @@ export function placeOf(shot: Shot) {
 /** Shown first, in this order, at the top of the wall. Everything else is arranged after them. */
 export const featured: StaticImageData[] = [
   p_amsterdam,
-  p_bilbao4,
-  p_budapest,
   p_ireland_2,
+  p_bilbao4,
+  p_spain6,
+  p_mallorca15,
+  p_budapest,
   p_wales_5,
   p_zaandam,
   p_tobermory,
   p_scotland_4,
   p_picos_de_europa5,
   p_netherlands2,
-  p_mallorca15,
   p_mississauga,
 ];
 

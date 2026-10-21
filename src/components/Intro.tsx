@@ -1,11 +1,11 @@
 import type { ReactNode } from "react";
 
 // Marker highlight: the bottom ~42% of the word filled with its pastel at ~45% alpha, the same soft tint as tags and tabs elsewhere.
-// The first screen sticks to three pastels; peach and sky echo the caramel and medibook videos below.
+// The first screen sticks to three pastels; peach and lilac echo the caramel and voz videos below.
 const marker = {
   mint: "bg-[linear-gradient(transparent_58%,rgb(145_199_177/0.45)_58%)]",
-  sky: "bg-[linear-gradient(transparent_58%,rgb(180_205_230/0.45)_58%)]",
   peach: "bg-[linear-gradient(transparent_58%,rgb(243_201_173/0.45)_58%)]",
+  lilac: "bg-[linear-gradient(transparent_58%,rgb(207_193_230/0.45)_58%)]",
 };
 
 type MarkerColor = keyof typeof marker;
@@ -36,7 +36,7 @@ export default function Intro() {
     <section className="flex flex-col gap-6">
       <h1 className="max-w-[940px] font-serif text-[44px] leading-[1.15] font-normal tracking-[-0.015em]">
         i am an<Mark color="peach">engineer</Mark> who cares about the <Mark color="mint">product</Mark> and
-        the <Mark color="sky">design</Mark> as much as{" "}
+        the <Mark color="lilac">design</Mark> as much as{" "}
         <span className="whitespace-nowrap">
           the code.
         </span>
@@ -58,7 +58,7 @@ export default function Intro() {
             </SmallMark>
           </li>
           <li>
-            finishing a <SmallMark color="sky">DD in CS and BBA</SmallMark>
+            finishing a<SmallMark color="lilac">dd in cs and bba</SmallMark>
           </li>
         </ul>
       </div>

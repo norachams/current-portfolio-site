@@ -74,8 +74,10 @@ export default function WorkSection({ projects }: { projects: Project[] }) {
       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-7 gap-y-9">
         {projects.map((project) => (
           <li key={project.slug}>
+            {/* A project with its own url opens it in a new tab; the rest go to their case study. */}
             <Link
-              href={`/work/${project.slug}`}
+              href={project.url ?? `/work/${project.slug}`}
+              {...(project.url && { target: "_blank", rel: "noopener noreferrer" })}
               aria-label={`${project.name}: ${project.note}`}
               onPointerEnter={onPointerEnter(project)}
               onPointerMove={onPointerMove}

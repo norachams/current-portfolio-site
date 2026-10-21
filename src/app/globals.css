@@ -83,7 +83,8 @@ body {
 }
 
 /* Cats on the outside work page: each is a frame sprite cut on hold times (step-end, no tweening).
-   Caramella swishes her tail twice and blinks; Woody looks up, lays his head down and blinks. */
+   Caramella swishes her tail twice and blinks; Woody looks up, lays his head down, gets sleepy eyes for
+   a while, opens them again and looks back up. */
 .cat-sprite {
   display: block;
   background-repeat: no-repeat;
@@ -104,6 +105,28 @@ body {
   background-image: url("/outside/cats/woody-loop.webp");
   background-size: 582px 124px;
   animation-name: woody-frames;
+  animation-duration: 10s;
+}
+/* Soft grey sky behind the cats: overlapping blurry light and shadow blobs on warm grey. */
+.cat-clouds {
+  --cloud-base: #e4dfd8;
+  --cloud-light: rgb(255 255 255 / 0.75);
+  --cloud-shade: rgb(196 188 178 / 0.55);
+  background:
+    radial-gradient(ellipse 45% 35% at 18% 22%, var(--cloud-light), transparent 70%),
+    radial-gradient(ellipse 40% 30% at 72% 15%, var(--cloud-light), transparent 70%),
+    radial-gradient(ellipse 50% 32% at 50% 48%, var(--cloud-light), transparent 72%),
+    radial-gradient(ellipse 38% 28% at 88% 55%, var(--cloud-shade), transparent 70%),
+    radial-gradient(ellipse 42% 30% at 10% 70%, var(--cloud-shade), transparent 70%),
+    radial-gradient(ellipse 60% 30% at 60% 95%, var(--cloud-shade), transparent 72%),
+    var(--cloud-base);
+}
+@media (prefers-color-scheme: dark) {
+  .cat-clouds {
+    --cloud-base: #3b3537;
+    --cloud-light: rgb(255 255 255 / 0.12);
+    --cloud-shade: rgb(0 0 0 / 0.22);
+  }
 }
 @keyframes caramella-frames {
   0% { background-position-x: 0; }
@@ -115,13 +138,14 @@ body {
   57.86% { background-position-x: 0; }
   97.86% { background-position-x: -304px; }
 }
+/* Over 10s: head up 2s, head down 2.5s, sleepy eyes 3.5s, eyes open again 2s.
+   His sleepy-eyes frame is drawn about 2% smaller and a few pixels off from his head-down frame, so it's
+   scaled up and shifted (measured from the sprite) to keep him the same size. */
 @keyframes woody-frames {
-  0% { background-position-x: 0; }
-  28.57% { background-position-x: -194px; }
-  60% { background-position-x: -388px; }
-  62.14% { background-position-x: -194px; }
-  85% { background-position-x: -388px; }
-  87.14% { background-position-x: -194px; }
+  0% { background-position: 0 0; }
+  20% { background-position: -194px 0; }
+  45% { background-size: 593.88px 126.53px; background-position: -397.62px -1.7px; }
+  80% { background-size: 582px 124px; background-position: -194px 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
