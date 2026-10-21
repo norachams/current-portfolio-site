@@ -10,8 +10,12 @@ export default function Hackathons() {
           key={i}
           className="flex gap-6 rounded-card border border-line bg-paper-raised p-5 max-sm:flex-col max-sm:gap-4"
         >
-          {/* Photo shrunk onto the pastel square so the colour frames it, or a labelled square until it's in. */}
-          {hack.photo ? (
+          {/* Clip or photo shrunk onto the pastel square so the colour frames it, or a labelled square until it's in. */}
+          {hack.video ? (
+            <div className={`${pastelSoft[hack.pastel]} flex size-[156px] shrink-0 items-center justify-center rounded-[10px] p-3`}>
+              <PhoneClip src={hack.video} />
+            </div>
+          ) : hack.photo ? (
             <div className={`${pastelSoft[hack.pastel]} flex size-[156px] shrink-0 items-center justify-center rounded-[10px] p-3`}>
               <Image
                 src={hack.photo}
@@ -48,6 +52,27 @@ export default function Hackathons() {
         </article>
       ))}
     </section>
+  );
+}
+
+/**
+ * The phone-mockup clips are exported on black (mp4 can't keep transparency), so this crops the video
+ * to the phone's own outline, rounded to match its corners. Measured from the 672×1280 export:
+ * the phone spans x 69–603, y 69–1248, with corners of about a 63px radius.
+ */
+function PhoneClip({ src }: { src: string }) {
+  return (
+    <div className="relative aspect-[535/1180] h-full overflow-hidden rounded-[11.8%/5.3%]">
+      <video
+        src={src}
+        autoPlay
+        loop
+        muted
+        playsInline
+        aria-hidden="true"
+        className="absolute top-[-5.85%] left-[-12.9%] h-[108.47%] w-[125.61%] max-w-none motion-reduce:hidden"
+      />
+    </div>
   );
 }
 

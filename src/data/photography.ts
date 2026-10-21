@@ -78,7 +78,7 @@ import p_wexford1 from "../../public/photography/wexford1.jpg";
 import p_zaandam from "../../public/photography/zaandam.jpg";
 import p_zaandam2 from "../../public/photography/zaandam2.jpg";
 import p_biarritz from "../../public/photography/biarritz.jpg";
-import p_wexford_ireland from "../../public/photography/wexford-ireland.jpg";
+import p_westport_ireland from "../../public/photography/westport-ireland.jpg";
 import p_brussels from "../../public/photography/brussels.jpg";
 import p_paris3 from "../../public/photography/paris3.jpg";
 import p_spain from "../../public/photography/spain.jpg";
@@ -179,7 +179,7 @@ export const photos: Shot[] = [
   { image: p_zaandam, city: "Zaanse Schans", country: "Netherlands" },
   { image: p_zaandam2, city: "Zaandam", country: "Netherlands" },
   { image: p_biarritz, city: "Biarritz", country: "France" },
-  { image: p_wexford_ireland, city: "Wexford", country: "Ireland" },
+  { image: p_westport_ireland, city: "Westport", country: "Ireland" },
   { image: p_brussels, city: "Brussels", country: "Belgium" },
   { image: p_paris3, city: "Paris", country: "France" },
   { image: p_spain, country: "Spain" }, // [city?]

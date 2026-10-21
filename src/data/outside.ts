@@ -21,6 +21,8 @@ import puzzle2 from "../../public/outside/puzzle 2.jpg";
 import puzzle3 from "../../public/outside/puzzle 3.jpg";
 import traveling from "../../public/outside/travel pic.jpg";
 import opcharge from "../../public/opcharge.png"
+import whisker from "../../public/whisker.png"
+
 
 // Brackets mark content that still needs filling in. Add photos by importing them
 // from public/ (e.g. `import climbing from "../../public/outside/climbing.jpg"`).
@@ -111,6 +113,8 @@ export type Hackathon = {
   winner?: boolean;
   /** Team photo; a labelled pastel square shows until it's in. */
   photo?: StaticImageData;
+  /** Looping phone-mockup clip from public/, shown in place of the photo. */
+  video?: string;
   devpost?: string;
   code?: string;
 };
@@ -131,6 +135,7 @@ export const hackathons: Hackathon[] = [
     pastel: "sky",
     project: "Whisker",
     line: "is an AI cooking assistant that guides you through recipes, offering step-by-step instructions in real time to help you cook.",
+    photo: whisker,
     devpost: "https://devpost.com/software/little-chef-vbl89d",
     code: "https://github.com/m-abdulwahid/Kitchen-Companion",
   },
@@ -139,6 +144,7 @@ export const hackathons: Hackathon[] = [
     pastel: "blush",
     project: "CareCoin",
     line: "is a donation app that rounds up purchases and directs change to health research in developing countries.",
+    video: "/projects/carecoin.mp4",
     devpost: "https://devpost.com/software/carecoin",
     code: "https://github.com/AimaAlakhume/CareCoin"
   },
