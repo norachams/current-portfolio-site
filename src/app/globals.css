@@ -82,6 +82,12 @@ body {
   outline-offset: 2px;
 }
 
+/* Selected text turns rosewood like the cursor, on a soft tint of the same colour. */
+::selection {
+  background: color-mix(in srgb, var(--rosewood) 20%, transparent);
+  color: var(--rosewood);
+}
+
 /* Cats on the outside work page: each is a frame sprite cut on hold times (step-end, no tweening).
    Caramella swishes her tail twice and blinks; Woody looks up, lays his head down, gets sleepy eyes for
    a while, opens them again and looks back up. */

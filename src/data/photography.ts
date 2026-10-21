@@ -150,7 +150,7 @@ export const photos: Shot[] = [
   { image: p_mississauga2, city: "Mississauga", country: "Canada" },
   { image: p_netherlands2, city: "Zaanse Schans", country: "Netherlands" },
   { image: p_nida, city: "Nida", country: "Lithuania" },
-  { image: p_nyc, city: "New York", country: "USA" },
+  { image: p_nyc, city: "New York City", country: "USA" },
   { image: p_paris, city: "Paris", country: "France" },
   { image: p_picos_de_europa, city: "Picos de Europa", country: "Spain" },
   { image: p_picos_de_europa1, city: "Picos de Europa", country: "Spain" },
