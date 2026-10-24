@@ -80,7 +80,7 @@ export const projects: Project[] = [
     slug: "SwapOut",
     name: "SwapOut",
     meta: "class project",
-    note: "Tinder for thrifting! A clothing swap app built with Kotlin for my Application Development course at the University of Waterloo, where users swipe through clothes nearby, save favourites, and chat to arrange trades.",
+    note: "Tinder for thrifting! A clothing swap app built with Kotlin for my Application Development course at the University of Waterloo, where users swipe through clothes nearby, save favourites and chat to arrange trades.",
     pastel: "peach",
     media: { type: "video", src: "/projects/swapout.mp4" },
   },

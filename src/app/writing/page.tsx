@@ -10,8 +10,6 @@ export const metadata: Metadata = {
 
 const medium = socials.find((s) => s.label === "medium");
 
-const monthYear = new Intl.DateTimeFormat("en", { month: "short", year: "numeric" });
-
 const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 
 export default async function WritingPage() {
@@ -25,7 +23,7 @@ export default async function WritingPage() {
           <h1 className="font-serif text-[44px] leading-[1.15] font-normal tracking-[-0.015em]">writing</h1>
           <p className="max-w-[560px] text-base leading-[1.65]">
             {posts.length > 0
-              ? "Things I’ve written, mostly about what I’m learning."
+              ? "Things I’ve written, mostly about what I’m learning and building."
               : "My writing lives on Medium for now."}
           </p>
         </div>
@@ -44,7 +42,7 @@ export default async function WritingPage() {
 
       {more.length > 0 && (
         <section aria-labelledby="more-heading" className="mt-16 flex flex-col">
-          <h2 id="more-heading" className="font-serif text-[22px] font-semibold italic">
+          <h2 id="more-heading" className="font-serif text-[22px] leading-[1.3] font-normal">
             more
           </h2>
           <ul className="mt-3 border-t border-line">
@@ -75,10 +73,10 @@ function FeaturedPost({ post }: { post: MediumPost }) {
         )}
       </div>
       <div className="flex flex-col gap-3">
-        <span className="font-mono text-[11px] tracking-[0.06em] text-ink-muted uppercase">
-          latest · {monthYear.format(post.date)}
+        <span className="font-mono text-[11px] tracking-[0.06em] text-ink-muted ">
+          Latest
         </span>
-        <span className="font-serif text-[36px] leading-[1.15] decoration-rosewood decoration-2 underline-offset-4 group-hover:underline">
+        <span className="font-serif text-[28px] leading-[1.2] decoration-rosewood decoration-2 underline-offset-3 group-hover:underline">
           {post.title}
         </span>
         {post.excerpt && <span className="text-[15px] leading-[1.6]">{post.excerpt}</span>}
@@ -93,11 +91,10 @@ function PostRow({ post }: { post: MediumPost }) {
     <a
       href={post.url}
       {...external}
-      className="group grid grid-cols-1 gap-1 py-6 text-ink sm:grid-cols-[155px_1fr_auto] sm:items-baseline sm:gap-x-6"
+      className="group grid grid-cols-1 gap-1 py-6 text-ink sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-x-6"
     >
-      <span className="font-mono text-xs text-ink-muted lowercase">{monthYear.format(post.date)}</span>
       <span className="flex flex-col gap-1">
-        <span className="font-serif text-2xl leading-[1.25] decoration-rosewood decoration-2 underline-offset-4 group-hover:underline">
+        <span className="font-serif text-2xl leading-[1.2] decoration-rosewood decoration-2 underline-offset-3 group-hover:underline">
           {post.title}
         </span>
         {post.excerpt && <span className="text-sm leading-[1.5] text-ink-muted">{post.excerpt}</span>}
