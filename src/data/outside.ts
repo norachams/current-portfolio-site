@@ -178,7 +178,7 @@ export const volunteering: Volunteering[] = [
     kind: "causes",
     role: "women in tech program mentor",
     dates: "Feb 2025 – May 2026",
-    note: "Guided five students from conflict-affected countries, including Syria and Palestine, with tech career development, building personal portfolios, and improving résumés.",
+    note: "Mentored five students from conflict-affected countries, including Syria and Palestine, in web development and career growth, helping them build personal portfolios, strengthen their résumés, and develop technical skills.",
     url: "https://www.paper-airplanes.org/women-in-tech-wit",
     pastel: "peach",
   },

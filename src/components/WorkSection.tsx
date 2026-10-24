@@ -74,22 +74,30 @@ export default function WorkSection({ projects }: { projects: Project[] }) {
       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-7 gap-y-9">
         {projects.map((project) => (
           <li key={project.slug}>
-            {/* A project with its own url opens it in a new tab; the rest go to their case study. */}
-            <Link
-              href={project.url ?? `/work/${project.slug}`}
-              {...(project.url && { target: "_blank", rel: "noopener noreferrer" })}
-              aria-label={`${project.name}: ${project.note}`}
-              onPointerEnter={onPointerEnter(project)}
-              onPointerMove={onPointerMove}
-              onPointerLeave={() => setActive(null)}
-              className="flex flex-col gap-2.5 rounded-card text-ink"
-            >
-              <ProjectMedia project={project} />
-              <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1">
-                <span className="font-serif text-2xl leading-[1.2]">{project.name}</span>
-                <span className="font-mono text-[11px] text-ink-muted">{project.meta}</span>
+            {/* Projects with a url open it in a new tab; the rest (no link yet) are just shown. */}
+            {project.url ? (
+              <Link
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${project.name}: ${project.note}`}
+                onPointerEnter={onPointerEnter(project)}
+                onPointerMove={onPointerMove}
+                onPointerLeave={() => setActive(null)}
+                className="flex flex-col gap-2.5 rounded-card text-ink"
+              >
+                <ProjectCard project={project} />
+              </Link>
+            ) : (
+              <div
+                onPointerEnter={onPointerEnter(project)}
+                onPointerMove={onPointerMove}
+                onPointerLeave={() => setActive(null)}
+                className="flex flex-col gap-2.5 rounded-card text-ink"
+              >
+                <ProjectCard project={project} />
               </div>
-            </Link>
+            )}
           </li>
         ))}
       </ul>
@@ -104,11 +112,23 @@ export default function WorkSection({ projects }: { projects: Project[] }) {
         {active && (
           <div className={`${pastelSoft[active.pastel]} flex flex-col gap-2 rounded-xl px-3.5 py-3 text-on-pastel`}>
             <span className="text-[13px] leading-[1.45]">{active.note}</span>
-            <span className="font-mono text-[11px]">click to open →</span>
+            {active.url && <span className="font-mono text-[11px]">click to open →</span>}
           </div>
         )}
       </div>
     </section>
+  );
+}
+
+function ProjectCard({ project }: { project: Project }) {
+  return (
+    <>
+      <ProjectMedia project={project} />
+      <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1">
+        <span className="font-serif text-2xl leading-[1.2]">{project.name}</span>
+        <span className="font-mono text-[11px] text-ink-muted">{project.meta}</span>
+      </div>
+    </>
   );
 }
 

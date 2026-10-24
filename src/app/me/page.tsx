@@ -57,7 +57,7 @@ export default function MePage() {
           <h2 className={blockTitle}>Building from 0 to 1</h2>
           <p className="text-[15px] leading-[1.65]">
             I love the early stages of building a product, when it&apos;s still an idea and you get to figure out what
-            people actually need. I enjoy exploring possibilities, taking ownership, and wearing multiple hats to bring
+            people actually need. I enjoy exploring possibilities, taking ownership and wearing multiple hats to bring
             an idea to life.
           </p>
         </article>
@@ -67,7 +67,7 @@ export default function MePage() {
           <h2 className={blockTitle}>People first, always</h2>
           <p className="text-[15px] leading-[1.65]">
             I care about the user experience as much as the code. I like understanding how people think and what they
-            need, then bringing engineering, product, and design together to build interfaces that feel intuitive and
+            need, then bringing engineering, product and design together to build interfaces that feel intuitive and
             enjoyable to use.
           </p>
         </article>
@@ -150,7 +150,7 @@ export default function MePage() {
               </span>
             </span>
             . These days, I&apos;m
-            interested in startups, exploring new ideas, and building things of my own.
+            interested in startups, exploring new ideas and building things of my own.
           </p>
           <p>
             Outside of work, I climb, ice skate and explore new places. In winter
