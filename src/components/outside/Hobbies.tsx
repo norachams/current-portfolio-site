@@ -183,6 +183,12 @@ function HobbyCard({
         <span className="text-sm leading-normal text-ink-muted">
           <CaptionText caption={hobby.caption} />
         </span>
+        {/* Touch has no trail to discover, so it says the photo opens a row. */}
+        {hasMore && (
+          <span className="hidden font-mono text-[11px] text-rosewood [@media(hover:none)]:block">
+            {isOpen ? "tap the photo to close" : countries ? "tap the photo for the countries" : "tap the photo for more"}
+          </span>
+        )}
       </figcaption>
 
       {isOpen && countries && (

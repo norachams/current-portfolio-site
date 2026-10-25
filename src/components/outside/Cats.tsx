@@ -62,7 +62,14 @@ export default function Cats({ aspectRatio, className = "" }: { aspectRatio?: st
       </div>
       <figcaption className="flex flex-col gap-1">
         <span className="font-serif text-[22px] leading-[1.2]">cat mom of</span>
-        <span className="text-sm leading-normal text-ink-muted">Caramella and Woody</span>
+        <span className="text-sm leading-normal text-ink-muted">
+
+          <span className="[@media(hover:none)]:hidden">Caramella and Woody</span>
+          {/* Touch can't hover the cats for their name tags, so their ages go in the caption. */}
+          <span className="hidden [@media(hover:none)]:inline">
+            {cats.map((cat) => `${cat.name} (${cat.age})`).join(" and ")}
+          </span>
+        </span>
       </figcaption>
     </figure>
   );

@@ -128,6 +128,8 @@ function ProjectCard({ project }: { project: Project }) {
         <span className="font-serif text-2xl leading-[1.2]">{project.name}</span>
         <span className="font-mono text-[11px] text-ink-muted">{project.meta}</span>
       </div>
+      {/* No cursor note on touch, so the description shows under the card instead. */}
+      <p className="hidden text-sm leading-[1.5] text-ink-muted [@media(hover:none)]:block">{project.note}</p>
     </>
   );
 }

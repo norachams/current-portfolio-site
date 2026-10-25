@@ -34,6 +34,8 @@ export default function PlaceLabel({
         onPointerLeave={() => setHovering(false)}
       >
         {children}
+        {/* No cursor tag on touch, so the place shows under the photo instead, like the photography wall. */}
+        <span className="hidden pt-3 font-serif text-base [@media(hover:none)]:block">{place}</span>
       </div>
       <div ref={ref} aria-hidden="true" className={`pointer-events-none fixed top-0 left-0 z-20 ${hovering ? "" : "invisible"}`}>
         {/* Same tag as the photography place labels, just right of the cursor. */}

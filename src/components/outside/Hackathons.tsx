@@ -2,6 +2,9 @@ import Image from "next/image";
 import { hackathons } from "@/data/outside";
 import { pastelSoft } from "@/lib/pastels";
 
+// A small square beside the text on wider screens; on phones the card stacks, so it fills the card's width.
+const frame = "flex size-[156px] shrink-0 items-center justify-center rounded-[10px] max-sm:h-[260px] max-sm:w-full";
+
 export default function Hackathons() {
   return (
     <section aria-label="Hackathons" className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -12,23 +15,24 @@ export default function Hackathons() {
         >
           {/* Clip or photo shrunk onto the pastel square so the colour frames it, or a labelled square until it's in. */}
           {hack.video ? (
-            <div className={`${pastelSoft[hack.pastel]} flex size-[156px] shrink-0 items-center justify-center rounded-[10px] p-3`}>
+            <div className={`${pastelSoft[hack.pastel]} ${frame} p-3`}>
               <PhoneClip src={hack.video} />
             </div>
           ) : hack.photo ? (
-            <div className={`${pastelSoft[hack.pastel]} flex size-[156px] shrink-0 items-center justify-center rounded-[10px] p-3`}>
+            // Photos are landscape, so on phones the frame hugs the photo's height instead.
+            <div className={`${pastelSoft[hack.pastel]} ${frame} p-3 max-sm:h-auto`}>
               <Image
                 src={hack.photo}
                 alt={`${hack.project} at ${hack.event}`}
                 placeholder="blur"
-                sizes="132px"
+                sizes="(max-width: 639px) 100vw, 132px"
                 className="h-auto max-h-full w-auto max-w-full rounded-[6px]"
               />
             </div>
           ) : (
             <div
               aria-hidden="true"
-              className={`${pastelSoft[hack.pastel]} flex size-[156px] shrink-0 items-center justify-center rounded-[10px] font-mono text-xs text-on-pastel`}
+              className={`${pastelSoft[hack.pastel]} ${frame} font-mono text-xs text-on-pastel`}
             >
               [team photo]
             </div>

@@ -28,7 +28,8 @@ export default function Footer() {
 
   return (
     <footer className="mx-auto w-full max-w-[1080px] px-4 min-[1112px]:px-0">
-      <div className="flex flex-wrap items-end justify-between gap-7 border-t border-line pt-8 pb-10">
+      {/* On phones it stacks: links, then the signature and v2 on one row beneath. */}
+      <div className="flex flex-wrap items-end justify-between gap-7 border-t border-line pt-8 pb-10 max-sm:flex-col max-sm:items-stretch">
         <div className="flex flex-col gap-3">
           <h2 className="font-serif text-[22px] leading-[1.3] font-normal">say hi</h2>
           <ul className="flex flex-wrap items-center gap-x-[22px] gap-y-2 font-mono text-[13px]">
@@ -64,7 +65,7 @@ export default function Footer() {
         </div>
 
         {/* v2 sits above the signature, which lines up with the links along the bottom. */}
-        <div className="flex flex-col items-end gap-3">
+        <div className="flex flex-col items-end gap-3 max-sm:flex-row-reverse max-sm:items-baseline max-sm:justify-between">
           <OldSiteLink />
           <Signature />
         </div>
