@@ -9,4 +9,5 @@ export const socials: { label: string; url: string }[] = [
 /** Copied to the clipboard by the footer's email button. */
 export const email = "nchamseddin@gmail.com";
 
-export const oldSiteUrl = "https://v2.norachams.com/";
+/** The footer's "last updated" links here: the site's commit history. */
+export const sourceUrl = "https://github.com/norachams/current-portfolio-site/commits/main";
