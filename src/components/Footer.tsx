@@ -27,7 +27,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="mx-auto w-full max-w-[1080px] px-4 min-[1112px]:px-0">
+    <footer className="edge-width">
       {/* On phones it stacks: links, then the signature and v2 on one row beneath. */}
       <div className="flex flex-wrap items-end justify-between gap-7 border-t border-line pt-8 pb-10 max-sm:flex-col max-sm:items-stretch">
         <div className="flex flex-col gap-3">

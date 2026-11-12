@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, ViewTransition } from "react";
 import type { Project } from "@/data/projects";
 import { pastelSoft } from "@/lib/pastels";
 
@@ -21,6 +21,23 @@ export default function WorkSection({ projects }: { projects: Project[] }) {
     const onChange = (e: MediaQueryListEvent) => (reducedMotion.current = e.matches);
     query.addEventListener("change", onChange);
     return () => query.removeEventListener("change", onChange);
+  }, []);
+
+  // Opening a card leaves the page (new tab, or the case study) without a pointerleave, so the note
+  // would stay up when you come back. Hide it whenever the page loses focus or is hidden, and when this
+  // page is unmounted or put aside by navigation (its state is kept for the back button).
+  useEffect(() => {
+    const hide = () => setActive(null);
+    const onVisibility = () => document.visibilityState === "hidden" && hide();
+    window.addEventListener("blur", hide);
+    window.addEventListener("pagehide", hide);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      window.removeEventListener("blur", hide);
+      window.removeEventListener("pagehide", hide);
+      document.removeEventListener("visibilitychange", onVisibility);
+      hide();
+    };
   }, []);
 
   // Soft-lag follow: lerp toward the cursor each frame, transform only.
@@ -74,16 +91,18 @@ export default function WorkSection({ projects }: { projects: Project[] }) {
       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-7 gap-y-9">
         {projects.map((project) => (
           <li key={project.slug}>
-            {/* Projects with a url open it in a new tab; the rest (no link yet) are just shown. */}
-            {project.url ? (
+            {/* Case studies open in the same tab; other projects with a url open it in a new tab; the rest are just shown. */}
+            {project.caseStudy || project.url ? (
               <Link
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={project.caseStudy ?? project.url!}
+                {...(project.caseStudy
+                  ? { transitionTypes: ["nav-forward"] }
+                  : { target: "_blank", rel: "noopener noreferrer" })}
                 aria-label={`${project.name}: ${project.note}`}
                 onPointerEnter={onPointerEnter(project)}
                 onPointerMove={onPointerMove}
                 onPointerLeave={() => setActive(null)}
+                onClick={() => setActive(null)}
                 className="flex flex-col gap-2.5 rounded-card text-ink"
               >
                 <ProjectCard project={project} />
@@ -112,7 +131,11 @@ export default function WorkSection({ projects }: { projects: Project[] }) {
         {active && (
           <div className={`${pastelSoft[active.pastel]} flex flex-col gap-2 rounded-xl px-3.5 py-3 text-on-pastel`}>
             <span className="text-[13px] leading-[1.45]">{active.note}</span>
-            {active.url && <span className="font-mono text-[11px]">click to open →</span>}
+            {active.caseStudy ? (
+              <span className="font-mono text-[11px]">read the case study →</span>
+            ) : (
+              active.url && <span className="font-mono text-[11px]">click to open →</span>
+            )}
           </div>
         )}
       </div>
@@ -123,7 +146,14 @@ export default function WorkSection({ projects }: { projects: Project[] }) {
 function ProjectCard({ project }: { project: Project }) {
   return (
     <>
-      <ProjectMedia project={project} />
+      {/* Case study cards share a name with the case study hero, so the clip morphs into it. */}
+      {project.caseStudy ? (
+        <ViewTransition name={`project-media-${project.slug}`} share="morph" default="none">
+          <ProjectMedia project={project} />
+        </ViewTransition>
+      ) : (
+        <ProjectMedia project={project} />
+      )}
       <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1">
         <span className="font-serif text-2xl leading-[1.2]">{project.name}</span>
         <span className="font-mono text-[11px] text-ink-muted">{project.meta}</span>

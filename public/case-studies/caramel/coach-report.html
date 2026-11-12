@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>*,*::before,*::after{box-sizing:border-box} body{margin:0} img{max-width:100%}</style>
+<title>Maya's Next Moves</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: one warm reading column, a pipeline strip up top, three numbered steps as the core */
+  :root {
+    --bg: #FBF9F5;
+    --surface: #FFFDF9;
+    --soft: #F6E7D0;
+    --line: #E6DFD8;
+    --fg: #5C3417;
+    --fg2: #7A5238;
+    --fg3: #8A6A52;
+    --accent: #D98829;
+    --accent-ink: #9A5C12;
+    --good: #4F7A3A;
+    --good-bg: #EAF2E3;
+    --bad: #A04A3A;
+    --bad-bg: #F7E6E1;
+    --wait-bg: #EFE5D7;
+    --display: "Quicksand", "Avenir Next", system-ui, sans-serif;
+    --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1E1712; --surface: #271E18; --soft: #3A2A1C; --line: #3D3129;
+      --fg: #F3E6D8; --fg2: #D9C3AE; --fg3: #B39A84;
+      --accent: #E6A45C; --accent-ink: #F0BC7E;
+      --good: #9CC788; --good-bg: #24301E; --bad: #E39A88; --bad-bg: #3A221D; --wait-bg: #322820;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1E1712; --surface: #271E18; --soft: #3A2A1C; --line: #3D3129;
+    --fg: #F3E6D8; --fg2: #D9C3AE; --fg3: #B39A84;
+    --accent: #E6A45C; --accent-ink: #F0BC7E;
+    --good: #9CC788; --good-bg: #24301E; --bad: #E39A88; --bad-bg: #3A221D; --wait-bg: #322820;
+    color-scheme: dark;
+  }
+
+  body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 16px; line-height: 1.6; }
+  .wrap { max-width: 720px; margin: 0 auto; padding-block: 48px 72px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+    display: flex; flex-direction: column; gap: 48px; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 700; text-wrap: balance; margin: 0; line-height: 1.2; }
+  h1 { font-size: 2.25rem; }
+  h2 { font-size: 1.4rem; }
+  h3 { font-size: 1.1rem; }
+  p { margin: 0; }
+  .eyebrow { font-family: var(--mono); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--fg3); }
+  .lede { color: var(--fg2); font-size: 1.05rem; max-width: 62ch; }
+  header { display: flex; flex-direction: column; gap: 12px; }
+  section { display: flex; flex-direction: column; gap: 16px; }
+  .muted { color: var(--fg2); }
+
+  /* funnel */
+  .funnel { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .stage { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 4px; }
+  .stage b { font-family: var(--display); font-size: 2rem; line-height: 1; font-variant-numeric: tabular-nums; }
+  .stage span { font-size: .85rem; color: var(--fg2); }
+  .stage.hi { background: var(--soft); border-color: transparent; }
+
+  /* pipeline table */
+  .tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+  table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child td { border-bottom: 0; }
+  th { font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--fg3); font-weight: 500; }
+  td.d { font-family: var(--mono); font-size: .82rem; color: var(--fg3); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .pill { display: inline-block; font-size: .75rem; font-weight: 600; padding: 2px 10px; border-radius: 999px; white-space: nowrap; }
+  .p-live { background: var(--soft); color: var(--accent-ink); }
+  .p-no { background: var(--bad-bg); color: var(--bad); }
+
+  /* pattern */
+  .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .col { border-radius: 12px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  .col.yes { background: var(--good-bg); }
+  .col.no { background: var(--bad-bg); }
+  .col h3 { font-size: 1rem; }
+  .col.yes h3 { color: var(--good); }
+  .col.no h3 { color: var(--bad); }
+  .col ul { margin: 0; padding-left: 18px; font-size: .92rem; }
+  .callout { border-left: 3px solid var(--accent); padding: 4px 0 4px 16px; color: var(--fg2); }
+
+  /* steps */
+  .steps { display: flex; flex-direction: column; gap: 20px; }
+  .step { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 16px; }
+  .num { width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: #fff; font-family: var(--display); font-weight: 700; display: grid; place-items: center; }
+  .step-body { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+  .why { font-size: .92rem; color: var(--fg2); }
+  .todo { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .todo li { display: flex; gap: 10px; align-items: flex-start; }
+  .todo input { margin-top: 5px; accent-color: var(--accent); width: 16px; height: 16px; flex: none; }
+  .todo label { cursor: pointer; }
+  .todo input:checked + label { color: var(--fg3); text-decoration: line-through; }
+  .msg { background: var(--bg); border: 1px dashed var(--line); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+  .msg .to { font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--fg3); }
+  .msg p { font-size: .92rem; white-space: pre-line; }
+  .copy { align-self: flex-start; font: 600 .8rem var(--body); color: var(--accent-ink); background: transparent; border: 1px solid var(--accent); border-radius: 999px; padding: 4px 12px; cursor: pointer; }
+  .copy:hover { background: var(--soft); }
+  .copy:focus-visible, .todo input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { font-size: .8rem; padding: 3px 10px; border-radius: 999px; background: var(--wait-bg); color: var(--fg2); }
+  .chip.keep { background: var(--soft); color: var(--accent-ink); font-weight: 600; }
+  .chip.drop { text-decoration: line-through; color: var(--fg3); }
+  footer { font-size: .85rem; color: var(--fg3); border-top: 1px solid var(--line); padding-top: 20px; }
+
+  @media (max-width: 560px) {
+    h1 { font-size: 1.8rem; }
+    .split { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 1fr; padding: 18px; }
+    .stage b { font-size: 1.6rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  /* Sections the case study annotations scroll to. */
+  .pinned { scroll-margin-top: 16px; }
+  /* progress since last report */
+  .progress { background: var(--good-bg); border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; }
+  .progress .big { font-family: var(--display); font-size: 1.25rem; font-weight: 700; color: var(--good); }
+  .progress ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: .95rem; }
+  .progress li::before { content: "✓"; color: var(--good); font-weight: 700; margin-right: 8px; }
+  .streak { align-self: flex-start; font: 600 .78rem var(--body); color: var(--accent-ink); background: var(--soft); padding: 3px 10px; border-radius: 999px; }
+
+  /* rate bars in the pattern table */
+  td.n { font-variant-numeric: tabular-nums; }
+  .rate { display: flex; align-items: center; gap: 8px; font-variant-numeric: tabular-nums; }
+  .rate i { display: block; height: 6px; border-radius: 999px; background: var(--accent); }
+  .rate i.zero { background: var(--bad); width: 3px; }
+
+  /* skills check */
+  .checks { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+  .checks li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--line); font-size: .92rem; align-items: baseline; }
+  .checks li:last-child { border-bottom: 0; }
+  .checks .k { font-weight: 600; }
+  .ok { color: var(--good); font-weight: 600; white-space: nowrap; }
+  .gap { color: var(--bad); font-weight: 600; white-space: nowrap; }
+  .meh { color: var(--fg3); white-space: nowrap; }
+
+  /* plan step meta */
+  .kind { font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--accent-ink); }
+
+  /* one role */
+  .role { border: 1px solid var(--accent); border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; background: var(--surface); }
+  .role .where { font-family: var(--mono); font-size: .78rem; color: var(--fg3); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Caramel coach · Nov 11, 2026</span>
+    <h1>Maya, here’s where your search stands</h1>
+    <p class="lede">I looked at the job emails Caramel sorted for you, your resume and the roles you’re targeting. You’ve put in a lot of work. Most of it is going into roles that aren’t paying off, so this week is about doing less, but better.</p>
+  </header>
+
+  <section id="progress" class="pinned">
+    <h2>Since your last report</h2>
+    <div class="progress">
+      <span class="big">2 of 3 actions done last week</span>
+      <ul>
+        <li>You followed up with Larkfield, and they scheduled your interview</li>
+        <li>You sent 9 applications instead of 31, and 1 already got a reply</li>
+      </ul>
+      <span class="streak">3 weeks in a row with a plan</span>
+    </div>
+  </section>
+
+  <section>
+    <span class="eyebrow">New grad roles · Aug to today</span>
+    <div class="funnel">
+      <div class="stage"><b>~86</b><span>applications sent</span></div>
+      <div class="stage"><b>6</b><span>got past the resume screen</span></div>
+      <div class="stage hi"><b>2</b><span>still open right now</span></div>
+    </div>
+    <p class="muted">6 out of about 86 is roughly 7%. That’s low, but it’s not your resume. It’s where you’re aiming. Another 31 were rejections and about 49 haven’t replied, at least not in any email Caramel has seen.</p>
+  </section>
+
+  <section>
+    <h2>The ones that got through</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Company</th><th>Role</th><th>Latest</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Larkfield Systems</td><td>Data Engineer, New Grad</td><td class="d">Nov 6</td><td><span class="pill p-live">Interview Thursday</span></td></tr>
+          <tr><td>Copperline</td><td>Data Analyst</td><td class="d">Oct 30</td><td><span class="pill p-live">Final round done, waiting</span></td></tr>
+          <tr><td>Bramble Health</td><td>Analytics Engineer</td><td class="d">Oct 21</td><td><span class="pill p-no">Rejected after technical</span></td></tr>
+          <tr><td>Halcyon Mutual</td><td>Data Analyst</td><td class="d">Oct 9</td><td><span class="pill p-no">Rejected after recruiter call</span></td></tr>
+          <tr><td>Tallgrass Energy</td><td>BI Developer</td><td class="d">Sep 30</td><td><span class="pill p-no">Rejected after pre-screen</span></td></tr>
+          <tr><td>Granite Peak Analytics</td><td>Junior Data Engineer</td><td class="d">Sep 24</td><td><span class="pill p-no">Rejected after assessment</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="pattern" class="pinned">
+    <h2>The pattern</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Role type</th><th>Applications</th><th>Got past the screen</th><th>Rate</th></tr></thead>
+        <tbody>
+          <tr><td>Data analyst and data engineering</td><td class="n">31</td><td class="n">5</td><td><span class="rate"><i style="width:48px"></i>16%</span></td></tr>
+          <tr><td>Software engineering</td><td class="n">36</td><td class="n">1</td><td><span class="rate"><i style="width:9px"></i>3%</span></td></tr>
+          <tr><td>Machine learning engineer</td><td class="n">19</td><td class="n">0</td><td><span class="rate"><i class="zero"></i>0%</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="callout">Most of your applications went to the roles with the lowest return. In data roles, you did as well as most people do. Every reply also came from mid-size local companies. None of the big tech applications got past the screen.</p>
+  </section>
+
+  <section id="market" class="pinned">
+    <h2>You vs. the roles you want</h2>
+    <p class="muted">Caramel looked at the 15 Denver-area data roles you saved and 20 people who started those jobs in the last two years.</p>
+    <ul class="checks">
+      <li><span><span class="k">SQL:</span> 11 of 15 roles ask for it</span><span class="ok">On your resume ✓</span></li>
+      <li><span><span class="k">Tableau or Looker:</span> 7 of 15</span><span class="ok">On your resume ✓</span></li>
+      <li><span><span class="k">dbt or Airflow:</span> 8 of 15</span><span class="gap">Not on your resume ✗</span></li>
+      <li><span><span class="k">A master’s degree:</span> asked for by 15 of the 19 ML engineer roles you applied to</span><span class="meh">—</span></li>
+    </ul>
+    <p class="callout">Most people who landed these jobs had one end-to-end data pipeline project on their resume. Yours has analysis projects but no pipeline. That’s the one gap worth closing.</p>
+  </section>
+
+  <section id="plan" class="pinned">
+    <h2>This week’s plan</h2>
+    <div class="steps">
+
+      <article class="step">
+        <div class="num">1</div>
+        <div class="step-body">
+          <span class="kind">Prep · 25 min</span>
+          <h3>Get ready for Larkfield on Thursday</h3>
+          <p class="why">It’s your best shot right now. Their job post mentions Snowflake and dbt.</p>
+          <ul class="todo">
+            <li><input type="checkbox" id="t1a"><label for="t1a">Review SQL window functions (their posts mention them twice)</label></li>
+            <li><input type="checkbox" id="t1b"><label for="t1b">Read up on what dbt does, enough to talk about it, not to master it</label></li>
+            <li><input type="checkbox" id="t1c"><label for="t1c">Prepare one 2-minute story about a project where you cleaned messy data</label></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="num">2</div>
+        <div class="step-body">
+          <span class="kind">Follow up · 5 min</span>
+          <h3>Check in with Copperline</h3>
+          <p class="why">It’s been 12 days since your final round. A short note is normal and keeps you top of mind.</p>
+          <div class="msg">
+            <span class="to">Check-in message (edit the name)</span>
+            <p id="m1">Hi [Name],
+
+Thanks again for the final round on Oct 30. I really enjoyed meeting the team and I’m still very excited about the Data Analyst role. I wanted to check in on the timeline for next steps.
+
+Best,
+Maya</p>
+            <button class="copy" type="button" data-copy="m1">Copy message</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="num">3</div>
+        <div class="step-body">
+          <span class="kind">Level up · this weekend</span>
+          <h3>Build one small pipeline project</h3>
+          <p class="why">Pull Denver open data, transform it with dbt, and chart it in Tableau. It closes your biggest gap, and it gives you something new to talk about at Larkfield.</p>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="num">4</div>
+        <div class="step-body">
+          <span class="kind">Reach out · 10 min</span>
+          <h3>Message one person at Bramble Health</h3>
+          <p class="why">They rejected you after the technical round, but they’re hiring again next term. Jordan, an alum from your school, works on their data team.</p>
+          <div class="msg">
+            <span class="to">Message to Jordan</span>
+            <p id="m2">Hi Jordan,
+
+I’m a fellow [school] grad and I interviewed with Bramble’s data team last month. I’d love to hear how you got started there and what the team looks for. Would you be open to a quick 15-minute chat?
+
+Thanks,
+Maya</p>
+            <button class="copy" type="button" data-copy="m2">Copy message</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="num">5</div>
+        <div class="step-body">
+          <span class="kind">Close out · 1 tap</span>
+          <h3>Let go of 23 quiet applications</h3>
+          <p class="why">These have had no reply for 30+ days, and most were software or ML roles. Closing them takes them off your mind. Caramel will reopen any that reply.</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="role" class="pinned">
+    <h2>One role worth your time</h2>
+    <div class="role">
+      <span class="where">Northfork Robotics · Data Analyst, New Grad · posted yesterday</span>
+      <p>It’s local, in your strongest lane, and asks for SQL and Tableau, which you have. One alum works there. It’s the only new role I’d apply to this week.</p>
+    </div>
+  </section>
+
+  <section id="settings" class="pinned">
+    <h2>Quick fixes in your settings</h2>
+    <ul class="todo">
+      <li><input type="checkbox" id="s1"><label for="s1"><b>Make data roles your main lane.</b> Caramel will put data analyst and data engineering roles first in your feed.</label></li>
+      <li><input type="checkbox" id="s2"><label for="s2"><b>Remove Machine Learning Engineer from your target roles for now.</b> Most of those roles ask for a master’s. Keep it for later.</label></li>
+      <li><input type="checkbox" id="s3"><label for="s3"><b>Set a weekly goal of 8 applications.</b> Caramel will tell you when you hit it.</label></li>
+    </ul>
+  </section>
+
+  <footer>“No reply” means no reply in the Gmail inbox you connected to Caramel. Anything that came to another inbox, through an application portal or by phone won’t show up here. Your checkmarks are saved in this browser only.</footer>
+</div>
+
+<script>
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var el = document.getElementById(btn.dataset.copy);
+      var text = el.innerText;
+      var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy message'; }, 1600); };
+      var fallback = function () {
+        var r = document.createRange(); r.selectNodeContents(el);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        btn.textContent = 'Selected, press Ctrl/Cmd+C';
+      };
+      try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+    });
+  });
+  var KEY = 'maya-plan-checks';
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+  document.querySelectorAll('.todo input').forEach(function (box) {
+    if (saved[box.id]) box.checked = true;
+    box.addEventListener('change', function () {
+      saved[box.id] = box.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+    });
+  });
+</script>
+
+</body>
+</html>

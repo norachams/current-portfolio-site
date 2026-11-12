@@ -73,6 +73,7 @@ function PhoneClip({ src }: { src: string }) {
         loop
         muted
         playsInline
+        preload="auto"
         aria-hidden="true"
         className="absolute top-[-5.85%] left-[-12.9%] h-[108.47%] w-[125.61%] max-w-none motion-reduce:hidden"
       />

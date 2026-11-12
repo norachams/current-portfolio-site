@@ -7,6 +7,8 @@ export type Project = {
   note: string;
   pastel: Pastel;
   url?: string;
+  /** Internal case study page. Takes priority over `url` for the card link. */
+  caseStudy?: string;
   /** Looping clip or screenshot for the card. Falls back to a labelled pastel block. */
   media?: { type: "image" | "video"; src: string; alt?: string };
 };
@@ -17,16 +19,17 @@ export const projects: Project[] = [
     slug: "Caramel",
     name: "Caramel",
     meta: "founder",
-    note: "An all-in-one job hunt organizer that brings applications, opportunities, and interview prep together while automating the busywork in between.",
+    note: "A career coach that learns from your application pipeline and the job market and turns them into a few clear next steps each week.",
     pastel: "peach",
     url: "https://www.oncaramel.com/",
+    caseStudy: "/work/caramel",
     media: { type: "video", src: "/projects/caramel-promo.mp4" },
   },
   {
     slug: "Voz",
     name: "Voz",
     meta: "side project",
-    note: "An AI voice assistant that lets you have real-time conversations, follow along with live captions, and revisit past chats.",
+    note: "An AI voice assistant that lets you have real-time conversations, follow along with live captions and revisit past chats.",
     url: "https://github.com/norachams/Voz",
     pastel: "lilac",
     media: { type: "video", src: "/projects/voz.mp4" },
