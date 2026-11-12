@@ -157,8 +157,11 @@ export default function MePage() {
             </p>
             <p>
               Outside of work, I climb, ice skate and explore new places. In winter
-              2026, I spent four months on exchange in Bilbao, Spain, which gave me plenty of new places to explore and
-              photograph.
+              2026, I spent four months on exchange in Bilbao, Spain, which gave me plenty of new places to explore and{" "}
+              <Link href="/outside-work#photography" className={textLink}>
+                photograph
+              </Link>
+              .
             </p>
             <p>
               There&apos;s more to me than code. Take a look at{" "}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Pastel } from "@/data/projects";
 import { pastelSoft } from "@/lib/pastels";
 import Hackathons from "./Hackathons";
@@ -20,6 +20,27 @@ export default function OutsideTabs({ walls }: { walls: Walls }) {
   const [selected, setSelected] = useState(0);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
+  // Each tab has its own link (/outside-work#photography), so other pages can point straight at one.
+  useEffect(() => {
+    const fromHash = () => {
+      const i = tabs.findIndex((tab) => `#${tab.id}` === window.location.hash);
+      if (i === -1) return;
+      setSelected(i);
+      // The hash doesn't match an element on the page, so the browser would otherwise stay wherever the
+      // last page was scrolled to. Start at the top instead.
+      window.scrollTo({ top: 0 });
+    };
+    fromHash();
+    window.addEventListener("hashchange", fromHash);
+    return () => window.removeEventListener("hashchange", fromHash);
+  }, []);
+
+  const select = (i: number) => {
+    setSelected(i);
+    // replaceState so switching tabs doesn't fill up the back button history.
+    window.history.replaceState(window.history.state, "", `#${tabs[i].id}`);
+  };
+
   // Arrow keys move between tabs (automatic activation).
   const onKeyDown = (e: React.KeyboardEvent) => {
     const last = tabs.length - 1;
@@ -31,7 +52,7 @@ export default function OutsideTabs({ walls }: { walls: Walls }) {
       : null;
     if (next === null) return;
     e.preventDefault();
-    setSelected(next);
+    select(next);
     tabRefs.current[next]?.focus();
   };
 
@@ -57,7 +78,7 @@ export default function OutsideTabs({ walls }: { walls: Walls }) {
               aria-selected={isSelected}
               aria-controls={`panel-${tab.id}`}
               tabIndex={isSelected ? 0 : -1}
-              onClick={() => setSelected(i)}
+              onClick={() => select(i)}
               className={`min-h-11 cursor-pointer rounded-full border px-[18px] font-mono text-xs tracking-[0.06em] transition-colors duration-150 ${
                 isSelected ? `${pastelSoft[tab.pastel]} border-transparent text-on-pastel` : "border-line text-ink hover:bg-paper-sunk"
               }`}
