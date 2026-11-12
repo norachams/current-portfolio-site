@@ -79,7 +79,7 @@ export default function OutsideTabs({ walls }: { walls: Walls }) {
               aria-controls={`panel-${tab.id}`}
               tabIndex={isSelected ? 0 : -1}
               onClick={() => select(i)}
-              className={`min-h-11 cursor-pointer rounded-full border px-[18px] font-mono text-xs tracking-[0.06em] transition-colors duration-150 ${
+              className={`min-h-11 cursor-pointer rounded-pill border px-[18px] font-mono text-xs tracking-[0.06em] transition-colors duration-150 ${
                 isSelected ? `${pastelSoft[tab.pastel]} border-transparent text-on-pastel` : "border-line text-ink hover:bg-paper-sunk"
               }`}
             >

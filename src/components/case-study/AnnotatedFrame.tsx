@@ -111,7 +111,7 @@ export default function AnnotatedFrame({
               type="button"
               onClick={() => jumpTo(note.target)}
               aria-current={active === i ? "true" : undefined}
-              className={`grid w-full cursor-pointer grid-cols-[22px_minmax(0,1fr)] gap-x-2.5 rounded-xl px-2.5 py-2 text-left transition-colors duration-200 ${
+              className={`grid w-full cursor-pointer grid-cols-[22px_minmax(0,1fr)] gap-x-2.5 rounded-box px-2.5 py-2 text-left transition-colors duration-200 ${
                 active === i ? "bg-paper-sunk" : "hover:bg-paper-sunk/60"
               }`}
             >

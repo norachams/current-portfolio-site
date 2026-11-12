@@ -16,6 +16,16 @@
   --focus: #54494b;
 
   --shadow-lift: 0 10px 24px -12px rgba(84, 73, 75, 0.3);
+
+  /* Corner radii, one scale for the whole site. */
+  --r-card: 6px; /* cards, frames, media */
+  --r-box: 4px; /* tooltips, hover notes, small panels */
+  --r-tag: 3px; /* tags, highlight marks, small images */
+  --r-pill: 6px; /* tabs, chips, filter buttons */
+
+  /* Space between cards, one scale for the whole site. */
+  --gap-card: 16px; /* between cards and photos */
+  --gap-caption: 28px; /* between rows of cards that have a caption underneath (work, hobbies) */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -63,8 +73,12 @@
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  --radius-tag: 6px;
-  --radius-card: 14px;
+  --radius-card: var(--r-card);
+  /* A photo inset 6px inside a card, rounded to sit evenly inside the card's corner. */
+  --radius-inner: max(0px, calc(var(--r-card) - 3px));
+  --radius-box: var(--r-box);
+  --radius-tag: var(--r-tag);
+  --radius-pill: var(--r-pill);
 
   --shadow-lift: var(--shadow-lift);
 }

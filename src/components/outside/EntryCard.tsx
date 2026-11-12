@@ -34,7 +34,7 @@ export default function EntryCard({
         </h4>
       </div>
       {chip && (
-        <span className={`${pastelSoft[pastel]} self-start rounded-full px-2.5 py-0.5 font-mono text-xs text-on-pastel`}>
+        <span className={`${pastelSoft[pastel]} self-start rounded-pill px-2.5 py-0.5 font-mono text-xs text-on-pastel`}>
           {chip}
         </span>
       )}

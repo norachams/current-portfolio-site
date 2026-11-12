@@ -22,13 +22,13 @@ export function CaseStudyHero({
     <div className="flex flex-col gap-5">
       <ul className="flex flex-wrap gap-2">
         {status && (
-          <li className={`${eyebrow} flex items-center gap-1.5 rounded-full border border-line bg-paper-raised px-3 py-1 text-ink-strong`}>
+          <li className={`${eyebrow} flex items-center gap-1.5 rounded-pill border border-line bg-paper-raised px-3 py-1 text-ink-strong`}>
             <span aria-hidden="true" className="size-1.5 rounded-full bg-rosewood" />
             {status}
           </li>
         )}
         {tags.map((tag) => (
-          <li key={tag} className={`${eyebrow} rounded-full border border-line bg-paper-raised px-3 py-1 text-ink-muted`}>
+          <li key={tag} className={`${eyebrow} rounded-pill border border-line bg-paper-raised px-3 py-1 text-ink-muted`}>
             {tag}
           </li>
         ))}
@@ -129,7 +129,7 @@ export function NorthStar({ label = "North star", children }: { label?: string; 
 /** Big numbers with a line of context and a source each. */
 export function Stats({ items }: { items: { figure: ReactNode; text: ReactNode; source: string }[] }) {
   return (
-    <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+    <ul className="grid grid-cols-1 gap-(--gap-card) sm:grid-cols-2">
       {items.map((item, i) => (
         <li key={i} className="flex flex-col gap-1.5 rounded-card border border-line bg-paper-raised px-5 py-4">
           <span className="font-serif text-[34px] leading-none text-rosewood">{item.figure}</span>
@@ -262,9 +262,9 @@ export function Funnel({
             className="grid grid-cols-[minmax(0,130px)_minmax(0,1fr)_28px] items-center gap-3 sm:grid-cols-[170px_minmax(0,1fr)_32px]"
           >
             <span className={`text-sm leading-snug ${step.highlight ? "text-rosewood" : "text-ink-strong"}`}>{step.label}</span>
-            <span className="h-2.5 rounded-full bg-paper-raised">
+            <span className="h-2.5 rounded-pill bg-paper-raised">
               <span
-                className={`block h-full rounded-full ${step.highlight ? "bg-rosewood" : "bg-ink-muted/55"}`}
+                className={`block h-full rounded-pill ${step.highlight ? "bg-rosewood" : "bg-ink-muted/55"}`}
                 style={{ width: `${Math.max((step.value / max) * 100, step.value ? 3 : 0)}%` }}
               />
             </span>
@@ -310,7 +310,7 @@ export function MediaPlaceholder({
       className={`${aspect} flex flex-col items-center justify-center gap-3 rounded-card border border-dashed border-line-strong px-6 text-center font-mono text-xs text-ink-muted`}
     >
       {inProgress && (
-        <span className={`${eyebrow} flex items-center gap-1.5 rounded-full border border-line bg-paper-raised px-3 py-1 text-ink-strong`}>
+        <span className={`${eyebrow} flex items-center gap-1.5 rounded-pill border border-line bg-paper-raised px-3 py-1 text-ink-strong`}>
           <span aria-hidden="true" className="size-1.5 rounded-full bg-rosewood" />
           in progress
         </span>

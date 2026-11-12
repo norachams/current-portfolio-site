@@ -38,21 +38,21 @@ export default function Cats({ wide = false, className = "" }: { wide?: boolean;
     <figure className={`flex min-w-0 flex-col gap-2.5 ${wide ? "min-[500px]:col-span-2" : ""} ${className}`}>
       <div className={`${pastelSoft.gold} relative h-[300px] w-full rounded-card`}>
         {/* Inset like the hobby photos so the gold shows as a frame, with a soft cloudy backdrop inside. */}
-        <div aria-hidden="true" className="cat-clouds absolute inset-1.5 rounded-[11px]" />
+        <div aria-hidden="true" className="cat-clouds absolute inset-1.5 rounded-inner" />
         {cats.map((cat) => (
           <Fragment key={cat.name}>
             <span
               role="img"
               tabIndex={0}
               aria-label={`${cat.name}, ${cat.age}`}
-              className={`${cat.peer} absolute ${cat.position} rounded-lg`}
+              className={`${cat.peer} absolute ${cat.position} rounded-box`}
             >
               <span aria-hidden="true" className={`cat-sprite ${cat.sprite}`} />
             </span>
             {/* Styled like the place labels in photography: coloured text on a raised paper tag. */}
             <span
               aria-hidden="true"
-              className={`${cat.text} ${cat.label} ${cat.show} pointer-events-none absolute translate-y-1 rounded-lg border border-line bg-paper-raised px-2.5 py-0.5 text-[17px] leading-snug font-medium whitespace-nowrap shadow-lift opacity-0 transition-[opacity,translate] duration-150`}
+              className={`${cat.text} ${cat.label} ${cat.show} pointer-events-none absolute translate-y-1 rounded-box border border-line bg-paper-raised px-2.5 py-0.5 text-[17px] leading-snug font-medium whitespace-nowrap shadow-lift opacity-0 transition-[opacity,translate] duration-150`}
             >
               {cat.name}, {cat.age}
             </span>

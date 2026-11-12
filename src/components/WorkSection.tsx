@@ -88,7 +88,7 @@ export default function WorkSection({ projects }: { projects: Project[] }) {
         work
       </h2>
 
-      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-7 gap-y-9">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-(--gap-card) gap-y-(--gap-caption)">
         {projects.map((project) => (
           <li key={project.slug}>
             {/* Case studies open in the same tab; other projects with a url open it in a new tab; the rest are just shown. */}
@@ -126,10 +126,10 @@ export default function WorkSection({ projects }: { projects: Project[] }) {
       <div
         ref={noteRef}
         aria-hidden="true"
-        className={`${active ? "" : "invisible"} pointer-events-none fixed top-0 left-0 z-10 max-w-[260px] rounded-xl bg-paper shadow-lift will-change-transform`}
+        className={`${active ? "" : "invisible"} pointer-events-none fixed top-0 left-0 z-10 max-w-[260px] rounded-box bg-paper shadow-lift will-change-transform`}
       >
         {active && (
-          <div className={`${pastelSoft[active.pastel]} flex flex-col gap-2 rounded-xl px-3.5 py-3 text-on-pastel`}>
+          <div className={`${pastelSoft[active.pastel]} flex flex-col gap-2 rounded-box px-3.5 py-3 text-on-pastel`}>
             <span className="text-[13px] leading-[1.45]">{active.note}</span>
             {active.caseStudy ? (
               <span className="font-mono text-[11px]">read the case study →</span>

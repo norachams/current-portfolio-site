@@ -3,11 +3,11 @@ import { hackathons } from "@/data/outside";
 import { pastelSoft } from "@/lib/pastels";
 
 // A small square beside the text on wider screens; on phones the card stacks, so it fills the card's width.
-const frame = "flex size-[156px] shrink-0 items-center justify-center rounded-[10px] max-sm:h-[260px] max-sm:w-full";
+const frame = "flex size-[156px] shrink-0 items-center justify-center rounded-inner max-sm:h-[260px] max-sm:w-full";
 
 export default function Hackathons() {
   return (
-    <section aria-label="Hackathons" className="grid grid-cols-1 gap-6 md:grid-cols-2">
+    <section aria-label="Hackathons" className="grid grid-cols-1 gap-(--gap-card) md:grid-cols-2">
       {hackathons.map((hack, i) => (
         <article
           key={i}
@@ -26,7 +26,7 @@ export default function Hackathons() {
                 alt={`${hack.project} at ${hack.event}`}
                 placeholder="blur"
                 sizes="(max-width: 639px) 100vw, 132px"
-                className="h-auto max-h-full w-auto max-w-full rounded-[6px]"
+                className="h-auto max-h-full w-auto max-w-full rounded-tag"
               />
             </div>
           ) : (
@@ -42,7 +42,7 @@ export default function Hackathons() {
             <div className="flex flex-wrap items-center gap-2 font-mono text-[13px] text-ink-muted">
               <span>{hack.event}</span>
               {hack.winner && (
-                <span className="rounded-full bg-gold px-2 py-px text-xs text-on-pastel">winner ★</span>
+                <span className="rounded-pill bg-gold px-2 py-px text-xs text-on-pastel">winner ★</span>
               )}
             </div>
             <h3 className="font-serif text-[28px] leading-[1.2] font-normal">{hack.project}</h3>

@@ -10,7 +10,7 @@ import type { Wall } from "@/lib/photoWall";
 /** Photo wall layouts for 1, 2 and 3 columns, worked out on the server. */
 export type Walls = Record<1 | 2 | 3, Wall>;
 
-const chip = "min-h-9 cursor-pointer rounded-full border border-line px-3.5 font-mono text-xs text-ink hover:bg-paper-sunk";
+const chip = "min-h-9 cursor-pointer rounded-pill border border-line px-3.5 font-mono text-xs text-ink hover:bg-paper-sunk";
 
 const LIGHTBOX_SIZES = "760px";
 
@@ -68,9 +68,9 @@ export default function Photography({ walls }: { walls: Walls }) {
       {layouts.map(({ columns, className }) => (
         // Columns stretch to the tallest one; the last photo in each fills what's left,
         // so the bottom row lines up. The layout keeps that gap to a few pixels.
-        <div key={columns} className={`${className} items-stretch gap-4`}>
+        <div key={columns} className={`${className} items-stretch gap-(--gap-card)`}>
           {walls[columns].map((column, c) => (
-            <div key={c} className="flex min-w-0 flex-1 flex-col gap-4">
+            <div key={c} className="flex min-w-0 flex-1 flex-col gap-(--gap-card)">
               {column.map((index, i) => {
                 const photo = photos[index];
                 const place = placeOf(photo);
@@ -92,7 +92,7 @@ export default function Photography({ walls }: { walls: Walls }) {
                         setOpen(index);
                       }}
                       style={isLast ? { aspectRatio: `${photo.image.width} / ${photo.image.height}` } : undefined}
-                      className={`block w-full overflow-hidden rounded-[10px] [@media(hover:hover)]:cursor-none ${
+                      className={`block w-full overflow-hidden rounded-inner [@media(hover:hover)]:cursor-none ${
                         isLast ? "relative flex-1" : ""
                       }`}
                     >
@@ -125,7 +125,7 @@ export default function Photography({ walls }: { walls: Walls }) {
 
       <div ref={ref} aria-hidden="true" className={`pointer-events-none fixed top-0 left-0 z-20 ${hovered ? "" : "invisible"}`}>
         {/* Place name just right of the site cursor, in the cursor's current colour, on a beige rounded box. */}
-        <span className="block translate-x-4 -translate-y-1/2 rounded-lg border border-line bg-paper-raised px-2.5 py-0.5 text-[17px] leading-snug font-medium whitespace-nowrap text-(--cursor-colour) shadow-lift">
+        <span className="block translate-x-4 -translate-y-1/2 rounded-box border border-line bg-paper-raised px-2.5 py-0.5 text-[17px] leading-snug font-medium whitespace-nowrap text-(--cursor-colour) shadow-lift">
           {hovered}
         </span>
       </div>
@@ -152,7 +152,7 @@ export default function Photography({ walls }: { walls: Walls }) {
               placeholder="blur"
               sizes={LIGHTBOX_SIZES}
               onLoad={() => setLoaded(open)}
-              className="max-h-[70vh] w-full rounded-lg object-contain"
+              className="max-h-[70vh] w-full rounded-box object-contain"
             />
             <div className="flex flex-wrap items-center justify-between gap-3 px-1 pb-1">
               <span className={`font-serif text-[22px] ${loaded === open ? "" : "invisible"}`}>{placeOf(shot)}</span>

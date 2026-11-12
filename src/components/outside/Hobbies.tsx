@@ -43,7 +43,7 @@ export default function Hobbies() {
     <section aria-label="Hobbies" className="flex flex-col gap-4">
       {/* Four across on wide screens, so the two wide cards (puzzles and cats) fill the bottom row
           exactly, each under two photos. Two across in between, where each wide card takes a full row. */}
-      <div className="grid grid-cols-1 gap-x-6 gap-y-7 min-[500px]:grid-cols-2 min-[1000px]:grid-cols-4">
+      <div className="grid grid-cols-1 gap-x-(--gap-card) gap-y-(--gap-caption) min-[500px]:grid-cols-2 min-[1000px]:grid-cols-4">
         {hobbies.map((hobby) => (
           <HobbyCard
             key={hobby.slug}
@@ -104,7 +104,7 @@ function HobbyCard({
 
   // Main photo inset so the card's pastel tint shows as a frame around it, matching the hackathon photo squares.
   const photo = hobby.photo ? (
-    <div className="absolute inset-1.5 overflow-hidden rounded-[11px]">
+    <div className="absolute inset-1.5 overflow-hidden rounded-inner">
       <Image
         src={hobby.photo}
         alt=""
@@ -149,7 +149,7 @@ function HobbyCard({
                   key={drop.id}
                   onAnimationEnd={() => setTrail((current) => current.filter((d) => d.id !== drop.id))}
                   style={{ left: drop.x, top: drop.y, "--tilt": `${drop.rotate}deg` } as React.CSSProperties}
-                  className={`${pastelBg[frameColours[drop.id % frameColours.length]]} trail-drop absolute -translate-x-1/2 -translate-y-1/2 rounded-full px-3 py-1.5 font-mono text-xs whitespace-nowrap text-on-pastel shadow-lift`}
+                  className={`${pastelBg[frameColours[drop.id % frameColours.length]]} trail-drop absolute -translate-x-1/2 -translate-y-1/2 rounded-pill px-3 py-1.5 font-mono text-xs whitespace-nowrap text-on-pastel shadow-lift`}
                 >
                   {countries[drop.image]}
                 </span>
@@ -166,7 +166,7 @@ function HobbyCard({
                       "--tilt": `${drop.rotate}deg`,
                     } as React.CSSProperties
                   }
-                  className={`${pastelBg[frameColours[drop.id % frameColours.length]]} trail-drop absolute rounded-[6px] p-[3px] shadow-lift`}
+                  className={`${pastelBg[frameColours[drop.id % frameColours.length]]} trail-drop absolute rounded-tag p-[3px] shadow-lift`}
                 >
                   <TrailPhoto image={extras[drop.image]} sizes={`${trailW}px`} />
                 </div>
@@ -214,7 +214,7 @@ function HobbyCard({
 
 function TrailPhoto({ image, sizes = `${TRAIL_W}px` }: { image: StaticImageData; sizes?: string }) {
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-[3px]">
+    <div className="relative h-full w-full overflow-hidden rounded-[max(0px,calc(var(--r-tag)-3px))]">
       <Image src={image} alt="" fill sizes={sizes} className="object-cover" />
     </div>
   );
@@ -223,7 +223,7 @@ function TrailPhoto({ image, sizes = `${TRAIL_W}px` }: { image: StaticImageData;
 function CountryPill({ country, index }: { country: string; index: number }) {
   return (
     <li
-      className={`${pastelBg[frameColours[index % frameColours.length]]} rounded-full px-2.5 py-1 font-mono text-[11px] text-on-pastel`}
+      className={`${pastelBg[frameColours[index % frameColours.length]]} rounded-pill px-2.5 py-1 font-mono text-[11px] text-on-pastel`}
     >
       {country}
     </li>

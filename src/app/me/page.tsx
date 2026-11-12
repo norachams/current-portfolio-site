@@ -91,7 +91,7 @@ export default function MePage() {
               My experience
             </h2>
           </div>
-          <ul className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-3.5">
+          <ul className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-(--gap-card)">
             {experience.map((job) => (
               <li key={job.company}>
                 <a

@@ -32,7 +32,7 @@ export default function VideoPlayer({ src, alt }: { src: string; alt: string }) 
   };
 
   const button =
-    "flex size-7 cursor-pointer items-center justify-center rounded-full text-ink-strong transition-colors duration-150 hover:bg-paper-sunk focus-visible:outline-2 focus-visible:outline-rosewood";
+    "flex size-7 cursor-pointer items-center justify-center rounded-pill text-ink-strong transition-colors duration-150 hover:bg-paper-sunk focus-visible:outline-2 focus-visible:outline-rosewood";
 
   return (
     <div className="relative">
@@ -47,7 +47,7 @@ export default function VideoPlayer({ src, alt }: { src: string; alt: string }) 
         onPause={() => setPlaying(false)}
         className="block h-auto w-full"
       />
-      <div className="absolute top-2.5 right-2.5 flex items-center gap-0.5 rounded-full border border-line bg-paper-raised/90 p-0.5 shadow-sm backdrop-blur-sm">
+      <div className="absolute top-2.5 right-2.5 flex items-center gap-0.5 rounded-pill border border-line bg-paper-raised/90 p-0.5 shadow-sm backdrop-blur-sm">
         <button type="button" onClick={toggle} aria-label={playing ? "Pause video" : "Play video"} className={button}>
           {playing ? (
             <svg aria-hidden="true" viewBox="0 0 16 16" className="size-3.5 fill-current">

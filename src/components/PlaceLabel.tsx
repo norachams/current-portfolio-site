@@ -39,7 +39,7 @@ export default function PlaceLabel({
       </div>
       <div ref={ref} aria-hidden="true" className={`pointer-events-none fixed top-0 left-0 z-20 ${hovering ? "" : "invisible"}`}>
         {/* Same tag as the photography place labels, just right of the cursor. */}
-        <span className="block translate-x-4 -translate-y-1/2 rounded-lg border border-line bg-paper-raised px-2.5 py-0.5 text-[17px] leading-snug font-medium whitespace-nowrap text-(--cursor-colour) shadow-lift">
+        <span className="block translate-x-4 -translate-y-1/2 rounded-box border border-line bg-paper-raised px-2.5 py-0.5 text-[17px] leading-snug font-medium whitespace-nowrap text-(--cursor-colour) shadow-lift">
           {place}
         </span>
       </div>
