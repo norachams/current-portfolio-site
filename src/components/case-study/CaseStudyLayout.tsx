@@ -25,6 +25,10 @@ export default function CaseStudyLayout({ title, link, backHref = "/", sections,
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
   }, []);
+  const scrollToTop = useCallback(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+  }, []);
 
   const linkLabel = link ? (link.label ?? link.href.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")) : "";
 
@@ -32,37 +36,58 @@ export default function CaseStudyLayout({ title, link, backHref = "/", sections,
     <>
       <MobileBar backHref={backHref} sections={sections} active={active} onSelect={scrollTo} />
 
-      {/* Same side padding as the header, so the sidebar lines up under "nora". On wide screens a matching
-          empty column on the right keeps the content centred on the page. */}
-      <div className="edge-width flex-1 pb-24">
-        <div className="grid grid-cols-1 min-[900px]:grid-cols-[180px_minmax(0,1fr)] min-[900px]:gap-14 min-[1264px]:grid-cols-[180px_minmax(0,1fr)_180px]">
-          {/* Sidebar: sticky, so the way back is always one click away. */}
-          <aside className="sticky top-8 hidden flex-col gap-7 self-start pt-16 min-[900px]:flex">
-            <BackLink href={backHref} />
+      {/* Same side padding as the header, so the sidebar lines up under "nora". The content's right edge
+          lines up with the right edge of the home page's work list (see `main` below). */}
+      <div className="edge-width @container flex-1 pb-24">
+        <div className="grid grid-cols-1 min-[900px]:grid-cols-[180px_minmax(0,1fr)] min-[900px]:gap-14">
+          {/* Sidebar column runs the full height of the content. The menu sticks to the top of the screen and
+              "back to top" sticks to the bottom, so both are always there; at the end of the page "back to
+              top" comes to rest at the bottom of the column, just above the footer. */}
+          <div className="hidden flex-col min-[900px]:flex">
+            <div className="flex-1">
+              <aside className="sticky top-8 flex flex-col gap-7 pt-16">
+                <BackLink href={backHref} />
 
-            <div className="flex flex-col gap-1.5">
-              {/* No visible title in the content, so the sidebar title is the page's h1. */}
-              <h1 className="font-serif text-[22px] leading-[1.25] font-normal text-ink-strong">{title}</h1>
-              {link && (
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[15px] text-rosewood hover:underline hover:decoration-2 hover:underline-offset-3"
-                >
-                  {linkLabel} ↗
-                </a>
-              )}
+                <div className="flex flex-col gap-1.5">
+                  {/* No visible title in the content, so the sidebar title is the page's h1. */}
+                  <h1 className="font-serif text-[22px] leading-[1.25] font-normal text-ink-strong">{title}</h1>
+                  {link && (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[15px] text-rosewood hover:underline hover:decoration-2 hover:underline-offset-3"
+                    >
+                      {linkLabel} ↗
+                    </a>
+                  )}
+                </div>
+
+                <nav aria-label="Sections" className="flex flex-col">
+                  {sections.map((s) => (
+                    <SectionButton key={s.id} section={s} active={active === s.id} onSelect={scrollTo} />
+                  ))}
+                </nav>
+              </aside>
             </div>
 
-            <nav aria-label="Sections" className="flex flex-col">
-              {sections.map((s) => (
-                <SectionButton key={s.id} section={s} active={active === s.id} onSelect={scrollTo} />
-              ))}
-            </nav>
-          </aside>
+            <button
+              type="button"
+              onClick={scrollToTop}
+              className="group sticky bottom-8 mt-12 inline-flex cursor-pointer items-center gap-1.5 self-start font-mono text-xs text-ink hover:text-rosewood"
+            >
+              <span aria-hidden="true" className="inline-block transition-transform duration-200 group-hover:-translate-y-[3px]">
+                ↑
+              </span>
+              back to top
+            </button>
+          </div>
 
-          <main className="flex min-w-0 flex-col gap-16 pt-8 min-[900px]:max-w-[760px] min-[900px]:pt-16 min-[1264px]:mx-auto min-[1264px]:w-full">
+          {/* Left edge: where it sat when the content was a 760px column centred between the sidebar and a
+              matching empty column on the right ((container width - 1232px) / 2 past the sidebar).
+              Right edge: lines up with the right edge of the home page's 1080px centred content
+              (container width / 2 - 540px in). Both clamp to 0 on narrower screens. */}
+          <main className="flex min-w-0 flex-col gap-16 pt-8 min-[900px]:pt-16 min-[900px]:ml-[max(0px,calc(50cqw-616px))] min-[900px]:mr-[max(0px,calc(50cqw-540px))]">
             {/* On phones the sidebar is gone (display: none), so this becomes the h1 instead. */}
             <div className="flex flex-col gap-1.5 min-[900px]:hidden">
               <h1 className="font-serif text-[32px] leading-[1.2] font-normal text-ink-strong">{title}</h1>

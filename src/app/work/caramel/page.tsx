@@ -99,7 +99,7 @@ export default function CaramelCaseStudy() {
           </p>
         </CaseStudySection>
 
-        <CaseStudySection id="evolution" label="Evolution" title="From tracker to workspace to coach">
+        <CaseStudySection id="evolution" label="Evolution" title="From tracker to workspace to a career coach">
           <ol className="mt-2 flex flex-col gap-12">
             <Stage number="01" title="A tracker for myself" meta="2024">
               <p>
@@ -168,7 +168,7 @@ export default function CaramelCaseStudy() {
               </Callout>
             </Stage>
 
-            <Stage number="03" title="A coach" meta="now">
+            <Stage number="03" title="A career coach" meta="now">
               <p>
                 The workspace helped people organize their hunt, but it didn&rsquo;t help them get better at it. So
                 Caramel is becoming a coach.
