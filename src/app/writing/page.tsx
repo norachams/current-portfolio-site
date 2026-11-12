@@ -3,6 +3,7 @@ import { socials } from "@/data/site";
 import { coverOverrides } from "@/data/writing";
 import { getMediumPosts, type MediumPost } from "@/lib/medium";
 import { pastelSoft } from "@/lib/pastels";
+import PageTransition from "@/components/PageTransition";
 
 export const metadata: Metadata = {
   title: "writing · nora",
@@ -17,44 +18,46 @@ export default async function WritingPage() {
   const [featured, ...more] = posts;
 
   return (
-    <main className="mx-auto flex w-full max-w-[1080px] flex-1 flex-col px-4 pt-16 pb-24 min-[1112px]:px-0">
-      <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
-        <div className="flex flex-col gap-3">
-          <h1 className="font-serif text-[44px] leading-[1.15] font-normal tracking-[-0.015em]">writing</h1>
-          <p className="max-w-[560px] text-base leading-[1.65]">
-            {posts.length > 0
-              ? "Things I’ve written, mostly about what I’m learning and building."
-              : "My writing lives on Medium for now."}
-          </p>
-        </div>
-        {medium && (
-          <a
-            href={medium.url}
-            {...external}
-            className="shrink-0 font-mono text-xs text-rosewood hover:underline hover:decoration-2 hover:underline-offset-3 sm:mb-1.5"
-          >
-            all posts on medium ↗
-          </a>
+    <PageTransition>
+      <main className="page-width flex flex-1 flex-col pt-16 pb-24">
+        <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
+          <div className="flex flex-col gap-3">
+            <h1 className="font-serif text-[44px] leading-[1.15] font-normal tracking-[-0.015em]">writing</h1>
+            <p className="max-w-[560px] text-base leading-[1.65]">
+              {posts.length > 0
+                ? "Things I’ve written, mostly about what I’m learning and building."
+                : "My writing lives on Medium for now."}
+            </p>
+          </div>
+          {medium && (
+            <a
+              href={medium.url}
+              {...external}
+              className="shrink-0 font-mono text-xs text-rosewood hover:underline hover:decoration-2 hover:underline-offset-3 sm:mb-1.5"
+            >
+              all posts on medium ↗
+            </a>
+          )}
+        </header>
+
+        {featured && <FeaturedPost post={featured} />}
+
+        {more.length > 0 && (
+          <section aria-labelledby="more-heading" className="mt-16 flex flex-col">
+            <h2 id="more-heading" className="font-serif text-[22px] leading-[1.3] font-normal">
+              more
+            </h2>
+            <ul className="mt-3 border-t border-line">
+              {more.map((post) => (
+                <li key={post.url} className="border-b border-line">
+                  <PostRow post={post} />
+                </li>
+              ))}
+            </ul>
+          </section>
         )}
-      </header>
-
-      {featured && <FeaturedPost post={featured} />}
-
-      {more.length > 0 && (
-        <section aria-labelledby="more-heading" className="mt-16 flex flex-col">
-          <h2 id="more-heading" className="font-serif text-[22px] leading-[1.3] font-normal">
-            more
-          </h2>
-          <ul className="mt-3 border-t border-line">
-            {more.map((post) => (
-              <li key={post.url} className="border-b border-line">
-                <PostRow post={post} />
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-    </main>
+      </main>
+    </PageTransition>
   );
 }
 

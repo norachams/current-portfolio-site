@@ -29,7 +29,6 @@ type Drop = { id: number; x: number; y: number; rotate: number; image: number };
 
 export default function Hobbies() {
   const [opened, setOpened] = useState<string | null>(null);
-  const lastHobby = hobbies.at(-1);
 
   // Load the trail photos up front so they never pop in late. Uses the same
   // resized versions the trail requests, not the full-size originals.
@@ -42,7 +41,9 @@ export default function Hobbies() {
 
   return (
     <section aria-label="Hobbies" className="flex flex-col gap-4">
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-x-6 gap-y-7">
+      {/* Four across on wide screens, so the two wide cards (puzzles and cats) fill the bottom row
+          exactly, each under two photos. Two across in between, where each wide card takes a full row. */}
+      <div className="grid grid-cols-1 gap-x-6 gap-y-7 min-[500px]:grid-cols-2 min-[1000px]:grid-cols-4">
         {hobbies.map((hobby) => (
           <HobbyCard
             key={hobby.slug}
@@ -51,8 +52,8 @@ export default function Hobbies() {
             onToggle={() => setOpened(opened === hobby.slug ? null : hobby.slug)}
           />
         ))}
-        {/* The cats take the next grid cell, beside the last hobby, matching its card when it's a wide photo. */}
-        <Cats aspectRatio={lastHobby?.wide && lastHobby.photo ? `${lastHobby.photo.width} / ${lastHobby.photo.height}` : undefined} />
+        {/* The cats take the rest of the last row, two columns wide. */}
+        <Cats wide />
       </div>
     </section>
   );
@@ -108,7 +109,7 @@ function HobbyCard({
         src={hobby.photo}
         alt=""
         fill
-        sizes={hobby.wide ? "(min-width: 500px) 400px, 100vw" : "(min-width: 1080px) 255px, 50vw"}
+        sizes={hobby.wide ? "(min-width: 1000px) 530px, 100vw" : "(min-width: 1000px) 255px, (min-width: 500px) 50vw, 100vw"}
         style={{ objectPosition: hobby.photoPosition }}
         className="object-cover"
       />
@@ -116,10 +117,10 @@ function HobbyCard({
   ) : (
     <Placeholder pastel={hobby.pastel} label={`${hobby.name} photo`} className="h-full" />
   );
-  const frame = `${pastelSoft[hobby.pastel]} relative block h-[300px] ${hobby.wide ? "w-auto max-w-full self-start" : "w-full"} overflow-hidden rounded-card`;
+  const frame = `${pastelSoft[hobby.pastel]} relative block h-[300px] w-full overflow-hidden rounded-card`;
 
   return (
-    // Wide cards take two columns (once the grid has two) and size the card to the photo's shape.
+    // Wide cards take two columns (once the grid has two) and fill them; the photo is cropped to fit.
     <figure className={`flex min-w-0 flex-col gap-2.5 ${hobby.wide ? "min-[500px]:col-span-2" : ""}`}>
       {/* Mouse users get a trail of photos (or country pills); touch and keyboard toggle a row instead. */}
       {hasMore ? (
@@ -137,7 +138,6 @@ function HobbyCard({
             lastPointer.current = "";
             onToggle();
           }}
-          style={hobby.wide && hobby.photo ? { aspectRatio: `${hobby.photo.width} / ${hobby.photo.height}` } : undefined}
           className={`${frame} cursor-default [@media(hover:hover)]:cursor-none`}
         >
           {photo}

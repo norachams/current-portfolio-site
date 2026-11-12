@@ -19,7 +19,6 @@ const tabs: { id: string; label: string; pastel: Pastel; Panel?: () => React.JSX
 export default function OutsideTabs({ walls }: { walls: Walls }) {
   const [selected, setSelected] = useState(0);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const { id, Panel } = tabs[selected];
 
   // Arrow keys move between tabs (automatic activation).
   const onKeyDown = (e: React.KeyboardEvent) => {
@@ -69,9 +68,27 @@ export default function OutsideTabs({ walls }: { walls: Walls }) {
         })}
       </div>
 
-      <div role="tabpanel" id={`panel-${id}`} aria-labelledby={`tab-${id}`}>
-        {Panel ? <Panel /> : <Photography walls={walls} />}
-      </div>
+      {/* Panels stay mounted and are just hidden, so their clips (like CareCoin's) start loading with
+          the page instead of when the tab is opened. Photography is heavy, so it only mounts when selected. */}
+      {tabs.map((tab, i) =>
+        tab.Panel ? (
+          <div
+            key={tab.id}
+            role="tabpanel"
+            id={`panel-${tab.id}`}
+            aria-labelledby={`tab-${tab.id}`}
+            hidden={i !== selected}
+          >
+            <tab.Panel />
+          </div>
+        ) : (
+          i === selected && (
+            <div key={tab.id} role="tabpanel" id={`panel-${tab.id}`} aria-labelledby={`tab-${tab.id}`}>
+              <Photography walls={walls} />
+            </div>
+          )
+        ),
+      )}
     </>
   );
 }

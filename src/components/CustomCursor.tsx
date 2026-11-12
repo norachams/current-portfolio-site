@@ -27,6 +27,9 @@ const CLICKABLE = "a, button, [role='tab'], [tabindex]:not([tabindex='-1']), [da
  * like the hobby photo trails.
  * An open modal (the photo lightbox) sits above everything else on the page, so while one is
  * open the circle is drawn inside it instead.
+ * Same-origin iframes (like the case study report) can't be seen from here, so they forward their pointer
+ * moves to this window and announce what's under the pointer with a "cursor-target" event (see
+ * useIframeCursor).
  */
 export default function CustomCursor() {
   const [visible, setVisible] = useState(false);
@@ -54,8 +57,7 @@ export default function CustomCursor() {
         setVisible(true);
       }
     };
-    const onOver = (e: PointerEvent) => {
-      const target = e.target as Element;
+    const onTarget = (target: Element) => {
       // Links marked data-cursor-plain (the copy-email button) keep the rosewood circle.
       const link = target.closest(CLICKABLE);
       const plain = !!link?.closest("[data-cursor-plain]");
@@ -65,16 +67,20 @@ export default function CustomCursor() {
       setOverLink(!!link && !plain);
       setOverOwn(!!target.closest("[data-own-cursor]"));
     };
+    const onOver = (e: PointerEvent) => onTarget(e.target as Element);
+    const onFrameTarget = (e: Event) => onTarget((e as CustomEvent<Element>).detail);
     const onLeave = () => {
       visibleRef.current = false;
       setVisible(false);
     };
     window.addEventListener("pointermove", onMove);
     document.addEventListener("pointerover", onOver);
+    window.addEventListener("cursor-target", onFrameTarget);
     document.documentElement.addEventListener("pointerleave", onLeave);
     return () => {
       window.removeEventListener("pointermove", onMove);
       document.removeEventListener("pointerover", onOver);
+      window.removeEventListener("cursor-target", onFrameTarget);
       document.documentElement.removeEventListener("pointerleave", onLeave);
     };
   }, [moveTo]);

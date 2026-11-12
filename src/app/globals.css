@@ -6,6 +6,8 @@
   --paper-raised: #fffdf8;
   --paper-sunk: #f1eadc;
   --line: #e3d9c7;
+  --line-strong: #d6cbb9;
+  --ink-strong: #3a3234;
   --ink: #54494b;
   --ink-muted: #74686a;
   --rosewood: #b33951;
@@ -22,6 +24,8 @@
     --paper-raised: #2a2527;
     --paper-sunk: #332d2f;
     --line: #463d3f;
+    --line-strong: #5a4f51;
+    --ink-strong: #fbf7ef;
     --ink: #f1ebe6;
     --ink-muted: #b0a5a6;
     --rosewood: #e0778a;
@@ -47,6 +51,8 @@
   --color-paper-raised: var(--paper-raised);
   --color-paper-sunk: var(--paper-sunk);
   --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink-strong: var(--ink-strong);
   --color-ink: var(--ink);
   --color-ink-muted: var(--ink-muted);
   --color-rosewood: var(--rosewood);
@@ -61,6 +67,28 @@
   --radius-card: 14px;
 
   --shadow-lift: var(--shadow-lift);
+}
+
+/* Page content width, shared by every page. */
+@utility page-width {
+  width: 100%;
+  max-width: 1080px;
+  margin-inline: auto;
+  padding-inline: 16px;
+  @media (width >= 1112px) {
+    padding-inline: 0;
+  }
+}
+
+/* The header and footer sit wider than the content, closer to the edges of the screen. */
+@utility edge-width {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 16px;
+  @media (width >= 48rem) {
+    padding-inline: 40px;
+  }
 }
 
 body {
@@ -206,5 +234,94 @@ body {
   html,
   html * {
     cursor: none !important;
+  }
+}
+
+/* Page transitions (see PageTransition.tsx). Plain navigations: the old page fades out quickly,
+   the new one fades and rises in a beat later. Into and out of a case study: a short sideways slide. */
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-old(.page-exit) {
+  animation: 140ms ease-in both vt-fade reverse;
+}
+::view-transition-new(.page-enter) {
+  --vt-rise: 8px;
+  animation:
+    260ms cubic-bezier(0.22, 1, 0.36, 1) 100ms both vt-fade,
+    360ms cubic-bezier(0.22, 1, 0.36, 1) 100ms both vt-rise;
+}
+::view-transition-old(.nav-forward) {
+  --vt-slide: -48px;
+  animation:
+    150ms ease-in both vt-fade reverse,
+    380ms cubic-bezier(0.65, 0, 0.35, 1) both vt-slide reverse;
+}
+::view-transition-new(.nav-forward) {
+  --vt-slide: 48px;
+  animation:
+    220ms ease-out 140ms both vt-fade,
+    380ms cubic-bezier(0.65, 0, 0.35, 1) both vt-slide;
+}
+::view-transition-old(.nav-back) {
+  --vt-slide: 48px;
+  animation:
+    150ms ease-in both vt-fade reverse,
+    380ms cubic-bezier(0.65, 0, 0.35, 1) both vt-slide reverse;
+}
+::view-transition-new(.nav-back) {
+  --vt-slide: -48px;
+  animation:
+    220ms ease-out 140ms both vt-fade,
+    380ms cubic-bezier(0.65, 0, 0.35, 1) both vt-slide;
+}
+/* The Caramel clip moving from its work card into the case study hero. */
+::view-transition-group(.morph) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+::view-transition-image-pair(.morph) {
+  animation-name: vt-via-blur;
+}
+@keyframes vt-fade {
+  from {
+    opacity: 0;
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+@keyframes vt-rise {
+  from {
+    translate: 0 var(--vt-rise);
+  }
+  to {
+    translate: 0 0;
+  }
+}
+@keyframes vt-slide {
+  from {
+    translate: var(--vt-slide) 0;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+@keyframes vt-via-blur {
+  30% {
+    filter: blur(3px);
+  }
+}
+/* Reduced motion: keep a quick crossfade, drop all movement. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: 120ms ease both vt-fade !important;
+  }
+  ::view-transition-old(*) {
+    animation-direction: reverse !important;
   }
 }

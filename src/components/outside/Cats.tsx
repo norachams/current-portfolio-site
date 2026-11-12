@@ -2,18 +2,20 @@ import { Fragment } from "react";
 import { pastelSoft } from "@/lib/pastels";
 
 // Each cat loops through frames drawn from their portraits (see .cat-sprite in globals.css).
-// They sit apart, one at each end of the card.
-// Both name tags pop up over Woody, centred on him (20px in + half his 194px width = 117px from the right):
-// his just above his head (16px + his 124px sprite + 6px), Caramella's stacked one tag higher.
+// They sit apart, one toward each end of the card (a little further in once the card is wide).
+// Each name tag pops up next to its own cat.
+// Caramella's sits beside her, to her right at about head height: 20px in + her 152px width + 8px = 180px
+// from the left (56px in = 216px on the wide card). Woody's is centred above him: 20px in + half his 194px width = 117px from the right
+// (153px on the wide card), above his 124px sprite (16px + 124px + 6px).
 // The tags sit on the card rather than inside each cat, so each shows when its own cat (a named peer) is hovered.
 const cats = [
   {
     name: "Caramella",
     age: "10 years",
     sprite: "cat-caramella",
-    position: "bottom-4 left-5",
+    position: "bottom-4 left-5 min-[500px]:left-14",
     text: "text-blush",
-    label: "bottom-[182px]",
+    label: "bottom-[200px] left-[180px] min-[500px]:left-[216px]",
     peer: "peer/caramella",
     show: "peer-hover/caramella:translate-y-0 peer-hover/caramella:opacity-100 peer-focus-visible/caramella:translate-y-0 peer-focus-visible/caramella:opacity-100",
   },
@@ -21,23 +23,20 @@ const cats = [
     name: "Woody",
     age: "5 years",
     sprite: "cat-woody",
-    position: "right-5 bottom-4",
+    position: "right-5 bottom-4 min-[500px]:right-14",
     text: "text-mint",
-    label: "bottom-[146px]",
+    label: "bottom-[146px] right-[117px] translate-x-1/2 min-[500px]:right-[153px]",
     peer: "peer/woody",
     show: "peer-hover/woody:translate-y-0 peer-hover/woody:opacity-100 peer-focus-visible/woody:translate-y-0 peer-focus-visible/woody:opacity-100",
   },
 ];
 
-/** `aspectRatio` sizes the card like a wide hobby photo (and spans two columns like it). */
-export default function Cats({ aspectRatio, className = "" }: { aspectRatio?: string; className?: string }) {
+/** `wide` spans two columns, like the wide hobby cards. */
+export default function Cats({ wide = false, className = "" }: { wide?: boolean; className?: string }) {
   return (
     // Laid out like a hobby card: the cats sit on a pastel card the height of the photos, captioned underneath.
-    <figure className={`flex min-w-0 flex-col gap-2.5 ${aspectRatio ? "min-[500px]:col-span-2" : ""} ${className}`}>
-      <div
-        style={aspectRatio ? { aspectRatio } : undefined}
-        className={`${pastelSoft.gold} relative h-[300px] ${aspectRatio ? "w-auto max-w-full self-start" : "w-full"} rounded-card`}
-      >
+    <figure className={`flex min-w-0 flex-col gap-2.5 ${wide ? "min-[500px]:col-span-2" : ""} ${className}`}>
+      <div className={`${pastelSoft.gold} relative h-[300px] w-full rounded-card`}>
         {/* Inset like the hobby photos so the gold shows as a frame, with a soft cloudy backdrop inside. */}
         <div aria-hidden="true" className="cat-clouds absolute inset-1.5 rounded-[11px]" />
         {cats.map((cat) => (
@@ -53,7 +52,7 @@ export default function Cats({ aspectRatio, className = "" }: { aspectRatio?: st
             {/* Styled like the place labels in photography: coloured text on a raised paper tag. */}
             <span
               aria-hidden="true"
-              className={`${cat.text} ${cat.label} ${cat.show} pointer-events-none absolute right-[117px] translate-x-1/2 translate-y-1 rounded-lg border border-line bg-paper-raised px-2.5 py-0.5 text-[17px] leading-snug font-medium whitespace-nowrap shadow-lift opacity-0 transition-[opacity,translate] duration-150`}
+              className={`${cat.text} ${cat.label} ${cat.show} pointer-events-none absolute translate-y-1 rounded-lg border border-line bg-paper-raised px-2.5 py-0.5 text-[17px] leading-snug font-medium whitespace-nowrap shadow-lift opacity-0 transition-[opacity,translate] duration-150`}
             >
               {cat.name}, {cat.age}
             </span>

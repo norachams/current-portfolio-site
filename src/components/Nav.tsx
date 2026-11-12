@@ -20,7 +20,7 @@ export default function Nav() {
   const pathname = usePathname();
 
   return (
-    <header className="mx-auto flex w-full max-w-[1080px] flex-wrap items-center justify-between gap-4 px-4 py-7 min-[1112px]:px-0">
+    <header className="edge-width flex flex-wrap items-center justify-between gap-4 py-7">
       <Link href="/me" className="font-serif text-2xl text-ink">
         nora
       </Link>
