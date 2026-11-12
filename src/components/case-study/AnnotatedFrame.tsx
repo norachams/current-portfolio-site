@@ -49,6 +49,10 @@ export default function AnnotatedFrame({
           const el = doc.getElementById(note.target);
           if (el && el.getBoundingClientRect().top <= line) current = i;
         });
+        // The last part can be too short to ever reach the middle of the frame, so light it up once the
+        // frame is scrolled all the way down.
+        const root = doc.scrollingElement ?? doc.documentElement;
+        if (notes.length && win.scrollY + win.innerHeight >= root.scrollHeight - 4) current = notes.length - 1;
         setActive(current);
       };
       const onScroll = () => {

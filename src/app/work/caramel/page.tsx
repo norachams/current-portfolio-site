@@ -6,7 +6,6 @@ import {
   Callout,
   CaseStudyHero,
   CaseStudySection,
-  DashList,
   Flow,
   Funnel,
   InfoCard,
@@ -64,11 +63,10 @@ export default function CaramelCaseStudy() {
             applying with it.
           </p>
           <InfoCard
-            columns={3}
+            columns={2}
             items={[
               { label: "My role", value: "Design, full stack, ML" },
               { label: "Timeline", value: "2024 to now" },
-              { label: "Stack", value: "React, Flask, Fly.io, Firebase, DistilBERT, spaCy" },
             ]}
           />
         </CaseStudySection>
@@ -105,25 +103,16 @@ export default function CaramelCaseStudy() {
               <p>
                 Caramel started as a side project. I was tired of keeping spreadsheets of where I&rsquo;d applied, so I
                 built a tool that read my inbox and tracked it for me. You connect Gmail and it pulls the company, role
-                and status out of every email, with no manual entry.
+                and status out of every email, with no manual entry. I built the whole ML pipeline myself instead of
+                calling an outside AI API.
               </p>
               <Media src="/projects/caramel-tracker-1.mp4" alt="Caramel's tracker filling itself in from recruiter emails" />
-              <p>I built the whole ML pipeline myself instead of calling an outside AI API:</p>
-              <DashList
-                items={[
-                  "Labeled my own dataset of job emails in Label Studio",
-                  "Fine-tuned a DistilBERT classifier to sort emails by stage (applied, interview, rejection, offer)",
-                  "Trained a custom spaCy NER model to extract the company and role",
-                  "Built matching logic so a status change updates the existing application instead of creating a duplicate",
-                  "Shipped it end to end: React front end, Flask backend on Fly.io, Firebase and the models running on my own servers",
-                ]}
-              />
               <Flow
                 label="The pipeline"
                 steps={[
                   { label: "Gmail", detail: "recruiter emails" },
-                  { label: "DistilBERT", detail: "stage" },
-                  { label: "spaCy NER", detail: "company, role" },
+                  { label: "Classifier", detail: "stage" },
+                  { label: "Extraction", detail: "company, role" },
                   { label: "Matching", detail: "no duplicates" },
                   { label: "Tracker" },
                 ]}
@@ -136,6 +125,10 @@ export default function CaramelCaseStudy() {
                 company watchlist, interview prep and saved jobs. The goal was one place to organize everything.
               </p>
               <Media src="/projects/homepage.mp4" alt="Caramel's home feed of matching jobs" />
+              <Media
+                src="/projects/other-features.mp4"
+                alt="Caramel's dream company watchlist and interview prep, the features only 3 testers used"
+              />
               <Funnel
                 label="What beta users actually did"
                 steps={[
@@ -146,10 +139,6 @@ export default function CaramelCaseStudy() {
                   { label: "Added dream companies", value: 3, highlight: true },
                   { label: "Opened interview prep", value: 3, highlight: true },
                 ]}
-              />
-              <Media
-                src="/projects/other-features.mp4"
-                alt="Caramel's dream company watchlist and interview prep, the features only 3 testers used"
               />
               <Callout label="What I learned">
                 <p>
