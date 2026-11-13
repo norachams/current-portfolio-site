@@ -45,8 +45,6 @@ export default function CaramelCaseStudy() {
         sections={sections}
       >
         <CaseStudyHero
-          status="in beta"
-          tags={["Design", "Full stack", "ML"]}
           media={{ type: "video", src: "/projects/caramel-logo.mp4", alt: "Caramel product walkthrough" }}
           morphName="project-media-Caramel"
         />
@@ -63,10 +61,11 @@ export default function CaramelCaseStudy() {
             applying with it.
           </p>
           <InfoCard
-            columns={2}
+            columns={3}
             items={[
               { label: "My role", value: "Design, full stack, ML" },
               { label: "Timeline", value: "2024 to now" },
+              { label: "Status", value: "In beta (20 sign ups)" },
             ]}
           />
         </CaseStudySection>

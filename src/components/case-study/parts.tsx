@@ -11,7 +11,7 @@ export function CaseStudyHero({
   media,
   morphName,
 }: {
-  tags: string[];
+  tags?: string[];
   /** Shown first, with a small rosewood dot, e.g. "in beta". */
   status?: string;
   media: { type: "image" | "video"; src: string; alt?: string };
@@ -20,19 +20,21 @@ export function CaseStudyHero({
 }) {
   return (
     <div className="flex flex-col gap-5">
-      <ul className="flex flex-wrap gap-2">
-        {status && (
-          <li className={`${eyebrow} flex items-center gap-1.5 rounded-pill border border-line bg-paper-raised px-3 py-1 text-ink-strong`}>
-            <span aria-hidden="true" className="size-1.5 rounded-full bg-rosewood" />
-            {status}
-          </li>
-        )}
-        {tags.map((tag) => (
-          <li key={tag} className={`${eyebrow} rounded-pill border border-line bg-paper-raised px-3 py-1 text-ink-muted`}>
-            {tag}
-          </li>
-        ))}
-      </ul>
+      {(status || tags?.length) && (
+        <ul className="flex flex-wrap gap-2">
+          {status && (
+            <li className={`${eyebrow} flex items-center gap-1.5 rounded-pill border border-line bg-paper-raised px-3 py-1 text-ink-strong`}>
+              <span aria-hidden="true" className="size-1.5 rounded-full bg-rosewood" />
+              {status}
+            </li>
+          )}
+          {tags?.map((tag) => (
+            <li key={tag} className={`${eyebrow} rounded-pill border border-line bg-paper-raised px-3 py-1 text-ink-muted`}>
+              {tag}
+            </li>
+          ))}
+        </ul>
+      )}
 
       <ViewTransition name={morphName} share={morphName ? "morph" : undefined} default="none">
         <div className="aspect-video overflow-hidden rounded-card bg-peach/45 dark:bg-peach">
@@ -72,7 +74,7 @@ export function CaseStudySection({
   children: ReactNode;
 }) {
   return (
-    <section id={id} aria-labelledby={`${id}-heading`} className="flex scroll-mt-16 flex-col gap-5 min-[900px]:scroll-mt-8">
+    <section id={id} aria-labelledby={`${id}-heading`} className="flex scroll-mt-16 flex-col gap-5 border-t border-line pt-5 min-[900px]:scroll-mt-8">
       {title ? (
         <div className="flex flex-col gap-2">
           <p className={`${eyebrow} text-rosewood`}>{label}</p>

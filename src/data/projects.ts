@@ -18,7 +18,7 @@ export const projects: Project[] = [
   {
     slug: "Caramel",
     name: "Caramel",
-    meta: "founder",
+    meta: "project",
     note: "A career coach that learns from your application pipeline and the job market and turns them into a few clear next steps each week.",
     pastel: "peach",
     url: "https://www.oncaramel.com/",

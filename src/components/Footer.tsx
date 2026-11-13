@@ -66,8 +66,8 @@ export default function Footer() {
 
         {/* Last updated sits above the signature, which lines up with the links along the bottom. */}
         <div className="flex flex-col items-end gap-3 max-sm:flex-row-reverse max-sm:items-baseline max-sm:justify-between">
+           <Signature />
           <LastUpdated />
-          <Signature />
         </div>
       </div>
 
