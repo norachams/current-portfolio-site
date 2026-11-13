@@ -10,4 +10,4 @@ export const socials: { label: string; url: string }[] = [
 export const email = "nchamseddin@gmail.com";
 
 /** The footer's "last updated" links here: the site's commit history. */
-export const sourceUrl = "https://github.com/norachams/current-portfolio-site/commits/main";
+export const sourceUrl = "https://github.com/norachams/current-portfolio-site";

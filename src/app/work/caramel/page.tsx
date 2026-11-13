@@ -44,10 +44,24 @@ export default function CaramelCaseStudy() {
         backHref="/"
         sections={sections}
       >
-        <CaseStudyHero
-          media={{ type: "video", src: "/projects/caramel-logo.mp4", alt: "Caramel product walkthrough" }}
-          morphName="project-media-Caramel"
-        />
+        {/* The intro: clip, the one-line pitch, then the role / timeline / status card. */}
+        <div className="flex flex-col gap-6">
+          <CaseStudyHero
+            media={{ type: "video", src: "/projects/caramel-logo.mp4", alt: "Caramel product walkthrough" }}
+            morphName="project-media-Caramel"
+          />
+          <h2 className="font-serif text-[28px] leading-[1.2] font-normal text-balance text-ink-strong min-[900px]:text-[32px]">
+            A smarter way to job hunt
+          </h2>
+          <InfoCard
+            columns={3}
+            items={[
+              { label: "My role", value: "Design, full stack, ML" },
+              { label: "Timeline", value: "2024 to now" },
+              { label: "Status", value: "In beta (20 sign ups)" },
+            ]}
+          />
+        </div>
 
         <CaseStudySection id="tldr" label="TL;DR">
           <p>
@@ -60,14 +74,6 @@ export default function CaramelCaseStudy() {
             I designed, built and shipped it solo. It&rsquo;s in beta with 17 people on the waitlist, 9 signups and 7 actively
             applying with it.
           </p>
-          <InfoCard
-            columns={3}
-            items={[
-              { label: "My role", value: "Design, full stack, ML" },
-              { label: "Timeline", value: "2024 to now" },
-              { label: "Status", value: "In beta (20 sign ups)" },
-            ]}
-          />
         </CaseStudySection>
 
         <CaseStudySection id="background" label="Why I built it" title="The job hunt gives you plenty of data and no answers">
