@@ -91,7 +91,7 @@ export default function MePage() {
               My experience
             </h2>
           </div>
-          <ul className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-3.5">
+          <ul className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-(--gap-card)">
             {experience.map((job) => (
               <li key={job.company}>
                 <a
@@ -158,10 +158,10 @@ export default function MePage() {
             <p>
               Outside of work, I climb, ice skate and explore new places. In winter
               2026, I spent four months on exchange in Bilbao, Spain, which gave me plenty of new places to explore and{" "}
-              
-              <Link href="/outside-work" className={textLink}>
-                photograph.
+              <Link href="/outside-work#photography" className={textLink}>
+                photograph
               </Link>
+              .
             </p>
             <p>
               There&apos;s more to me than code. Take a look at{" "}
