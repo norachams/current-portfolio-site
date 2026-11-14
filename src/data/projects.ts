@@ -106,7 +106,7 @@ export const projects: Project[] = [
     name: "TestFarm",
     meta: "internship",
     note: "An automated device testing platform built during my internship at Ingenico, allowing engineers to reserve payment terminals, monitor their status, and run tests remotely in parallel through a real-time dashboard. Built with Python, Flask, Appium, React and JavaScript.",
-    pastel: "sky",
+    pastel: "mint",
     media: { type: "video", src: "/projects/testfarm.mp4" },
   },
   {
@@ -114,7 +114,7 @@ export const projects: Project[] = [
     name: "DormDirect",
     meta: "class project",
     note: "A student housing platform that makes finding rentals between co-op and school terms easier by web scraping listings from Kijiji and bringing them together in one place for students in Waterloo. Built with React, Flask, BeautifulSoup, and Firebase.",
-    pastel: "mint",
+    pastel: "gold",
     url: "https://github.com/norachams/DormDirect",
     media: { type: "video", src: "/projects/dormdirect.mp4" },
   },
