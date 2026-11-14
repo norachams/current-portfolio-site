@@ -9,8 +9,13 @@ export type Project = {
   url?: string;
   /** Internal case study page. Takes priority over `url` for the card link. */
   caseStudy?: string;
+  /** Portrait phone clip: cropped to the phone, and two in a row share one grid slot. */
+  phone?: boolean;
   /** Looping clip or screenshot for the card. Falls back to a labelled pastel block. */
-  media?: { type: "image" | "video"; src: string; alt?: string };
+  media?:
+    | { type: "image"; src: string; alt?: string }
+    /** `inset` shrinks a full-bleed screen recording inside the card so the pastel shows around it. */
+    | { type: "video"; src: string; inset?: boolean };
 };
 
 // Brackets mark content that still needs filling in (see the handoff's open items).
@@ -35,15 +40,14 @@ export const projects: Project[] = [
     media: { type: "video", src: "/projects/voz.mp4" },
   },
   {
-    slug: "Medibook",
-    name: "Medibook",
-    meta: "side project",
-    note: "A full-stack medical appointment platform where patients can book and manage appointments, while physicians can handle booking requests, access patient information, and track visit history.",
+    slug: "Marketmap",
+    name: "Marketmap",
+    meta: "internship",
+    note: "An AI-powered market intelligence platform I designed and built from scratch at VeriFast, combining data on 100K+ properties from 7+ sources to help sales & GTM teams discover new prospects and opportunities.",
     pastel: "sky",
-    url: "https://github.com/norachams/Medibook",
-    media: { type: "video", src: "/projects/Medibook.mp4" }, 
+    media: { type: "video", src: "/projects/marketmap.mp4", inset: true },
   },
-    {
+  {
     slug: "Caramel Landing Page",
     name: "Caramel Landing Page",
     meta: "side Project",
@@ -61,21 +65,12 @@ export const projects: Project[] = [
     url: "https://github.com/norachams/Levanta",
     media: { type: "video", src: "/projects/Levanta.mp4" },
   },
-  
-  {
-    slug: "Textbox",
-    name: "Textbox",
-    meta: "side project",
-    note: "An interactive canvas that lets you create, move, resize, and rotate text boxes, with customizable fonts and colours.",
-    pastel: "gold",
-    url: "https://github.com/norachams/Textbox",
-    media: { type: "video", src: "/projects/textbox.mp4" },
-  },
   {
     slug: "Bookworms",
     name: "Bookworms",
     meta: "class project",
     note: "A social book discovery app designed for my HCI course at the University of Waterloo, where users get personalized recommendations based on their reading preferences and discover what others are reading.",
+    phone: true,
     pastel: "lilac",
     media: { type: "video", src: "/projects/bookworms.mp4" },
   },
@@ -84,8 +79,27 @@ export const projects: Project[] = [
     name: "SwapOut",
     meta: "class project",
     note: "Tinder for thrifting! A clothing swap app built with Kotlin for my Application Development course at the University of Waterloo, where users swipe through clothes nearby, save favourites and chat to arrange trades.",
-    pastel: "peach",
+    phone: true,
+    pastel: "gold",
     media: { type: "video", src: "/projects/swapout.mp4" },
+  },
+  {
+    slug: "Textbox",
+    name: "Textbox",
+    meta: "side project",
+    note: "An interactive canvas that lets you create, move, resize, and rotate text boxes, with customizable fonts and colours.",
+    pastel: "peach",
+    url: "https://github.com/norachams/Textbox",
+    media: { type: "video", src: "/projects/textbox.mp4" },
+  },
+  {
+    slug: "Medibook",
+    name: "Medibook",
+    meta: "side project",
+    note: "A full-stack medical appointment platform where patients can book and manage appointments, while physicians can handle booking requests, access patient information, and track visit history.",
+    pastel: "sky",
+    url: "https://github.com/norachams/Medibook",
+    media: { type: "video", src: "/projects/Medibook.mp4" }, 
   },
   {
     slug: "TestFarm",

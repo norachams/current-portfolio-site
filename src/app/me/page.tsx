@@ -91,7 +91,9 @@ export default function MePage() {
               My experience
             </h2>
           </div>
-          <ul className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-(--gap-card)">
+          {/* Each card's hover line is positioned against this list (the cards aren't positioned), so it
+              sits in the gap below the grid without taking any layout space. */}
+          <ul className="relative grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-(--gap-card)">
             {experience.map((job) => (
               <li key={job.company}>
                 <a
@@ -106,6 +108,9 @@ export default function MePage() {
                   <span className="flex flex-col font-mono text-[11px] text-ink-muted">
                     <span>{job.role}</span>
                     <span>{job.dates}</span>
+                  </span>
+                  <span className="pointer-events-none absolute top-full left-0 mt-5 max-w-[640px] translate-y-1 text-[15px] leading-[1.6] text-ink-muted opacity-0 transition-[opacity,translate] duration-150 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 motion-reduce:translate-y-0 motion-reduce:transition-none">
+                    {job.hover}
                   </span>
                 </a>
               </li>

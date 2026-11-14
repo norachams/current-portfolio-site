@@ -81,6 +81,12 @@ export default function WorkSection({ projects }: { projects: Project[] }) {
     target.current = { x: e.clientX, y: e.clientY };
   };
 
+  const handlers = {
+    onEnter: onPointerEnter,
+    onMove: onPointerMove,
+    onLeave: () => setActive(null),
+  };
+
   return (
     <section aria-labelledby="work-heading" className="flex flex-col">
       {/* Hidden visually; kept so screen readers still get a "work" heading. */}
@@ -89,33 +95,17 @@ export default function WorkSection({ projects }: { projects: Project[] }) {
       </h2>
 
       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-(--gap-card) gap-y-(--gap-caption)">
-        {projects.map((project) => (
-          <li key={project.slug}>
-            {/* Case studies open in the same tab; other projects with a url open it in a new tab; the rest are just shown. */}
-            {project.caseStudy || project.url ? (
-              <Link
-                href={project.caseStudy ?? project.url!}
-                {...(project.caseStudy
-                  ? { transitionTypes: ["nav-forward"] }
-                  : { target: "_blank", rel: "noopener noreferrer" })}
-                aria-label={`${project.name}: ${project.note}`}
-                onPointerEnter={onPointerEnter(project)}
-                onPointerMove={onPointerMove}
-                onPointerLeave={() => setActive(null)}
-                onClick={() => setActive(null)}
-                className="flex flex-col gap-2.5 rounded-card text-ink"
-              >
-                <ProjectCard project={project} />
-              </Link>
-            ) : (
-              <div
-                onPointerEnter={onPointerEnter(project)}
-                onPointerMove={onPointerMove}
-                onPointerLeave={() => setActive(null)}
-                className="flex flex-col gap-2.5 rounded-card text-ink"
-              >
-                <ProjectCard project={project} />
+        {groupPhones(projects).map((group) => (
+          <li key={group.map((p) => p.slug).join("+")}>
+            {group.length === 2 ? (
+              // Two phone clips share one slot, side by side.
+              <div className="grid grid-cols-2 gap-x-(--gap-card)">
+                {group.map((project) => (
+                  <ProjectLink key={project.slug} project={project} {...handlers} />
+                ))}
               </div>
+            ) : (
+              <ProjectLink project={group[0]} {...handlers} />
             )}
           </li>
         ))}
@@ -143,6 +133,58 @@ export default function WorkSection({ projects }: { projects: Project[] }) {
   );
 }
 
+/** Pairs up back-to-back phone projects so they can share one grid slot. */
+function groupPhones(projects: Project[]): Project[][] {
+  const groups: Project[][] = [];
+  for (let i = 0; i < projects.length; i++) {
+    if (projects[i].phone && projects[i + 1]?.phone) {
+      groups.push([projects[i], projects[i + 1]]);
+      i++;
+    } else {
+      groups.push([projects[i]]);
+    }
+  }
+  return groups;
+}
+
+type Handlers = {
+  onEnter: (project: Project) => (e: React.PointerEvent) => void;
+  onMove: (e: React.PointerEvent) => void;
+  onLeave: () => void;
+};
+
+function ProjectLink({ project, onEnter, onMove, onLeave }: { project: Project } & Handlers) {
+  // Case studies open in the same tab; other projects with a url open it in a new tab; the rest are just shown.
+  if (project.caseStudy || project.url) {
+    return (
+      <Link
+        href={project.caseStudy ?? project.url!}
+        {...(project.caseStudy
+          ? { transitionTypes: ["nav-forward"] }
+          : { target: "_blank", rel: "noopener noreferrer" })}
+        aria-label={`${project.name}: ${project.note}`}
+        onPointerEnter={onEnter(project)}
+        onPointerMove={onMove}
+        onPointerLeave={onLeave}
+        onClick={onLeave}
+        className="flex flex-col gap-2.5 rounded-card text-ink"
+      >
+        <ProjectCard project={project} />
+      </Link>
+    );
+  }
+  return (
+    <div
+      onPointerEnter={onEnter(project)}
+      onPointerMove={onMove}
+      onPointerLeave={onLeave}
+      className="flex flex-col gap-2.5 rounded-card text-ink"
+    >
+      <ProjectCard project={project} />
+    </div>
+  );
+}
+
 function ProjectCard({ project }: { project: Project }) {
   return (
     <>
@@ -165,24 +207,36 @@ function ProjectCard({ project }: { project: Project }) {
 }
 
 function ProjectMedia({ project }: { project: Project }) {
-  // 16:9 to match the clips, so nothing gets cropped.
-  const base = `${pastelSoft[project.pastel]} aspect-video overflow-hidden rounded-card`;
+  // 16:9 to match the clips, so nothing gets cropped. Phone clips have the phone centred in a 16:9
+  // frame, so they go narrower and crop the empty sides; 8:9 at half width lines up with a 16:9 card.
+  const aspect = project.phone ? "aspect-[8/9]" : "aspect-video";
+  const base = `${pastelSoft[project.pastel]} ${aspect} overflow-hidden rounded-card`;
   const { media } = project;
 
   if (media?.type === "video") {
-    return (
-      <div className={base}>
-        <video
-          src={media.src}
-          autoPlay
-          loop
-          muted
-          playsInline
-          aria-hidden="true"
-          className="h-full w-full object-cover motion-reduce:hidden"
-        />
-      </div>
+    const video = (
+      <video
+        src={media.src}
+        autoPlay
+        loop
+        muted
+        playsInline
+        aria-hidden="true"
+        className="h-full w-full object-cover motion-reduce:hidden"
+      />
     );
+    if (media.inset) {
+      // Even margin on all sides (in container units, so it scales with the card). The recording
+      // is a little wider than the space left, so it crops from the bottom and keeps the top bar.
+      return (
+        <div className={`${base} @container relative`}>
+          <div className="absolute inset-[5cqw] overflow-hidden rounded-inner shadow-lift [&>video]:object-top">
+            {video}
+          </div>
+        </div>
+      );
+    }
+    return <div className={base}>{video}</div>;
   }
 
   if (media?.type === "image") {
