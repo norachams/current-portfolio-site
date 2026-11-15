@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ViewTransition, type ReactNode } from "react";
 import VideoPlayer from "./VideoPlayer";
 
@@ -319,36 +318,5 @@ export function MediaPlaceholder({
       )}
       [{label}]
     </div>
-  );
-}
-
-/** A list with short rosewood dashes instead of bullets. */
-export function DashList({ items }: { items: ReactNode[] }) {
-  return (
-    <ul className="flex flex-col gap-1.5">
-      {items.map((item, i) => (
-        <li key={i} className="grid grid-cols-[14px_minmax(0,1fr)] gap-3">
-          <span aria-hidden="true" className="mt-[0.8em] h-0.5 w-3.5 rounded-[2px] bg-rosewood/70" />
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-export function NextCaseStudy({ href, name }: { href: string; name: string }) {
-  return (
-    <Link
-      href={href}
-      className="group flex items-center justify-between gap-4 border-y border-line py-6 text-ink no-underline"
-    >
-      <span className={`${eyebrow} text-ink-muted`}>Next case study</span>
-      <span className="font-serif text-2xl text-ink-strong group-hover:text-rosewood">
-        {name}{" "}
-        <span aria-hidden="true" className="inline-block transition-transform duration-200 group-hover:translate-x-[3px]">
-          →
-        </span>
-      </span>
-    </Link>
   );
 }

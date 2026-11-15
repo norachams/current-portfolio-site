@@ -49,14 +49,14 @@ export default function MePage() {
           </PlaceLabel>
           <div className="flex min-w-0 flex-[1_1_420px] flex-col gap-4">
             <h1 className="font-serif text-[44px] leading-[1.15] font-normal tracking-[-0.015em]">hi, i&apos;m nora.</h1>
-            <p className="max-w-[560px] text-[17px] leading-[1.6]">this is a little corner of the internet for the things I build, the things I try, and everything else I&apos;m figuring out along the way.</p>
+            <p className="max-w-[560px] text-[17px] leading-[1.6]">I&apos;m an engineer who loves the creative side of building things. I enjoy taking an idea, figuring out what people actually need and turning it into something used by many.</p>
           </div>
         </section>
 
         <section aria-label="About me" className="grid grid-cols-[repeat(auto-fit,minmax(min(280px,100%),1fr))] gap-x-10 gap-y-12">
           <article className="flex flex-col gap-3.5 border-t border-line pt-5">
             <AboutLabel number="01" label="What I love" pastel="mint" />
-            <h2 className={blockTitle}>Building from 0 to 1</h2>
+            <h2 className={blockTitle}>building from 0 to 1</h2>
             <p className="text-[15px] leading-[1.65]">
               I love the early stages of building a product, when it&apos;s still an idea and you get to figure out what
               people actually need. I enjoy exploring possibilities, taking ownership and wearing multiple hats to bring
@@ -66,20 +66,17 @@ export default function MePage() {
 
           <article className="flex flex-col gap-3.5 border-t border-line pt-5">
             <AboutLabel number="02" label="How I think" pastel="lilac" />
-            <h2 className={blockTitle}>People first, always</h2>
+            <h2 className={blockTitle}>people first, always</h2>
             <p className="text-[15px] leading-[1.65]">
-              I care about the user experience as much as the code. I like understanding how people think and what they
-              need, then bringing engineering, product and design together to build interfaces that feel intuitive and
-              enjoyable to use.
+              I care about the user experience as much as the code. I love understanding how people think and what they need, then bringing design and engineering together to build something intuitive and enjoyable to use.
             </p>
           </article>
 
           <article className="flex flex-col gap-3.5 border-t border-line pt-5">
             <AboutLabel number="03" label="What excites me" pastel="gold" />
-            <h2 className={blockTitle}>Ideas worth exploring</h2>
+            <h2 className={blockTitle}>ideas worth exploring</h2>
             <p className="text-[15px] leading-[1.65]">
-              I&apos;m especially interested in AI-powered tools that make everyday tasks simpler and automate the
-              tedious stuff. I love exploring new technologies and experimenting with things I haven&apos;t built before.
+              I&apos;m fascinated by how AI can make everyday tasks easier and give people more time for things that matter. I love experimenting with new technologies and exploring what I can create with them.
             </p>
           </article>
         </section>
@@ -88,7 +85,7 @@ export default function MePage() {
           <div className="flex flex-col gap-3.5">
             <AboutLabel number="04" label="Where I've been" pastel="sky" />
             <h2 id="experience-title" className={blockTitle}>
-              My experience
+              my experience
             </h2>
           </div>
           {/* Each card's hover line is positioned against this list (the cards aren't positioned), so it
@@ -122,7 +119,7 @@ export default function MePage() {
           <div className="flex flex-[1_1_280px] flex-col gap-3.5">
             <AboutLabel number="05" label="Beyond the job title" pastel="blush" />
             <h2 id="beyond-title" className={blockTitle}>
-              I like making things happen
+              i like making things happen
             </h2>
           </div>
           <div className="flex flex-[2_1_480px] flex-col gap-4 text-[15px] leading-[1.65]">
