@@ -20,8 +20,8 @@ import puzzle from "../../public/outside/puzzle.jpg";
 import puzzle2 from "../../public/outside/puzzle 2.jpg";
 import puzzle3 from "../../public/outside/puzzle 3.jpg";
 import traveling from "../../public/outside/travel pic.jpg";
-import opcharge from "../../public/opcharge.png"
-import whisker from "../../public/whisker.png"
+import opcharge from "../../public/opcharge.png";
+import whisker from "../../public/whisker.png";
 
 
 // Brackets mark content that still needs filling in. Add photos by importing them
