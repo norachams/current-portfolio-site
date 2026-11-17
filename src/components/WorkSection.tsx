@@ -173,8 +173,10 @@ function ProjectLink({ project, onEnter, onMove, onLeave }: { project: Project }
       </Link>
     );
   }
+  // Not a link, but it still shows a note on hover, so the cursor takes a colour like the others.
   return (
     <div
+      data-cursor-colour
       onPointerEnter={onEnter(project)}
       onPointerMove={onMove}
       onPointerLeave={onLeave}
