@@ -1,4 +1,6 @@
 import { ViewTransition, type ReactNode } from "react";
+import type { Pastel } from "@/data/projects";
+import { pastelSoft } from "@/lib/pastels";
 import VideoPlayer from "./VideoPlayer";
 
 const eyebrow = "font-mono text-[11px] tracking-[0.1em] uppercase";
@@ -9,6 +11,7 @@ export function CaseStudyHero({
   status,
   media,
   morphName,
+  tint = "peach",
 }: {
   tags?: string[];
   /** Shown first, with a small rosewood dot, e.g. "in beta". */
@@ -16,7 +19,25 @@ export function CaseStudyHero({
   media: { type: "image" | "video"; src: string; alt?: string };
   /** Matches the work card's media so it morphs into the hero when you open the case study. */
   morphName?: string;
+  /** Same pastel as the work card, behind the clip while it loads. */
+  tint?: Pastel;
 }) {
+  const content =
+    media.type === "video" ? (
+      <video
+        src={media.src}
+        autoPlay
+        loop
+        muted
+        playsInline
+        aria-label={media.alt}
+        className="h-full w-full object-cover motion-reduce:hidden"
+      />
+    ) : (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img src={media.src} alt={media.alt ?? ""} className="h-full w-full object-cover" />
+    );
+
   return (
     <div className="flex flex-col gap-5">
       {(status || tags?.length) && (
@@ -36,22 +57,7 @@ export function CaseStudyHero({
       )}
 
       <ViewTransition name={morphName} share={morphName ? "morph" : undefined} default="none">
-        <div className="aspect-video overflow-hidden rounded-card bg-peach/45 dark:bg-peach">
-          {media.type === "video" ? (
-            <video
-              src={media.src}
-              autoPlay
-              loop
-              muted
-              playsInline
-              aria-label={media.alt}
-              className="h-full w-full object-cover motion-reduce:hidden"
-            />
-          ) : (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={media.src} alt={media.alt ?? ""} className="h-full w-full object-cover" />
-          )}
-        </div>
+        <div className={`${pastelSoft[tint]} aspect-video overflow-hidden rounded-card`}>{content}</div>
       </ViewTransition>
     </div>
   );

@@ -227,17 +227,6 @@ function ProjectMedia({ project }: { project: Project }) {
         className="h-full w-full object-cover motion-reduce:hidden"
       />
     );
-    if (media.inset) {
-      // Even margin on all sides (in container units, so it scales with the card). The recording
-      // is a little wider than the space left, so it crops from the bottom and keeps the top bar.
-      return (
-        <div className={`${base} @container relative`}>
-          <div className="absolute inset-[5cqw] overflow-hidden rounded-inner shadow-lift [&>video]:object-top">
-            {video}
-          </div>
-        </div>
-      );
-    }
     return <div className={base}>{video}</div>;
   }
 

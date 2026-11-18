@@ -14,6 +14,10 @@ function lastUpdated() {
 const nextConfig: NextConfig = {
   env: { NEXT_PUBLIC_LAST_UPDATED: lastUpdated() },
   cacheComponents: true,
+  // The Marketmap case study's protected media isn't in /public, so bundle it with the route that serves it.
+  outputFileTracingIncludes: {
+    "/work/marketmap/media/*": ["./private/marketmap/**/*"],
+  },
   partialPrefetching: true,
   // The work grid lives on the home page, so /work sends people there.
   redirects() {

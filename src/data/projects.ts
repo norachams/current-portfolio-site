@@ -14,8 +14,7 @@ export type Project = {
   /** Looping clip or screenshot for the card. Falls back to a labelled pastel block. */
   media?:
     | { type: "image"; src: string; alt?: string }
-    /** `inset` shrinks a full-bleed screen recording inside the card so the pastel shows around it. */
-    | { type: "video"; src: string; inset?: boolean };
+    | { type: "video"; src: string };
 };
 
 // Brackets mark content that still needs filling in (see the handoff's open items).
@@ -45,7 +44,8 @@ export const projects: Project[] = [
     meta: "internship",
     note: "An AI-powered market intelligence platform I designed and built from scratch at VeriFast, combining data on 100K+ properties from 7+ sources to help sales & GTM teams discover new prospects and opportunities.",
     pastel: "sky",
-    media: { type: "video", src: "/projects/marketmap.mp4", inset: true },
+    caseStudy: "/work/marketmap",
+    media: { type: "video", src: "/projects/marketmap.mp4" },
   },
   {
     slug: "Caramel Landing Page",
